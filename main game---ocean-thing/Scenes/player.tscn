@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://bdqbpmxw31kbp"]
+
+[ext_resource type="Script" uid="uid://cn64o6ycguwvc" path="res://Scripts/player.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://bhk0tr1pyxfv" path="res://Scenes/harpoon_projectile.tscn" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://blowh3mprn8ry" path="res://Assets/spritesheet.png" id="3_6t5aa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(0, 0, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(153, 0, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(306, 0, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(459, 0, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(0, 134, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(153, 134, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(306, 134, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(459, 134, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(0, 268, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(153, 268, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dp3o"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(306, 268, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(459, 268, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(0, 402, 153, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(153, 402, 153, 134)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igrcy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgqql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkybt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ek2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx1dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gymyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukyrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dp3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4iuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sh265"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fs7ks"]
+size = Vector2(14.626535, 14.09145)
+
+[node name="Player" type="CharacterBody2D" unique_id=982439447]
+scale = Vector2(4.5807157, 4.399831)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_v0iea")
+harpoonprojectilescene = ExtResource("2_cvnsp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2065512983]
+position = Vector2(1.7464447, -0.45455933)
+scale = Vector2(0.15568553, 0.15568554)
+sprite_frames = SubResource("SpriteFrames_igrcy")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1047626844]
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_sh265")
+
+[node name="HarpoonRaycast" type="RayCast2D" parent="." unique_id=791540821]
+scale = Vector2(2, 2)
+target_position = Vector2(0, 0)
+collision_mask = 8
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=199357329]
+
+[node name="health_label" type="Label" parent="Camera2D" unique_id=4875776]
+offset_left = -292.3124
+offset_top = -205.917
+offset_right = -252.31241
+offset_bottom = -182.917
+
+[node name="HarpoonLine" type="Line2D" parent="." unique_id=284341442]
+visible = false
+width = 1.0
+
+[node name="hurt_area" type="Area2D" parent="." unique_id=472346282]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_area" unique_id=1919571177]
+position = Vector2(0.10915305, 1.0430813e-07)
+shape = SubResource("RectangleShape2D_fs7ks")
+
+[connection signal="body_entered" from="hurt_area" to="." method="_on_hurt_area_body_entered"]
+[connection signal="body_exited" from="hurt_area" to="." method="_on_hurt_area_body_exited"]

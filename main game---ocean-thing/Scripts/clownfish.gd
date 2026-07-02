@@ -1,12 +1,18 @@
+#everyone will look at this script eventually so important info:
+#Layer 1 = Player
+#Layer 2 = Walls
+#Layer 3 = HarpoonProjectile
+#Layer 4 = Enemies
+
 extends CharacterBody2D
 var speed = 300
 var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-
 	
-func _process(_delta):
+	
+func _process(_delta): #x axis flipping for now
 	if not chase_subject == null and chase_subject.position.x > position.x:
 		animated_sprite_2d.flip_h = false
 	elif not chase_subject == null and chase_subject.position.x < position.x:

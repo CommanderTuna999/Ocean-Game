@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://nv8ffxb2nt3g"]
+[gd_scene format=3 uid="uid://ony1pqjkvd1j"]
 
-[ext_resource type="Script" uid="uid://dk0mmjspv6ijy" path="res://scripts/clownfish.gd" id="1_8g0i4"]
-[ext_resource type="Texture2D" uid="uid://c3wsl0ix240it" path="res://assets/pixel-art-tropical-fish-pixelated-sea-fish-ocean-sea-fish-icons-background-pixelated-for-the-pixel-art-game-and-icon-for-website-and-video-game-old-school-retro-vector-removebg-preview.png" id="2_8g0i4"]
+[ext_resource type="Script" uid="uid://betccsn6p7yww" path="res://Scripts/clownfish.gd" id="1_8g0i4"]
+[ext_resource type="Texture2D" uid="uid://c3wsl0ix240it" path="res://Assets/pixel-art-tropical-fish-pixelated-sea-fish-ocean-sea-fish-icons-background-pixelated-for-the-pixel-art-game-and-icon-for-website-and-video-game-old-school-retro-vector-removebg-preview.png" id="2_8g0i4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nub35"]
 atlas = ExtResource("2_8g0i4")
@@ -22,7 +22,7 @@ animations = [{
 radius = 13.536986
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8g0i4"]
-radius = 606.0528
+radius = 1590.4119
 
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
 collision_layer = 8
