@@ -138,4 +138,22 @@ position = Vector2(-34, -252)
 [node name="clownfish3" parent="." unique_id=412284421 instance=ExtResource("4_kldst")]
 position = Vector2(-88, -298)
 
+[node name="clownfish4" parent="." unique_id=2033709037 instance=ExtResource("4_kldst")]
+position = Vector2(-989, 279)
+
+[node name="clownfish5" parent="." unique_id=636351392 instance=ExtResource("4_kldst")]
+position = Vector2(-1131, 85)
+
+[node name="clownfish6" parent="." unique_id=242120617 instance=ExtResource("4_kldst")]
+position = Vector2(-787, 74.99999)
+
+[node name="clownfish7" parent="." unique_id=1345665117 instance=ExtResource("4_kldst")]
+position = Vector2(-1174, -132)
+
+[node name="clownfish8" parent="." unique_id=517324097 instance=ExtResource("4_kldst")]
+position = Vector2(-1326, 199.00003)
+
+[node name="clownfish9" parent="." unique_id=1357310590 instance=ExtResource("4_kldst")]
+position = Vector2(-410.99988, 103.99998)
+
 [connection signal="body_entered" from="exit" to="exit" method="_on_body_entered"]
