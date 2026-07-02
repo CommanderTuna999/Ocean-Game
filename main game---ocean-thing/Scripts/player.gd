@@ -14,6 +14,10 @@ const JUMP_VELOCITY = -400.0
 var harpooonmaxrange = 1000
 var wasattachedthisshot = false
 @export var harpoonprojectilescene: PackedScene
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
+
 
 var timer = 0.0
 var timerrunning = true
@@ -130,7 +134,12 @@ func _physics_process(delta: float) -> void:
 #
 	#move_and_slide()
 	var currentaccel = accel
-	
+	#sprite flipping stuff below
+	if direction.x > 0: 
+		animated_sprite_2d.flip_h = false
+	elif direction.x < 0:
+		animated_sprite_2d.flip_h = true
+	#sprite flipping ends here, please depart from the train
 
 	
 	if harpooning:
@@ -172,10 +181,7 @@ func _physics_process(delta: float) -> void:
 	var crashed = false
 	
 	if Input.is_action_just_pressed("Restart"):
-		global_position = spawnposition
-		velocity = Vector2.ZERO
-		timer = 0.0
-		timerrunning = true
+		get_tree().call_deferred("reload_current_scene")
 	
 	move_and_slide()
 	

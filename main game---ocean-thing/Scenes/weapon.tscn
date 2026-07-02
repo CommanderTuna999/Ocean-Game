@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d4mrixhebeedj" path="res://Assets/7acaf3631cc9be96c27f0f0f840fdeaf-removebg-preview.png" id="1_swcir"]
 [ext_resource type="Script" uid="uid://cwkj4oue3o6jv" path="res://Scripts/Hitbox.gd" id="2_o2wld"]
-[ext_resource type="Script" uid="uid://crdn6f16cmdhh" path="res://Scripts/weapon_animation_player.gd" id="3_e1ly8"]
+[ext_resource type="Script" uid="uid://crdn6f16cmdhh" path="res://Scripts/weapon.gd" id="3_e1ly8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8xwfw"]
 radius = 52.737396
