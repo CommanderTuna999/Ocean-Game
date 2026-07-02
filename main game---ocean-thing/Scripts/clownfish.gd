@@ -35,12 +35,11 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 
 
 func _physics_process(_delta):
-	if aggro:
-		position = position.move_toward(chase_subject.position, speed * _delta)
-		move_and_slide()
+	if aggro and chase_subject:
+		velocity = (chase_subject.position - position).normalized() * speed
 	else:
 		velocity = Vector2.ZERO
-
+	move_and_slide()
 	
 		
 		
