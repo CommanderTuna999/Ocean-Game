@@ -139,12 +139,6 @@ collision_mask = 8
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=199357329]
 
-[node name="health_label" type="Label" parent="Camera2D" unique_id=4875776]
-offset_left = -292.3124
-offset_top = -205.917
-offset_right = -252.31241
-offset_bottom = -182.917
-
 [node name="HarpoonLine" type="Line2D" parent="." unique_id=284341442]
 visible = false
 width = 1.0

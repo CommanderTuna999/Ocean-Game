@@ -156,4 +156,14 @@ position = Vector2(-1326, 199.00003)
 [node name="clownfish9" parent="." unique_id=1357310590 instance=ExtResource("4_kldst")]
 position = Vector2(-410.99988, 103.99998)
 
+[node name="UI" type="Node" parent="." unique_id=1877946204]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
+
+[node name="health_label" type="Label" parent="UI/CanvasLayer" unique_id=1764853478]
+offset_left = 63.0
+offset_top = 25.0
+offset_right = 103.0
+offset_bottom = 48.0
+
 [connection signal="body_entered" from="exit" to="exit" method="_on_body_entered"]

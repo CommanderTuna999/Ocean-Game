@@ -196,7 +196,7 @@ func _physics_process(delta: float) -> void:
 
 
 #actual health stuff below
-@onready var health_label: Label = $Camera2D/health_label
+@onready var health_label: Label = $"../UI/CanvasLayer/health_label"
 var current_health = 5
 var damage_occuring = false
 var iframe_duration = 0.2
