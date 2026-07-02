@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7f73g"]
 size = Vector2(40, 40)
 
-[node name="Gayme" type="Node2D" unique_id=1539891490]
+[node name="Game" type="Node2D" unique_id=1539891490]
 
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
 position = Vector2(-1250, 650)
