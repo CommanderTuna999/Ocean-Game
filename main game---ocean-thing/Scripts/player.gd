@@ -1,4 +1,3 @@
-# test
 extends CharacterBody2D
 var maxharpoonspeed = 1100
 var harpooning = false
