@@ -9,7 +9,9 @@ var speed = 300
 var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var current_health = 2
 	
 	
 func _process(_delta): #x axis flipping for now
@@ -17,7 +19,10 @@ func _process(_delta): #x axis flipping for now
 		animated_sprite_2d.flip_h = false
 	elif not chase_subject == null and chase_subject.position.x < position.x:
 		animated_sprite_2d.flip_h = true
-		
+	
+	
+	if current_health <= 0:
+		queue_free()
 		
 		
 func _on_aggro_area_body_entered(body):
@@ -41,9 +46,7 @@ func _physics_process(_delta):
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
-		
-		
-		
-		
-		
+func take_damage(amount: int):
+	current_health -= amount
+	animation_player.play("damaged")
 	

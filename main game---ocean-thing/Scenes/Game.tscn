@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2ltwnngvnohm" path="res://Scenes/target.tscn" id="2_j5yw3"]
 [ext_resource type="Script" uid="uid://utouu2ijuyh1" path="res://Scripts/exit.gd" id="3_j5yw3"]
 [ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
+[ext_resource type="PackedScene" uid="uid://ugr4xifmou0g" path="res://Scenes/weapon.tscn" id="5_b2bpf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7f73g"]
 size = Vector2(40, 40)
@@ -13,6 +14,10 @@ size = Vector2(40, 40)
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
 position = Vector2(-1250, 650)
 collision_mask = 2
+
+[node name="Weapon" parent="Player" unique_id=855850943 instance=ExtResource("5_b2bpf")]
+position = Vector2(4.8026733, 3.4092407)
+scale = Vector2(0.2183065, 0.22728147)
 
 [node name="Walls" type="Node" parent="." unique_id=1369482931]
 
@@ -125,288 +130,12 @@ M1/SPACE to harpoon
 R to reset"
 
 [node name="clownfish" parent="." unique_id=1111911240 instance=ExtResource("4_kldst")]
-position = Vector2(-1010, 82)
+position = Vector2(-24, -310)
 
 [node name="clownfish2" parent="." unique_id=1782866894 instance=ExtResource("4_kldst")]
-position = Vector2(-942, 130)
+position = Vector2(-34, -252)
 
 [node name="clownfish3" parent="." unique_id=412284421 instance=ExtResource("4_kldst")]
-position = Vector2(-1034, 170)
-
-[node name="clownfish4" parent="." unique_id=161397012 instance=ExtResource("4_kldst")]
-position = Vector2(-973, 207)
-
-[node name="clownfish5" parent="." unique_id=667106979 instance=ExtResource("4_kldst")]
-position = Vector2(-903, 175)
-
-[node name="clownfish6" parent="." unique_id=1313355372 instance=ExtResource("4_kldst")]
-position = Vector2(-921, 83)
-
-[node name="clownfish7" parent="." unique_id=76652013 instance=ExtResource("4_kldst")]
-position = Vector2(-1065, 121)
-
-[node name="clownfish8" parent="." unique_id=1833948284 instance=ExtResource("4_kldst")]
-position = Vector2(-863, 103)
-
-[node name="clownfish9" parent="." unique_id=717176657 instance=ExtResource("4_kldst")]
-position = Vector2(-879, 201)
-
-[node name="clownfish10" parent="." unique_id=397034952 instance=ExtResource("4_kldst")]
-position = Vector2(-839, 165)
-
-[node name="clownfish11" parent="." unique_id=1904678022 instance=ExtResource("4_kldst")]
-position = Vector2(-797, 117)
-
-[node name="clownfish12" parent="." unique_id=1793215520 instance=ExtResource("4_kldst")]
-position = Vector2(-803, 197)
-
-[node name="clownfish13" parent="." unique_id=1970289303 instance=ExtResource("4_kldst")]
-position = Vector2(-869, 275)
-
-[node name="clownfish14" parent="." unique_id=576020841 instance=ExtResource("4_kldst")]
-position = Vector2(-837, 237)
-
-[node name="clownfish15" parent="." unique_id=924172148 instance=ExtResource("4_kldst")]
-position = Vector2(-927, 241)
-
-[node name="clownfish16" parent="." unique_id=1728916276 instance=ExtResource("4_kldst")]
-position = Vector2(-911, 281)
-
-[node name="clownfish17" parent="." unique_id=1188909327 instance=ExtResource("4_kldst")]
-position = Vector2(-973, 257)
-
-[node name="clownfish18" parent="." unique_id=1168445209 instance=ExtResource("4_kldst")]
-position = Vector2(-1015, 243)
-
-[node name="clownfish19" parent="." unique_id=247254080 instance=ExtResource("4_kldst")]
-position = Vector2(-1069, 213)
-
-[node name="clownfish20" parent="." unique_id=128182530 instance=ExtResource("4_kldst")]
-position = Vector2(-166, -344)
-
-[node name="clownfish21" parent="." unique_id=2059462107 instance=ExtResource("4_kldst")]
-position = Vector2(-98, -296)
-
-[node name="clownfish22" parent="." unique_id=1639550258 instance=ExtResource("4_kldst")]
-position = Vector2(-190, -256)
-
-[node name="clownfish23" parent="." unique_id=1399662507 instance=ExtResource("4_kldst")]
-position = Vector2(-129, -219)
-
-[node name="clownfish24" parent="." unique_id=785870277 instance=ExtResource("4_kldst")]
-position = Vector2(-59, -251)
-
-[node name="clownfish25" parent="." unique_id=1601047892 instance=ExtResource("4_kldst")]
-position = Vector2(-77, -343)
-
-[node name="clownfish26" parent="." unique_id=120187571 instance=ExtResource("4_kldst")]
-position = Vector2(-221, -305)
-
-[node name="clownfish27" parent="." unique_id=92803527 instance=ExtResource("4_kldst")]
-position = Vector2(-19, -323)
-
-[node name="clownfish28" parent="." unique_id=1341114231 instance=ExtResource("4_kldst")]
-position = Vector2(-35, -225)
-
-[node name="clownfish29" parent="." unique_id=365012820 instance=ExtResource("4_kldst")]
-position = Vector2(5, -261)
-
-[node name="clownfish30" parent="." unique_id=690158360 instance=ExtResource("4_kldst")]
-position = Vector2(47, -309)
-
-[node name="clownfish31" parent="." unique_id=1485710121 instance=ExtResource("4_kldst")]
-position = Vector2(41, -229)
-
-[node name="clownfish32" parent="." unique_id=1756522437 instance=ExtResource("4_kldst")]
-position = Vector2(-25, -151)
-
-[node name="clownfish33" parent="." unique_id=1539394672 instance=ExtResource("4_kldst")]
-position = Vector2(7, -189)
-
-[node name="clownfish34" parent="." unique_id=1704293678 instance=ExtResource("4_kldst")]
-position = Vector2(-83, -185)
-
-[node name="clownfish35" parent="." unique_id=1094034586 instance=ExtResource("4_kldst")]
-position = Vector2(-67, -145)
-
-[node name="clownfish36" parent="." unique_id=1932546705 instance=ExtResource("4_kldst")]
-position = Vector2(-129, -169)
-
-[node name="clownfish37" parent="." unique_id=1490796590 instance=ExtResource("4_kldst")]
-position = Vector2(-171, -183)
-
-[node name="clownfish38" parent="." unique_id=1455302133 instance=ExtResource("4_kldst")]
-position = Vector2(-225, -213)
-
-[node name="clownfish39" parent="." unique_id=1309589043 instance=ExtResource("4_kldst")]
-position = Vector2(-1168, -768)
-
-[node name="clownfish40" parent="." unique_id=1975275365 instance=ExtResource("4_kldst")]
-position = Vector2(-1100, -720)
-
-[node name="clownfish41" parent="." unique_id=1854118219 instance=ExtResource("4_kldst")]
-position = Vector2(-1192, -680)
-
-[node name="clownfish42" parent="." unique_id=461013849 instance=ExtResource("4_kldst")]
-position = Vector2(-1131, -643)
-
-[node name="clownfish43" parent="." unique_id=1010795295 instance=ExtResource("4_kldst")]
-position = Vector2(-1061, -675)
-
-[node name="clownfish44" parent="." unique_id=842866113 instance=ExtResource("4_kldst")]
-position = Vector2(-1079, -767)
-
-[node name="clownfish45" parent="." unique_id=1021790315 instance=ExtResource("4_kldst")]
-position = Vector2(-1223, -729)
-
-[node name="clownfish46" parent="." unique_id=72455111 instance=ExtResource("4_kldst")]
-position = Vector2(-1021, -747)
-
-[node name="clownfish47" parent="." unique_id=1060038208 instance=ExtResource("4_kldst")]
-position = Vector2(-1037, -649)
-
-[node name="clownfish48" parent="." unique_id=1915437452 instance=ExtResource("4_kldst")]
-position = Vector2(-997, -685)
-
-[node name="clownfish49" parent="." unique_id=2065401233 instance=ExtResource("4_kldst")]
-position = Vector2(-955, -733)
-
-[node name="clownfish50" parent="." unique_id=875546035 instance=ExtResource("4_kldst")]
-position = Vector2(-961, -653)
-
-[node name="clownfish51" parent="." unique_id=1742843134 instance=ExtResource("4_kldst")]
-position = Vector2(-1027, -575)
-
-[node name="clownfish52" parent="." unique_id=1509264732 instance=ExtResource("4_kldst")]
-position = Vector2(-995, -613)
-
-[node name="clownfish53" parent="." unique_id=402864367 instance=ExtResource("4_kldst")]
-position = Vector2(-1085, -609)
-
-[node name="clownfish54" parent="." unique_id=1281868803 instance=ExtResource("4_kldst")]
-position = Vector2(-1069, -569)
-
-[node name="clownfish55" parent="." unique_id=1461334921 instance=ExtResource("4_kldst")]
-position = Vector2(-1131, -593)
-
-[node name="clownfish56" parent="." unique_id=792674597 instance=ExtResource("4_kldst")]
-position = Vector2(-1173, -607)
-
-[node name="clownfish57" parent="." unique_id=1922762215 instance=ExtResource("4_kldst")]
-position = Vector2(-1227, -637)
-
-[node name="clownfish58" parent="." unique_id=1305680638 instance=ExtResource("4_kldst")]
-position = Vector2(606, -738)
-
-[node name="clownfish59" parent="." unique_id=1454448426 instance=ExtResource("4_kldst")]
-position = Vector2(674, -690)
-
-[node name="clownfish60" parent="." unique_id=1998633279 instance=ExtResource("4_kldst")]
-position = Vector2(582, -650)
-
-[node name="clownfish61" parent="." unique_id=1718578117 instance=ExtResource("4_kldst")]
-position = Vector2(643, -613)
-
-[node name="clownfish62" parent="." unique_id=227638100 instance=ExtResource("4_kldst")]
-position = Vector2(713, -645)
-
-[node name="clownfish63" parent="." unique_id=1475071412 instance=ExtResource("4_kldst")]
-position = Vector2(695, -737)
-
-[node name="clownfish64" parent="." unique_id=1404360414 instance=ExtResource("4_kldst")]
-position = Vector2(551, -699)
-
-[node name="clownfish65" parent="." unique_id=598110738 instance=ExtResource("4_kldst")]
-position = Vector2(753, -717)
-
-[node name="clownfish66" parent="." unique_id=332082452 instance=ExtResource("4_kldst")]
-position = Vector2(737, -619)
-
-[node name="clownfish67" parent="." unique_id=164789497 instance=ExtResource("4_kldst")]
-position = Vector2(777, -655)
-
-[node name="clownfish68" parent="." unique_id=2085109876 instance=ExtResource("4_kldst")]
-position = Vector2(819, -703)
-
-[node name="clownfish69" parent="." unique_id=251548022 instance=ExtResource("4_kldst")]
-position = Vector2(813, -623)
-
-[node name="clownfish70" parent="." unique_id=1821196474 instance=ExtResource("4_kldst")]
-position = Vector2(747, -545)
-
-[node name="clownfish71" parent="." unique_id=1926882122 instance=ExtResource("4_kldst")]
-position = Vector2(779, -583)
-
-[node name="clownfish72" parent="." unique_id=1139457387 instance=ExtResource("4_kldst")]
-position = Vector2(689, -579)
-
-[node name="clownfish73" parent="." unique_id=508273122 instance=ExtResource("4_kldst")]
-position = Vector2(705, -539)
-
-[node name="clownfish74" parent="." unique_id=60564326 instance=ExtResource("4_kldst")]
-position = Vector2(643, -563)
-
-[node name="clownfish75" parent="." unique_id=1111758863 instance=ExtResource("4_kldst")]
-position = Vector2(601, -577)
-
-[node name="clownfish76" parent="." unique_id=681754762 instance=ExtResource("4_kldst")]
-position = Vector2(547, -607)
-
-[node name="clownfish77" parent="." unique_id=400532454 instance=ExtResource("4_kldst")]
-position = Vector2(974, -272)
-
-[node name="clownfish78" parent="." unique_id=423334113 instance=ExtResource("4_kldst")]
-position = Vector2(1042, -224)
-
-[node name="clownfish79" parent="." unique_id=618564598 instance=ExtResource("4_kldst")]
-position = Vector2(950, -184)
-
-[node name="clownfish80" parent="." unique_id=1006746020 instance=ExtResource("4_kldst")]
-position = Vector2(1011, -147)
-
-[node name="clownfish81" parent="." unique_id=2114919139 instance=ExtResource("4_kldst")]
-position = Vector2(1081, -179)
-
-[node name="clownfish82" parent="." unique_id=67929217 instance=ExtResource("4_kldst")]
-position = Vector2(1063, -271)
-
-[node name="clownfish83" parent="." unique_id=616829998 instance=ExtResource("4_kldst")]
-position = Vector2(919, -233)
-
-[node name="clownfish84" parent="." unique_id=1272742276 instance=ExtResource("4_kldst")]
-position = Vector2(1121, -251)
-
-[node name="clownfish85" parent="." unique_id=789850252 instance=ExtResource("4_kldst")]
-position = Vector2(1105, -153)
-
-[node name="clownfish86" parent="." unique_id=1008363826 instance=ExtResource("4_kldst")]
-position = Vector2(1145, -189)
-
-[node name="clownfish87" parent="." unique_id=657895245 instance=ExtResource("4_kldst")]
-position = Vector2(1187, -237)
-
-[node name="clownfish88" parent="." unique_id=149711628 instance=ExtResource("4_kldst")]
-position = Vector2(1181, -157)
-
-[node name="clownfish89" parent="." unique_id=327373544 instance=ExtResource("4_kldst")]
-position = Vector2(1115, -79)
-
-[node name="clownfish90" parent="." unique_id=265178784 instance=ExtResource("4_kldst")]
-position = Vector2(1147, -117)
-
-[node name="clownfish91" parent="." unique_id=1594831405 instance=ExtResource("4_kldst")]
-position = Vector2(1057, -113)
-
-[node name="clownfish92" parent="." unique_id=1573498658 instance=ExtResource("4_kldst")]
-position = Vector2(1073, -73)
-
-[node name="clownfish93" parent="." unique_id=115626729 instance=ExtResource("4_kldst")]
-position = Vector2(1011, -97)
-
-[node name="clownfish94" parent="." unique_id=504335139 instance=ExtResource("4_kldst")]
-position = Vector2(969, -111)
-
-[node name="clownfish95" parent="." unique_id=2057155523 instance=ExtResource("4_kldst")]
-position = Vector2(915, -141)
+position = Vector2(-88, -298)
 
 [connection signal="body_entered" from="exit" to="exit" method="_on_body_entered"]
