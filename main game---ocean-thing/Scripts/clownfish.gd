@@ -40,7 +40,7 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 
 
 func _physics_process(_delta):
-	if aggro and chase_subject and not damage_occuring:
+	if aggro and chase_subject:
 		velocity = (chase_subject.global_position - global_position).normalized() * speed
 	else: 
 		velocity = Vector2.ZERO
@@ -56,8 +56,15 @@ func take_damage(amount: int):
 
 # knockback script below
 func _on_template_hurtbox_area_entered(area: Area2D) -> void:
-		if area.global_position.x < position.x:
-			position.x += 100
-		elif area.global_position.x > position.x:
-			position.x -= 100
+		damage_occuring = true
 		await get_tree().create_timer(0.1).timeout
+		if area.global_position.x < position.x:
+			position.x += 200
+		elif area.global_position.x > position.x:
+			position.x += -200
+		damage_occuring = false
+
+
+
+
+	
