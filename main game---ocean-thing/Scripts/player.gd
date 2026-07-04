@@ -29,7 +29,7 @@ var wasattachedthisshot = false
 #dash
 @export var dash_max: float = 100.0
 @export var dash_cost: float = 25.0
-@export var dash_recharge_per_second: float = 12.0
+@export var dash_recharge_per_second: float = 15.0
 @export var dash_recharge_delay: float = 0.5
 @export var dash_speed: float = 2000.0
 @export var dash_duration: float = 0.10
