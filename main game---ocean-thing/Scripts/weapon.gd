@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _process(delta):
-	print(direction)
+	#print(direction)
 	if Input.is_action_just_pressed("right_click") and direction == "right":
 		animation_player.play("slash_right")
 	elif Input.is_action_just_pressed("right_click") and direction == "left":
@@ -23,10 +23,3 @@ func _process(delta):
 		weapon.scale = abs(weapon.scale)
 		animation_player.play("RESET_right")
 		
-		
-		
-#func _physics_process(delta: float) -> void:
-#	if direction == "right":
-#elif direction == "left":
-	#	weapon.rotation = 1050
-	#	

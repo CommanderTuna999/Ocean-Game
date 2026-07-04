@@ -16,12 +16,11 @@ func _ready() -> void:
 func _on_area_entered(hitbox: TemplateHitbox) -> void:
 	if hitbox == null:
 		return #goes back to start if the hitbox is not detected
-		
-		
+	
+	
+	
+	
+	
 	if owner.has_method("take_damage"): #may need to rename function at some point to match actual name of function 
 		owner.take_damage(hitbox.damage)
-		if owner.position.x > position.x:
-			owner.position.x -= 100
-		elif owner.position.x < position.x:
-			owner.position.x += 100
-			await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.1).timeout
