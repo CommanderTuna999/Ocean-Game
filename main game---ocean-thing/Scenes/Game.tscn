@@ -154,7 +154,7 @@ position = Vector2(-1174, -132)
 position = Vector2(-1326, 199.00003)
 
 [node name="clownfish9" parent="." unique_id=1357310590 instance=ExtResource("4_kldst")]
-position = Vector2(-410.99988, 103.99998)
+position = Vector2(-438.99997, 121.99999)
 
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
@@ -165,5 +165,11 @@ offset_left = 63.0
 offset_top = 25.0
 offset_right = 103.0
 offset_bottom = 48.0
+
+[node name="sprintbar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=2096385657]
+offset_left = 48.0
+offset_top = 1687.0
+offset_right = 424.0
+offset_bottom = 1781.0
 
 [connection signal="body_entered" from="exit" to="exit" method="_on_body_entered"]
