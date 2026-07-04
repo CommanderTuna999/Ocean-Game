@@ -298,6 +298,7 @@ var current_health = 500
 var damage_occuring = false
 var iframe_duration = 0.2
 var clownfish_damage = 1
+var shark_damage = 150
 
 #sprint stuff below
 func handle_sprint(delta: float, direction: Vector2) -> void:
@@ -364,6 +365,8 @@ func _process(delta):
 func _on_hurt_area_body_entered(body: Node2D) -> void:
 	#print(body)
 	damage_occuring = true
+	
+	#clownfish
 	if body.is_in_group("clownfish"):
 		velocity.x = 0
 		while damage_occuring:
@@ -372,6 +375,19 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 			elif body.position.x < position.x:
 				velocity.x += 1000
 			current_health -= clownfish_damage 
+			#print("damaged")
+			health_label.text = str(current_health) #healthui stuff
+			await get_tree().create_timer(iframe_duration).timeout
+	
+	#shark
+	if body.is_in_group("shark"):
+		velocity.x = 0
+		while damage_occuring:
+			if body.position.x > position.x:
+				velocity.x -= 2000
+			elif body.position.x < position.x:
+				velocity.x += 2000
+			current_health -= shark_damage
 			#print("damaged")
 			health_label.text = str(current_health) #healthui stuff
 			await get_tree().create_timer(iframe_duration).timeout
