@@ -6,11 +6,11 @@
 
 extends CharacterBody2D
 var speed = 300
+var damage_occuring = false
 var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
 var current_health = 20
 	
 	
@@ -40,9 +40,9 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 
 
 func _physics_process(_delta):
-	if aggro and chase_subject:
+	if aggro and chase_subject and not damage_occuring:
 		velocity = (chase_subject.global_position - global_position).normalized() * speed
-	else:
+	else: 
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
@@ -56,8 +56,8 @@ func take_damage(amount: int):
 
 # knockback script below
 func _on_template_hurtbox_area_entered(area: Area2D) -> void:
-	velocity.x = 0
-	if area.global_position.x < position.x:
-		position.x += 100
-	elif area.global_position.x > position.x:
-		position.x -= 100
+		if area.global_position.x < position.x:
+			position.x += 100
+		elif area.global_position.x > position.x:
+			position.x -= 100
+		await get_tree().create_timer(0.1).timeout
