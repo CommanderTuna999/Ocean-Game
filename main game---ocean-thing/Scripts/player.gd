@@ -16,7 +16,7 @@ var wasattachedthisshot = false
 @export var harpoonprojectilescene: PackedScene
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-
+#test save thing
 
 
 var timer = 0.0
