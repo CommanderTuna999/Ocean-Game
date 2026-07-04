@@ -31,6 +31,13 @@ offset_top = 1687.0
 offset_right = 424.0
 offset_bottom = 1781.0
 
+[node name="dashbar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=2025877455]
+offset_left = 49.0
+offset_top = 1222.0
+offset_right = 165.0
+offset_bottom = 1667.0
+fill_mode = 3
+
 [node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 
 [node name="clownfish" parent="clownfish_folder" unique_id=1111911240 instance=ExtResource("4_kldst")]

@@ -15,16 +15,31 @@ var harpooonmaxrange = 1000
 var wasattachedthisshot = false
 @export var harpoonprojectilescene: PackedScene
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
+#sprint
 @onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
+@onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
 @export var sprint_multiplier: float = 2.0
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
 @export var recharge_per_second: float = 20.0
 @export var exhausted_recharge_per_second: float = 10.0
-@export var recharge_delay: float = 2.5
+@export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
+#dash
+@export var dash_max: float = 100.0
+@export var dash_cost: float = 25.0
+@export var dash_recharge_per_second: float = 15.0
+@export var dash_recharge_delay: float = 0.5
+@export var dash_speed: float = 2000.0
+@export var dash_duration: float = 0.10
+@export var dash_bar_display_value: float = dash_max
+
+var dash_value: float = dash_max
+var dash_recharge_timer: float = 0.0
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+var dash_direction: Vector2 = Vector2.ZERO
 
 var sprint_value: float = sprint_max
 var recharge_timer: float = 0.0
@@ -46,7 +61,11 @@ func _ready() -> void:
 		sprint_bar.max_value = sprint_max
 		sprint_bar.value = sprint_value
 		sprint_bar.show_percentage = false
-
+	if dash_bar:
+		dash_bar.min_value = 0
+		dash_bar.max_value = dash_max
+		dash_bar.value = dash_value
+		dash_bar.show_percentage = false
 	spawnposition = global_position
 
 func _on_harpoon_attached(hitposition):
@@ -93,6 +112,7 @@ func _physics_process(delta: float) -> void:
 
 	var direction = Input.get_vector("Left", "Right", "Up", "Down")
 	handle_sprint(delta, direction)
+	handle_dash(delta, direction)
 	#if not is_on_floor():
 		#velocity += get_gravity() * delta
 #
@@ -136,16 +156,14 @@ func _physics_process(delta: float) -> void:
 			#to_local(harpoon_point)
 		#]
 	#else:
-		#if direction:
-			#if velocity.length() == 0 or direction.dot(velocity) > 0:
-				#velocity += direction * accel
-			#else: 
-				#velocity += direction * turnaccel
-				#
-			#velocity = velocity.limit_length(maxspeed)
-			
-		#else:
-			#velocity = velocity.move_toward(Vector2.ZERO, accel)
+	if not is_dashing:
+		if direction:
+			if velocity.length() == 0 or direction.dot(velocity) > 0:
+				velocity += direction * currentaccel
+		else: 
+			velocity += direction * turnaccel
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, currentaccel)
 #
 	#move_and_slide()
 	var currentaccel = accel
@@ -179,7 +197,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, currentaccel)
 		
-	if not harpooning:
+	if not harpooning and not is_dashing:
 		var currentspeed = velocity.length()
 		if currentspeed > currentmaxspeed:
 			var targetvelocity = velocity.normalized() * currentmaxspeed
@@ -206,6 +224,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	update_sprint_bar()
+	update_dash_bar(delta)
 	
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
@@ -216,6 +235,62 @@ func _physics_process(delta: float) -> void:
 	if crashed:
 		velocity *= 0.7
 
+func handle_dash(delta: float, direction: Vector2) -> void:
+	if is_dashing:
+		dash_timer -= delta
+		velocity = dash_direction * dash_speed
+
+		if dash_timer <= 0.0:
+			is_dashing = false
+
+		return
+
+	if Input.is_action_just_pressed("Dash") and dash_value >= dash_cost:
+		start_dash(direction)
+
+	if dash_recharge_timer > 0.0:
+		dash_recharge_timer -= delta
+	else:
+		recharge_dash(delta)
+
+
+func start_dash(direction: Vector2) -> void:
+	if direction.length() > 0.0:
+		dash_direction = direction.normalized()
+	else:
+		dash_direction = (get_global_mouse_position() - global_position).normalized()
+
+	if dash_direction == Vector2.ZERO:
+		return
+
+	is_dashing = true
+	dash_timer = dash_duration
+
+	dash_value -= dash_cost
+	dash_value = max(dash_value, 0.0)
+
+	dash_recharge_timer = dash_recharge_delay
+	velocity = dash_direction * dash_speed
+
+
+func recharge_dash(delta: float) -> void:
+	if dash_value >= dash_max:
+		dash_value = dash_max
+		return
+
+	dash_value += dash_recharge_per_second * delta
+	dash_value = min(dash_value, dash_max)
+
+
+func update_dash_bar(delta: float) -> void:
+	if dash_bar:
+		dash_bar_display_value = move_toward(
+			dash_bar_display_value,
+			dash_value,
+			60.0 * delta
+		)
+
+		dash_bar.value = dash_bar_display_value
 
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
