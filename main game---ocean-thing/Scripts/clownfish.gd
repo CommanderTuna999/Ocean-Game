@@ -11,7 +11,7 @@ var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-var current_health = 20
+var current_health = 2
 	
 	
 func _process(_delta): #x axis flipping for now
