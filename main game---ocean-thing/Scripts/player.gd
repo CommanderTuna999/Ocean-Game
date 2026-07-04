@@ -19,7 +19,7 @@ var wasattachedthisshot = false
 @onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
-@export var sprint_multiplier: float = 2.0
+@export var sprint_multiplier: float = 1.65
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
 @export var recharge_per_second: float = 20.0
@@ -201,7 +201,7 @@ func _physics_process(delta: float) -> void:
 		var currentspeed = velocity.length()
 		if currentspeed > currentmaxspeed:
 			var targetvelocity = velocity.normalized() * currentmaxspeed
-			velocity = velocity.move_toward(targetvelocity, 20)
+			velocity = velocity.move_toward(targetvelocity, 33)
 		
 	if harpooning:
 		var direction_to_point = (harpoon_point - global_position).normalized()
