@@ -1,13 +1,8 @@
 [gd_scene format=3 uid="uid://bgqp8w4nt7h7l"]
 
 [ext_resource type="PackedScene" uid="uid://bdqbpmxw31kbp" path="res://Scenes/player.tscn" id="1_gl6un"]
-[ext_resource type="PackedScene" uid="uid://2ltwnngvnohm" path="res://Scenes/target.tscn" id="2_j5yw3"]
-[ext_resource type="Script" uid="uid://utouu2ijuyh1" path="res://Scripts/exit.gd" id="3_j5yw3"]
 [ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
 [ext_resource type="PackedScene" uid="uid://ugr4xifmou0g" path="res://Scenes/weapon.tscn" id="5_b2bpf"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7f73g"]
-size = Vector2(40, 40)
 
 [node name="Game" type="Node2D" unique_id=1539891490]
 
@@ -19,143 +14,6 @@ collision_mask = 2
 position = Vector2(4.8026733, 3.4092407)
 scale = Vector2(0.2183065, 0.22728147)
 
-[node name="Walls" type="Node" parent="." unique_id=1369482931]
-
-[node name="Floor" parent="Walls" unique_id=1651527836 instance=ExtResource("2_j5yw3")]
-position = Vector2(0, 900)
-scale = Vector2(75, 1)
-collision_mask = 5
-
-[node name="Celing" parent="Walls" unique_id=1014854824 instance=ExtResource("2_j5yw3")]
-position = Vector2(0, -900)
-scale = Vector2(75, 1)
-collision_mask = 5
-
-[node name="Wall1" parent="Walls" unique_id=722288506 instance=ExtResource("2_j5yw3")]
-position = Vector2(-1500, 0)
-scale = Vector2(1, 45)
-collision_mask = 5
-
-[node name="Wall2" parent="Walls" unique_id=890476781 instance=ExtResource("2_j5yw3")]
-position = Vector2(1500, 0)
-scale = Vector2(1, 45)
-collision_mask = 5
-
-[node name="Pillars" type="Node" parent="." unique_id=1098698107]
-
-[node name="Pillar1" parent="Pillars" unique_id=1083930751 instance=ExtResource("2_j5yw3")]
-position = Vector2(-650, 520)
-scale = Vector2(3, 14)
-collision_mask = 5
-
-[node name="Pillar2" parent="Pillars" unique_id=784381479 instance=ExtResource("2_j5yw3")]
-position = Vector2(650, 600)
-scale = Vector2(3, 10)
-collision_mask = 5
-
-[node name="Pillar3" parent="Pillars" unique_id=443638159 instance=ExtResource("2_j5yw3")]
-position = Vector2(555, 45)
-scale = Vector2(1, 5)
-collision_mask = 5
-
-[node name="Pillar5" parent="Pillars" unique_id=1617715451 instance=ExtResource("2_j5yw3")]
-position = Vector2(-428, -210)
-scale = Vector2(1, 5)
-collision_mask = 5
-
-[node name="Pillar4" parent="Pillars" unique_id=1219289484 instance=ExtResource("2_j5yw3")]
-position = Vector2(-36, 616)
-scale = Vector2(1, 5)
-collision_mask = 5
-
-[node name="Platforms" type="Node" parent="." unique_id=1982289608]
-
-[node name="FloatingPlatform1" parent="Platforms" unique_id=451030061 instance=ExtResource("2_j5yw3")]
-position = Vector2(-100, 250)
-scale = Vector2(10, 1)
-collision_mask = 5
-
-[node name="FloatingPlatform2" parent="Platforms" unique_id=1408587882 instance=ExtResource("2_j5yw3")]
-position = Vector2(1050, 250)
-scale = Vector2(8, 1)
-collision_mask = 5
-
-[node name="CelingBlock1" parent="Platforms" unique_id=517380744 instance=ExtResource("2_j5yw3")]
-position = Vector2(508, -337)
-scale = Vector2(12, 1)
-collision_mask = 5
-
-[node name="Placeholderexit" type="Node" parent="." unique_id=413596699]
-
-[node name="exit" type="Area2D" parent="." unique_id=227424758]
-position = Vector2(1300, 650)
-scale = Vector2(2, 5)
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("3_j5yw3")
-
-[node name="ColorRect" type="ColorRect" parent="exit" unique_id=711790698]
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-color = Color(0, 1, 0.4117647, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="exit" unique_id=11011457]
-shape = SubResource("RectangleShape2D_7f73g")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2092167439]
-z_index = -5
-offset_left = -1827.0
-offset_top = -1025.0
-offset_right = 1827.0
-offset_bottom = 1112.0
-color = Color(0.28569692, 0.45033473, 0.8309871, 1)
-
-[node name="TimerLabel" type="Label" parent="." unique_id=1433196563]
-offset_left = 1253.0001
-offset_top = 427.00003
-offset_right = 1271.0001
-offset_bottom = 450.00003
-scale = Vector2(5, 5)
-
-[node name="TimerLabel2" type="Label" parent="." unique_id=798990943]
-offset_left = -1289.0
-offset_top = 509.0
-offset_right = -1271.0
-offset_bottom = 532.0
-text = "WASD to move
-M1/SPACE to harpoon
-R to reset"
-
-[node name="clownfish" parent="." unique_id=1111911240 instance=ExtResource("4_kldst")]
-position = Vector2(-24, -310)
-
-[node name="clownfish2" parent="." unique_id=1782866894 instance=ExtResource("4_kldst")]
-position = Vector2(-34, -252)
-
-[node name="clownfish3" parent="." unique_id=412284421 instance=ExtResource("4_kldst")]
-position = Vector2(-88, -298)
-
-[node name="clownfish4" parent="." unique_id=2033709037 instance=ExtResource("4_kldst")]
-position = Vector2(-989, 279)
-
-[node name="clownfish5" parent="." unique_id=636351392 instance=ExtResource("4_kldst")]
-position = Vector2(-1131, 85)
-
-[node name="clownfish6" parent="." unique_id=242120617 instance=ExtResource("4_kldst")]
-position = Vector2(-787, 74.99999)
-
-[node name="clownfish7" parent="." unique_id=1345665117 instance=ExtResource("4_kldst")]
-position = Vector2(-1174, -132)
-
-[node name="clownfish8" parent="." unique_id=517324097 instance=ExtResource("4_kldst")]
-position = Vector2(-1326, 199.00003)
-
-[node name="clownfish9" parent="." unique_id=1357310590 instance=ExtResource("4_kldst")]
-position = Vector2(-410.99988, 103.99998)
-
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
@@ -166,4 +24,31 @@ offset_top = 25.0
 offset_right = 103.0
 offset_bottom = 48.0
 
-[connection signal="body_entered" from="exit" to="exit" method="_on_body_entered"]
+[node name="clownfish_folder" type="Node" parent="." unique_id=1603817068]
+
+[node name="clownfish" parent="clownfish_folder" unique_id=1111911240 instance=ExtResource("4_kldst")]
+position = Vector2(-24, -310)
+
+[node name="clownfish2" parent="clownfish_folder" unique_id=1782866894 instance=ExtResource("4_kldst")]
+position = Vector2(-34, -252)
+
+[node name="clownfish3" parent="clownfish_folder" unique_id=412284421 instance=ExtResource("4_kldst")]
+position = Vector2(-88, -298)
+
+[node name="clownfish4" parent="clownfish_folder" unique_id=2033709037 instance=ExtResource("4_kldst")]
+position = Vector2(-989, 279)
+
+[node name="clownfish5" parent="clownfish_folder" unique_id=636351392 instance=ExtResource("4_kldst")]
+position = Vector2(-1131, 85)
+
+[node name="clownfish6" parent="clownfish_folder" unique_id=242120617 instance=ExtResource("4_kldst")]
+position = Vector2(-787, 74.99999)
+
+[node name="clownfish7" parent="clownfish_folder" unique_id=1345665117 instance=ExtResource("4_kldst")]
+position = Vector2(-1174, -132)
+
+[node name="clownfish8" parent="clownfish_folder" unique_id=517324097 instance=ExtResource("4_kldst")]
+position = Vector2(-1326, 199.00003)
+
+[node name="clownfish9" parent="clownfish_folder" unique_id=1357310590 instance=ExtResource("4_kldst")]
+position = Vector2(-410.99988, 103.99998)

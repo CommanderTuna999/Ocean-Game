@@ -42,11 +42,6 @@ func _on_harpoon_attached(hitposition):
 	currentharpoon = null
 	
 func _physics_process(delta: float) -> void:
-	
-	if timerrunning:
-		timer += delta
-	get_parent().get_node("TimerLabel").text = "%.2f" % timer
-	
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
