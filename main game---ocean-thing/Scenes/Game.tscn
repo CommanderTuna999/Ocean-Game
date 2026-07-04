@@ -146,7 +146,7 @@ offset_top = 1687.0
 offset_right = 424.0
 offset_bottom = 1781.0
 
-[node name="clownfish_folder" type="Node" parent="."]
+[node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 
 [node name="clownfish" parent="clownfish_folder" unique_id=1111911240 instance=ExtResource("4_kldst")]
 position = Vector2(-745.00006, 659.0001)
