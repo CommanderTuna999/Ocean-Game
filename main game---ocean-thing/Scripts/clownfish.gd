@@ -5,16 +5,18 @@
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
-var speed = 300
+var speed = 250
 var damage_occuring = false
 var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 var current_health = 2
-	
+var kbtime = 0.0
+var kbvelocity = Vector2.ZERO
 	
 func _process(_delta): #x axis flipping for now
+	
 	if not chase_subject == null and chase_subject.position.x > position.x:
 		animated_sprite_2d.flip_h = false
 	elif not chase_subject == null and chase_subject.position.x < position.x:
@@ -23,6 +25,12 @@ func _process(_delta): #x axis flipping for now
 	
 	if current_health <= 0:
 		queue_free()
+		
+	if kbtime > 0:
+		kbtime 	-= _delta
+		velocity = kbvelocity
+		move_and_slide()
+		return
 		
 		
 func _on_aggro_area_body_entered(body):
@@ -56,13 +64,9 @@ func take_damage(amount: int):
 
 # knockback script below
 func _on_template_hurtbox_area_entered(area: Area2D) -> void:
-		damage_occuring = true
-		await get_tree().create_timer(0.1).timeout
-		if area.global_position.x < position.x:
-			position.x += 200
-		elif area.global_position.x > position.x:
-			position.x += -200
-		damage_occuring = false
+	var kbdirection = (global_position - area.global_position).normalized()
+	kbvelocity = kbdirection * 600
+	kbtime = 0.12
 
 
 

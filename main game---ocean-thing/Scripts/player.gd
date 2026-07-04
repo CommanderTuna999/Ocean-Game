@@ -19,7 +19,7 @@ var wasattachedthisshot = false
 @onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
-@export var sprint_multiplier: float = 1.65
+@export var sprint_multiplier: float = 1.2
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
 @export var recharge_per_second: float = 20.0
@@ -27,12 +27,12 @@ var wasattachedthisshot = false
 @export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
 #dash
-@export var dash_max: float = 100.0
+@export var dash_max: float = 50
 @export var dash_cost: float = 25.0
 @export var dash_recharge_per_second: float = 15.0
 @export var dash_recharge_delay: float = 0.5
-@export var dash_speed: float = 2000.0
-@export var dash_duration: float = 0.10
+@export var dash_speed: float = 850
+@export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
 var dash_value: float = dash_max
@@ -156,14 +156,14 @@ func _physics_process(delta: float) -> void:
 			#to_local(harpoon_point)
 		#]
 	#else:
-	if not is_dashing:
-		if direction:
-			if velocity.length() == 0 or direction.dot(velocity) > 0:
-				velocity += direction * currentaccel
-		else: 
-			velocity += direction * turnaccel
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, currentaccel)
+	#if not is_dashing:
+		#if direction:
+			#if velocity.length() == 0 or direction.dot(velocity) > 0:
+				#velocity += direction * currentaccel
+		#else: 
+			#velocity += direction * turnaccel
+	#else:
+		#velocity = velocity.move_toward(Vector2.ZERO, currentaccel)
 #
 	#move_and_slide()
 	var currentaccel = accel
@@ -363,38 +363,36 @@ func _process(delta):
 		
 		
 func _on_hurt_area_body_entered(body: Node2D) -> void:
-	#print(body)
-	damage_occuring = true
+	if not is_instance_valid(body):
+		return
+	
+	var damage = 0
+	var kbstrength = 0
+
 	
 	#clownfish
 	if body.is_in_group("clownfish"):
-		velocity.x = 0
-		while damage_occuring:
-			if body.position.x > position.x:
-				velocity.x -= 1000
-			elif body.position.x < position.x:
-				velocity.x += 1000
-			current_health -= clownfish_damage 
-			#print("damaged")
-			health_label.text = str(current_health) #healthui stuff
-			await get_tree().create_timer(iframe_duration).timeout
+		damage = clownfish_damage
+		kbstrength = 1000
+	elif body.is_in_group("shark"):
+		damage = shark_damage
+		kbstrength = 2000
 	
-	#shark
-	if body.is_in_group("shark"):
-		velocity.x = 0
-		while damage_occuring:
-			if body.position.x > position.x:
-				velocity.x -= 2000
-			elif body.position.x < position.x:
-				velocity.x += 2000
-			current_health -= shark_damage
-			#print("damaged")
-			health_label.text = str(current_health) #healthui stuff
-			await get_tree().create_timer(iframe_duration).timeout
-
-
-
-
-
+	else:
+		return
+	
+	damage_occuring = true
+	
+	while damage_occuring and is_instance_valid(body):
+		var kbdirection = (
+			global_position - body.global_position
+			).normalized()
+			
+		velocity += kbdirection * kbstrength
+			
+		current_health -= damage
+		health_label.text = str(current_health)
+		await get_tree().create_timer(iframe_duration).timeout
+		
 func _on_hurt_area_body_exited(body: Node2D) -> void:
 	damage_occuring = false

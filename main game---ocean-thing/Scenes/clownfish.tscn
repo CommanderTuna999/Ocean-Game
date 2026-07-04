@@ -90,7 +90,7 @@ _data = {
 }
 
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(2.2400022, 2.2400022)
+scale = Vector2(0.776467, 0.7791636)
 collision_layer = 8
 collision_mask = 26
 script = ExtResource("1_8g0i4")
