@@ -94,7 +94,7 @@ _data = {
 [node name="shark" type="CharacterBody2D" unique_id=1111911240 groups=["shark"]]
 scale = Vector2(2.8872721, 2.8821557)
 collision_layer = 8
-collision_mask = 8
+collision_mask = 16
 script = ExtResource("1_cb72u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=330375805]
