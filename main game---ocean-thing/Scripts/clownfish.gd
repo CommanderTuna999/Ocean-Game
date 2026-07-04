@@ -2,7 +2,7 @@
 #Layer 1 = Player
 #Layer 2 = Walls
 #Layer 3 = HarpoonProjectile
-#Layer 4 = Enemies
+#Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
 var speed = 300
@@ -11,7 +11,7 @@ var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var current_health = 2
+var current_health = 20
 	
 	
 func _process(_delta): #x axis flipping for now
@@ -46,7 +46,18 @@ func _physics_process(_delta):
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
+	
+#damage script below
 func take_damage(amount: int):
 	current_health -= amount
 	animation_player.play("damaged")
+	await get_tree().create_timer(0.1).timeout
 	
+
+# knockback script below
+func _on_template_hurtbox_area_entered(area: Area2D) -> void:
+	velocity.x = 0
+	if area.global_position.x < position.x:
+		position.x += 100
+	elif area.global_position.x > position.x:
+		position.x -= 100

@@ -287,7 +287,7 @@ func _process(delta):
 		
 		
 func _on_hurt_area_body_entered(body: Node2D) -> void:
-	print(body)
+	#print(body)
 	damage_occuring = true
 	if body.is_in_group("clownfish"):
 		velocity.x = 0
@@ -297,7 +297,7 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 			elif body.position.x < position.x:
 				velocity.x += 1000
 			current_health -= clownfish_damage 
-			print("damaged")
+			#print("damaged")
 			health_label.text = str(current_health) #healthui stuff
 			await get_tree().create_timer(iframe_duration).timeout
 

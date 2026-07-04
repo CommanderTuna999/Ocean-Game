@@ -90,7 +90,7 @@ _data = {
 }
 
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(4.8800015, 4.8800015)
+scale = Vector2(1.0400012, 1.0400012)
 collision_layer = 8
 collision_mask = 10
 script = ExtResource("1_8g0i4")
@@ -106,6 +106,7 @@ position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_47ae7")
 
 [node name="aggro_area" type="Area2D" parent="." unique_id=785846885]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro_area" unique_id=1075834730]
 shape = SubResource("CircleShape2D_8g0i4")
@@ -122,3 +123,5 @@ libraries/ = SubResource("AnimationLibrary_a3qtr")
 
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]
+[connection signal="area_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_area_entered"]
+[connection signal="body_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_body_entered"]
