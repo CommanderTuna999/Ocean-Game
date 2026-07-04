@@ -31,6 +31,7 @@ var recharge_timer: float = 0.0
 var is_sprinting: bool = false
 var is_exhausted: bool = false
 
+#test save thin
 
 
 var timer = 0.0
@@ -60,11 +61,6 @@ func _on_harpoon_attached(hitposition):
 	currentharpoon = null
 	
 func _physics_process(delta: float) -> void:
-	
-	if timerrunning:
-		timer += delta
-	get_parent().get_node("TimerLabel").text = "%.2f" % timer
-	
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
@@ -185,7 +181,7 @@ func _physics_process(delta: float) -> void:
 		
 	if not harpooning:
 		var currentspeed = velocity.length()
-		if currentspeed > maxspeed:
+		if currentspeed > currentmaxspeed:
 			var targetvelocity = velocity.normalized() * currentmaxspeed
 			velocity = velocity.move_toward(targetvelocity, 20)
 		
@@ -223,7 +219,7 @@ func _physics_process(delta: float) -> void:
 
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
-var current_health = 5
+var current_health = 500
 var damage_occuring = false
 var iframe_duration = 0.2
 var clownfish_damage = 1
