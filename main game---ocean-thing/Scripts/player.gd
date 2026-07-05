@@ -19,7 +19,7 @@ var wasattachedthisshot = false
 @onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
-@export var sprint_multiplier: float = 1.2
+@export var sprint_multiplier: float = 1.45
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
 @export var recharge_per_second: float = 20.0
@@ -27,11 +27,11 @@ var wasattachedthisshot = false
 @export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
 #dash
-@export var dash_max: float = 50
+@export var dash_max: float = 70.0
 @export var dash_cost: float = 25.0
 @export var dash_recharge_per_second: float = 15.0
 @export var dash_recharge_delay: float = 0.5
-@export var dash_speed: float = 850
+@export var dash_speed: float = 1200
 @export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
