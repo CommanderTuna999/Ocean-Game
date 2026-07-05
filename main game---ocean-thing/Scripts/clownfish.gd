@@ -15,6 +15,8 @@ var current_health = 2
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
 	
+func _ready() -> void:
+		animated_sprite_2d.play("idle")
 func _process(_delta): #x axis flipping for now
 	
 	if not chase_subject == null and chase_subject.position.x > position.x:
@@ -36,7 +38,7 @@ func _process(_delta): #x axis flipping for now
 func _on_aggro_area_body_entered(body):
 	chase_subject = body
 	aggro = true
-	animation_player.play("aggro")
+	animated_sprite_2d.play("aggro")
 	print('entered')
 	
 	
@@ -44,6 +46,7 @@ func _on_aggro_area_body_entered(body):
 func _on_aggro_area_body_exited(_body: Node2D) -> void:
 	chase_subject = null
 	aggro = false
+	animated_sprite_2d.play("idle")
 	print("exited")
 
 

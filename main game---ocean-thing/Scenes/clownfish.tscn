@@ -38,6 +38,11 @@ region = Rect2(0, 0, 265, 179)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qi2p4"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"aggro",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wx3q7")
@@ -64,7 +69,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ash8v")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -139,7 +144,7 @@ _data = {
 }
 
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(0.776467, 0.7791636)
+scale = Vector2(1.5220168, 1.5273025)
 collision_layer = 8
 collision_mask = 26
 script = ExtResource("1_8g0i4")
@@ -149,17 +154,17 @@ z_index = 3
 position = Vector2(-21.419086, 13.091745)
 scale = Vector2(0.27574134, 0.26958275)
 sprite_frames = SubResource("SpriteFrames_qi2p4")
-autoplay = "default"
-frame_progress = 0.7320205
+animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121136378]
 position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_47ae7")
 
 [node name="aggro_area" type="Area2D" parent="." unique_id=785846885]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro_area" unique_id=1075834730]
+scale = Vector2(0.4218192, 0.4218192)
 shape = SubResource("CircleShape2D_8g0i4")
 
 [node name="TemplateHurtbox" type="Area2D" parent="." unique_id=567805197]
