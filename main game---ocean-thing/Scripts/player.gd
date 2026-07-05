@@ -28,10 +28,10 @@ var wasattachedthisshot = false
 @export var sprint_threshold: float = 0.0
 #dash
 @export var dash_max: float = 70.0
-@export var dash_cost: float = 33.0
+@export var dash_cost: float = 25.0
 @export var dash_recharge_per_second: float = 12.5
 @export var dash_recharge_delay: float = 1.0
-@export var dash_speed: float = 1200
+@export var dash_speed: float = 1100
 @export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
@@ -444,8 +444,7 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 			while damage >= damage * DoT_strength:
 				take_player_damage(damage * DoT_strength)
 				damage -= damage * DoT_strength
-				damage -= damage / 100
-				await get_tree().create_timer(DoT_strength).timeout
+				await get_tree().create_timer(DoT_strength * 0.75).timeout
 func _on_hurt_area_body_exited(body: Node2D) -> void:
 	damage_occuring = false
 func activate():
