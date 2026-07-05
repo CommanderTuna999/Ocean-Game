@@ -19,7 +19,7 @@ var wasattachedthisshot = false
 @onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
-@export var sprint_multiplier: float = 1.2
+@export var sprint_multiplier: float = 1.45
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
 @export var recharge_per_second: float = 20.0
@@ -27,11 +27,11 @@ var wasattachedthisshot = false
 @export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
 #dash
-@export var dash_max: float = 50
+@export var dash_max: float = 70.0
 @export var dash_cost: float = 25.0
-@export var dash_recharge_per_second: float = 15.0
-@export var dash_recharge_delay: float = 0.5
-@export var dash_speed: float = 850
+@export var dash_recharge_per_second: float = 12.5
+@export var dash_recharge_delay: float = 1.0
+@export var dash_speed: float = 1100
 @export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
@@ -45,6 +45,10 @@ var sprint_value: float = sprint_max
 var recharge_timer: float = 0.0
 var is_sprinting: bool = false
 var is_exhausted: bool = false
+
+#test armour
+var armour_DoT: bool = false
+var DoT_strength: float = 0.2
 
 #test save thin
 
@@ -66,6 +70,11 @@ func _ready() -> void:
 		dash_bar.max_value = dash_max
 		dash_bar.value = dash_value
 		dash_bar.show_percentage = false
+	if health_bar:
+		health_bar.min_value = 0
+		health_bar.max_value = max_health
+		health_bar.value = current_health
+		health_bar.show_percentage = false
 	spawnposition = global_position
 
 func _on_harpoon_attached(hitposition):
@@ -294,10 +303,16 @@ func update_dash_bar(delta: float) -> void:
 
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
+@onready var health_bar: ProgressBar = get_tree().current_scene.find_child("healthbar", true, false) as ProgressBar
+var regen_delay = 5.0
+var regen_per_second = 25.0
+var time_since_damage = 0.0
+var displayed_health = 500.0
+var max_health = 500
 var current_health = 500
 var damage_occuring = false
 var iframe_duration = 0.2
-var clownfish_damage = 1
+var clownfish_damage = 5
 var shark_damage = 150
 
 #sprint stuff below
@@ -357,11 +372,43 @@ func update_sprint_bar() -> void:
 		sprint_bar.value = sprint_value
 
 func _process(delta):
-	health_label.text = str(current_health)
+	handle_health_regen(delta)
+	update_health_ui(delta)
+
 	if current_health <= 0:
 		get_tree().call_deferred("reload_current_scene")
 		
-		
+func handle_health_regen(delta: float) -> void:
+	if current_health >= max_health:
+		current_health = max_health
+		return
+
+	time_since_damage += delta
+
+	if time_since_damage >= regen_delay:
+		current_health += regen_per_second * delta
+		current_health = min(current_health, max_health)
+
+func update_health_ui(delta: float) -> void:
+	if displayed_health > current_health:
+		displayed_health = current_health
+	else:
+		displayed_health = move_toward(
+			displayed_health,
+			current_health,
+			regen_per_second * delta
+		)
+
+	health_label.text = str(roundi(displayed_health))
+
+	if health_bar:
+		health_bar.value = displayed_health
+
+
+func take_player_damage(amount: float) -> void:
+	current_health -= amount
+	current_health = max(current_health, 0)
+	time_since_damage = 0.0
 func _on_hurt_area_body_entered(body: Node2D) -> void:
 	if not is_instance_valid(body):
 		return
@@ -389,10 +436,17 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 			).normalized()
 			
 		velocity += kbdirection * kbstrength
-			
-		current_health -= damage
-		health_label.text = str(current_health)
-		await get_tree().create_timer(iframe_duration).timeout
 		
+		if armour_DoT == false:
+			take_player_damage(damage)
+			await get_tree().create_timer(iframe_duration).timeout
+		else:
+			while damage >= damage * DoT_strength:
+				take_player_damage(damage * DoT_strength)
+				damage -= damage * DoT_strength
+				await get_tree().create_timer(DoT_strength * 0.75).timeout
 func _on_hurt_area_body_exited(body: Node2D) -> void:
 	damage_occuring = false
+func activate():
+	armour_DoT = true
+	

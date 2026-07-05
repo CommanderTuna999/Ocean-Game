@@ -5,7 +5,7 @@
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
-var speed = 250
+var speed = 185
 var damage_occuring = false
 var aggro = false
 var chase_subject = null
@@ -18,9 +18,9 @@ var kbvelocity = Vector2.ZERO
 func _process(_delta): #x axis flipping for now
 	
 	if not chase_subject == null and chase_subject.position.x > position.x:
-		animated_sprite_2d.flip_h = false
-	elif not chase_subject == null and chase_subject.position.x < position.x:
 		animated_sprite_2d.flip_h = true
+	elif not chase_subject == null and chase_subject.position.x < position.x:
+		animated_sprite_2d.flip_h = false
 	
 	
 	if current_health <= 0:

@@ -5,6 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="5_7lihs"]
 [ext_resource type="PackedScene" uid="uid://ugr4xifmou0g" path="res://Scenes/weapon.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://b7brt10lbkmsj" path="res://Scenes/tile_map.tscn" id="5_fgofq"]
+[ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scenes/test_armour_1.gd" id="6_2irst"]
+[ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
+[ext_resource type="Script" uid="uid://by4l5aip8ooh3" path="res://Scenes/sprite_2d(test_armour).gd" id="8_71axn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
+size = Vector2(75, 73)
 
 [node name="Game" type="Node2D" unique_id=1539891490]
 
@@ -38,6 +44,13 @@ offset_top = 1222.0
 offset_right = 165.0
 offset_bottom = 1667.0
 fill_mode = 3
+
+[node name="healthbar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=67947207]
+offset_left = 59.0
+offset_top = 69.0
+offset_right = 313.0
+offset_bottom = 96.0
+max_value = 500.0
 
 [node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 
@@ -323,3 +336,17 @@ position = Vector2(-3079, -295)
 [node name="shark2" parent="." unique_id=1885016026 instance=ExtResource("5_7lihs")]
 position = Vector2(5182, 1907)
 scale = Vector2(2.8872721, 2.8287535)
+
+[node name="DoT_Armour" type="Area2D" parent="." unique_id=1432841927 node_paths=PackedStringArray("target_node")]
+script = ExtResource("6_2irst")
+target_node = NodePath("../Player")
+
+[node name="Sprite2D" type="Sprite2D" parent="DoT_Armour" unique_id=1993723288]
+position = Vector2(-3925, 879)
+scale = Vector2(0.4921875, 0.5234375)
+texture = ExtResource("7_bf53h")
+script = ExtResource("8_71axn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoT_Armour" unique_id=1909451576]
+position = Vector2(-3928.5, 878.5)
+shape = SubResource("RectangleShape2D_2irst")
