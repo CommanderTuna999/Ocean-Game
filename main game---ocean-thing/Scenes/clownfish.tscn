@@ -1,18 +1,67 @@
 [gd_scene format=3 uid="uid://ony1pqjkvd1j"]
 
 [ext_resource type="Script" uid="uid://betccsn6p7yww" path="res://Scripts/clownfish.gd" id="1_8g0i4"]
-[ext_resource type="Texture2D" uid="uid://c3wsl0ix240it" path="res://Assets/pixel-art-tropical-fish-pixelated-sea-fish-ocean-sea-fish-icons-background-pixelated-for-the-pixel-art-game-and-icon-for-website-and-video-game-old-school-retro-vector-removebg-preview.png" id="2_8g0i4"]
+[ext_resource type="Texture2D" uid="uid://dtb2d3j1bnguo" path="res://Assets/spritesheet_clownfish(idle).png" id="2_wx3q7"]
 [ext_resource type="Script" uid="uid://dmd61flg7jy52" path="res://Scripts/Hurtbox.gd" id="3_wx3q7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nub35"]
-atlas = ExtResource("2_8g0i4")
-region = Rect2(0, 0, 500, 500)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldcme"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(0, 0, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3qtr"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(265, 0, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kp57"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(530, 0, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4c5p"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(795, 0, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g83k4"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(0, 179, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fryej"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(265, 179, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash8v"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(530, 179, 265, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n2jo"]
+atlas = ExtResource("2_wx3q7")
+region = Rect2(795, 179, 265, 179)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qi2p4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nub35")
+"texture": SubResource("AtlasTexture_ldcme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3qtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7kp57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4c5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g83k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fryej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n2jo")
 }],
 "loop": true,
 "name": &"default",
@@ -100,6 +149,7 @@ z_index = 3
 position = Vector2(-0.5390587, -0.46092606)
 scale = Vector2(0.118156224, 0.118156224)
 sprite_frames = SubResource("SpriteFrames_qi2p4")
+frame_progress = 0.6548013
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121136378]
 position = Vector2(-0.5, 0)
