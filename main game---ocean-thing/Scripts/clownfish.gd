@@ -18,9 +18,9 @@ var kbvelocity = Vector2.ZERO
 func _process(_delta): #x axis flipping for now
 	
 	if not chase_subject == null and chase_subject.position.x > position.x:
-		animated_sprite_2d.flip_h = false
-	elif not chase_subject == null and chase_subject.position.x < position.x:
 		animated_sprite_2d.flip_h = true
+	elif not chase_subject == null and chase_subject.position.x < position.x:
+		animated_sprite_2d.flip_h = false
 	
 	
 	if current_health <= 0:
