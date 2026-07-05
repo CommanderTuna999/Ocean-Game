@@ -48,7 +48,11 @@ var is_exhausted: bool = false
 
 #test armour
 var armour_DoT: bool = false
-var DoT_strength: float = 0.2
+var DoT_strength: float = 0.2 + (armour_DoT_level * 0.05)
+var armour_DoT_level: float = 0
+var can_level_up_N: bool = false
+
+#testing armour levels
 
 #test save thin
 
@@ -374,7 +378,17 @@ func update_sprint_bar() -> void:
 func _process(delta):
 	handle_health_regen(delta)
 	update_health_ui(delta)
-
+	
+	#armour testing level thing
+	if Input.is_action_just_pressed("armour_level_test"):
+		can_level_up_N = false
+		armour_DoT_level += 1
+		DoT_strength += (armour_DoT_level * 0.05)
+		get_tree().current_scene.get_node("UI/CanvasLayer/LevelUpLabel").show_level_up(armour_DoT_level)
+		
+		await get_tree().create_timer(0.5).timeout
+		can_level_up_N = true
+		
 	if current_health <= 0:
 		get_tree().call_deferred("reload_current_scene")
 		
@@ -441,12 +455,12 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 			take_player_damage(damage)
 			await get_tree().create_timer(iframe_duration).timeout
 		else:
-			while damage >= damage * DoT_strength:
+			var maxdamage = damage
+			while damage >= maxdamage * DoT_strength:
 				take_player_damage(damage * DoT_strength)
-				damage -= damage * DoT_strength
-				await get_tree().create_timer(DoT_strength * 0.75).timeout
+				damage -= damage * DoT_strength 
+				await get_tree().create_timer(DoT_strength * 4.0).timeout
 func _on_hurt_area_body_exited(body: Node2D) -> void:
 	damage_occuring = false
 func activate():
 	armour_DoT = true
-	
