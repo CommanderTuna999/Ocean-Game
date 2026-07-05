@@ -107,7 +107,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh265"]
@@ -127,6 +127,8 @@ position = Vector2(1.7464447, -0.45455933)
 scale = Vector2(0.15568553, 0.15568554)
 sprite_frames = SubResource("SpriteFrames_igrcy")
 autoplay = "default"
+frame = 9
+frame_progress = 0.40809357
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1047626844]
 scale = Vector2(0.8, 0.8)
@@ -135,9 +137,10 @@ shape = SubResource("RectangleShape2D_sh265")
 [node name="HarpoonRaycast" type="RayCast2D" parent="." unique_id=791540821]
 scale = Vector2(2, 2)
 target_position = Vector2(0, 0)
-collision_mask = 8
+collision_mask = 12
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=199357329]
+zoom = Vector2(1.2, 1.2)
 
 [node name="HarpoonLine" type="Line2D" parent="." unique_id=284341442]
 visible = false
@@ -145,7 +148,7 @@ width = 1.0
 
 [node name="hurt_area" type="Area2D" parent="." unique_id=472346282]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_area" unique_id=1919571177]
 position = Vector2(0.10915305, 1.0430813e-07)
