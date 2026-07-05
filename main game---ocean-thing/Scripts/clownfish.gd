@@ -36,6 +36,7 @@ func _process(_delta): #x axis flipping for now
 func _on_aggro_area_body_entered(body):
 	chase_subject = body
 	aggro = true
+	animation_player.play("aggro")
 	print('entered')
 	
 	
