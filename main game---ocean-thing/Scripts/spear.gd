@@ -4,10 +4,10 @@ var direction = "right"
 var attacking:= false
 var mouse_pos := Vector2.ZERO
 var direction_to_mouse := Vector2.ZERO
-const winduptime = 0.1
+const winduptime = 0.05
 const attacktime := 0.1
 const attackcooldown := 0.25
-const spearoffset := 15
+const spearoffset := 20
 func _ready() -> void:
 	$TemplateHitbox/CollisionShape2D.disabled = true
 func _process(delta: float) -> void:

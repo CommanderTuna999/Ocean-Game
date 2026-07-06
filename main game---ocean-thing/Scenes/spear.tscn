@@ -19,3 +19,9 @@ metadata/_custom_type_script = "uid://cwkj4oue3o6jv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHitbox" unique_id=870998502]
 shape = SubResource("RectangleShape2D_y4joh")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1438464616]
+offset_left = -15.0
+offset_top = -5.0
+offset_right = 15.0
+offset_bottom = 5.0

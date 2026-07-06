@@ -21,7 +21,7 @@ position = Vector2(-3920, 844)
 collision_mask = 2
 
 [node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
-position = Vector2(0.8732259, 0.22728151)
+position = Vector2(-0.21830654, 0.45456308)
 
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
