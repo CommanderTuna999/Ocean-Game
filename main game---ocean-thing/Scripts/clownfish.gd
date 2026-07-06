@@ -67,10 +67,14 @@ func take_damage(amount: int):
 	
 
 # knockback script below
-func _on_template_hurtbox_area_entered(area: Area2D) -> void:
-	var kbdirection = (global_position - area.global_position).normalized()
+func take_kb(source_position: Vector2):
+	var kbdirection = (global_position - source_position).normalized()
 	kbvelocity = kbdirection * 600
 	kbtime = 0.12
+#func _on_template_hurtbox_area_entered(area: Area2D) -> void:
+	#var kbdirection = (global_position - area.global_position).normalized()
+	#kbvelocity = kbdirection * 600
+	#kbtime = 0.12
 
 
 

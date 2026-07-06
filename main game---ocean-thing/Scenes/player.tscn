@@ -123,7 +123,7 @@ script = ExtResource("1_v0iea")
 harpoonprojectilescene = ExtResource("2_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2065512983]
-position = Vector2(1.7464447, -0.45455933)
+position = Vector2(1.1920929e-07, -2.9802322e-08)
 scale = Vector2(0.15568553, 0.15568554)
 sprite_frames = SubResource("SpriteFrames_igrcy")
 autoplay = "default"
@@ -145,6 +145,7 @@ zoom = Vector2(1.2, 1.2)
 [node name="HarpoonLine" type="Line2D" parent="." unique_id=284341442]
 visible = false
 width = 1.0
+default_color = Color(0.98997515, 0.7299793, 0.17306665, 1)
 
 [node name="hurt_area" type="Area2D" parent="." unique_id=472346282]
 collision_layer = 2

@@ -227,6 +227,7 @@ scale = Vector2(0.4218192, 0.4218192)
 shape = SubResource("CircleShape2D_8g0i4")
 
 [node name="TemplateHurtbox" type="Area2D" parent="." unique_id=567805197]
+collision_layer = 1024
 script = ExtResource("3_wx3q7")
 metadata/_custom_type_script = "uid://dmd61flg7jy52"
 

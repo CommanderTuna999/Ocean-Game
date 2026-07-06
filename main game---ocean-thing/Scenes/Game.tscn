@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bgqp8w4nt7h7l"]
 
 [ext_resource type="PackedScene" uid="uid://bdqbpmxw31kbp" path="res://Scenes/player.tscn" id="1_gl6un"]
+[ext_resource type="PackedScene" uid="uid://bj7ldtrm577dp" path="res://Scenes/spear.tscn" id="2_71axn"]
 [ext_resource type="Script" uid="uid://cjstsrn0kl0mb" path="res://Scripts/canvaslayer_popups.gd" id="3_bf53h"]
 [ext_resource type="Script" uid="uid://ffyg2qo1fclc" path="res://Scripts/armour_level_label.gd" id="4_71axn"]
 [ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="5_7lihs"]
-[ext_resource type="PackedScene" uid="uid://ugr4xifmou0g" path="res://Scenes/weapon.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://b7brt10lbkmsj" path="res://Scenes/tile_map.tscn" id="5_fgofq"]
 [ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scripts/test_armour_1.gd" id="6_2irst"]
 [ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
@@ -20,9 +20,8 @@ size = Vector2(75, 73)
 position = Vector2(-3920, 844)
 collision_mask = 2
 
-[node name="Weapon" parent="Player" unique_id=855850943 instance=ExtResource("5_b2bpf")]
-position = Vector2(4.8026733, 3.4092407)
-scale = Vector2(0.2183065, 0.22728147)
+[node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
+position = Vector2(0.8732259, 0.22728151)
 
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 

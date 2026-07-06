@@ -1,3 +1,10 @@
+#everyone will look at this script eventually so important info:
+#Layer 1 = Player
+#Layer 2 = Walls
+#Layer 3 = HarpoonProjectile
+
+#Layer 11 = Enemies hurtbox
+
 extends CharacterBody2D
 var maxharpoonspeed = 1100
 var harpooning = false

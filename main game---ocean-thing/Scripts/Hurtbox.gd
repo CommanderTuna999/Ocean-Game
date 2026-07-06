@@ -21,6 +21,8 @@ func _on_area_entered(hitbox: TemplateHitbox) -> void:
 	
 	
 	
-	if owner.has_method("take_damage"): #may need to rename function at some point to match actual name of function 
+	if owner.has_method("take_damage"):
 		owner.take_damage(hitbox.damage)
-		await get_tree().create_timer(0.1).timeout
+
+	if owner.has_method("take_kb"):
+		owner.take_kb(hitbox.global_position)

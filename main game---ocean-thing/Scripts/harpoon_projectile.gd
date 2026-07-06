@@ -6,6 +6,7 @@ var wowattached = false
 signal attached(hitposition)	
 func _ready():
 	$ColorRect.rotation = direction.angle()
+	$HarpoonTip.rotation = direction.angle()
 
 
 func _physics_process(delta: float) -> void:
