@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bj7ldtrm577dp"]
+
+[ext_resource type="Script" uid="uid://kgv6iidjbhru" path="res://Scripts/spear.gd" id="1_7nbcr"]
+[ext_resource type="Script" uid="uid://cwkj4oue3o6jv" path="res://Scripts/Hitbox.gd" id="2_y4joh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4joh"]
+size = Vector2(31.5, 10.5)
+
+[node name="Spear" type="Node2D" unique_id=1804206196]
+script = ExtResource("1_7nbcr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=951166951]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=869074998]
+
+[node name="TemplateHitbox" type="Area2D" parent="." unique_id=1861446660]
+script = ExtResource("2_y4joh")
+metadata/_custom_type_script = "uid://cwkj4oue3o6jv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHitbox" unique_id=870998502]
+shape = SubResource("RectangleShape2D_y4joh")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1438464616]
+offset_left = -15.0
+offset_top = -5.0
+offset_right = 15.0
+offset_bottom = 5.0
