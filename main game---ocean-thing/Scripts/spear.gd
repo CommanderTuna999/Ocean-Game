@@ -1,6 +1,7 @@
 extends Node2D
 
 var direction = "right"
+var restside = "right"
 var attacking:= false
 var mouse_pos := Vector2.ZERO
 var direction_to_mouse := Vector2.ZERO
@@ -8,8 +9,13 @@ const winduptime = 0.05
 const attacktime := 0.1
 const attackcooldown := 0.25
 const spearoffset := 20
+const handoffset := 8
+@onready var attackpivot = $AttackPivot
+@onready var spearsprite = $AttackPivot/AnimatedSprite2D
+@onready var hitboxshape = $AttackPivot/TemplateHitbox/CollisionShape2D
 func _ready() -> void:
-	$TemplateHitbox/CollisionShape2D.disabled = true
+	attackpivot.position = Vector2(handoffset, 0)
+	hitboxshape.disabled = true
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click") and not attacking:
 		mouse_pos = get_global_mouse_position()
@@ -17,8 +23,12 @@ func _process(delta: float) -> void:
 		if abs(direction_to_mouse.x) > abs(direction_to_mouse.y):
 			if direction_to_mouse.x >= 0:
 				direction = "right"
+				get_parent().forcefaceside("right")
+				restside = "right"
 			else:
 				direction = "left"
+				get_parent().forcefaceside("left")
+				restside = "left"
 		else:
 			if direction_to_mouse.y >= 0:
 				direction = "down"
@@ -29,23 +39,42 @@ func _process(delta: float) -> void:
 
 func attack():
 	attacking = true
+	get_parent().facinglocked = true
 	match direction:
 		"right":
-			$TemplateHitbox/CollisionShape2D.position = Vector2(spearoffset, 0)
-			$TemplateHitbox/CollisionShape2D.rotation = deg_to_rad(0)
+			$AttackPivot.position = Vector2(spearoffset, 0)
+			$AttackPivot.rotation = deg_to_rad(0)
 		"left":
-			$TemplateHitbox/CollisionShape2D.position = Vector2(-spearoffset, 0)
-			$TemplateHitbox/CollisionShape2D.rotation = deg_to_rad(0)
+			$AttackPivot.position = Vector2(-spearoffset, 0)
+			$AttackPivot.rotation = deg_to_rad(180)
 		"up":
-			$TemplateHitbox/CollisionShape2D.position = Vector2(0,-spearoffset)
-			$TemplateHitbox/CollisionShape2D.rotation = deg_to_rad(90)
+			$AttackPivot.position = Vector2(0,-spearoffset)
+			$AttackPivot.rotation = deg_to_rad(-90)
 		"down":
-			$TemplateHitbox/CollisionShape2D.position = Vector2(0, spearoffset)
-			$TemplateHitbox/CollisionShape2D.rotation = deg_to_rad(-90)
+			$AttackPivot.position = Vector2(0, spearoffset)
+			$AttackPivot.rotation = deg_to_rad(90)
 	await get_tree().create_timer(winduptime).timeout
-	$TemplateHitbox/CollisionShape2D.disabled = false
+	$AttackPivot/AnimatedSprite2D.play("thrust")
+	$AttackPivot/TemplateHitbox/CollisionShape2D.disabled = false
 	await get_tree().create_timer(attacktime).timeout
-	$TemplateHitbox/CollisionShape2D.disabled = true
+	hitboxshape.disabled = true
 	await get_tree().create_timer(attackcooldown).timeout
+	returntorest()
+	get_parent().facinglocked = false
 	attacking = false
 	
+func returntorest():
+	if restside == "right":
+		attackpivot.position = Vector2(handoffset, 0)
+		attackpivot.rotation = deg_to_rad(0)
+	else:
+		attackpivot.position = Vector2(-handoffset, 0)
+		attackpivot.rotation = deg_to_rad(180)
+		
+		
+func setrestside(newside: String):
+	if attacking:
+		return
+	
+	restside = newside
+	returntorest()

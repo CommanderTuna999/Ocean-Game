@@ -20,6 +20,7 @@ var currentaccel = accel
 const JUMP_VELOCITY = -400.0
 var harpooonmaxrange = 1000
 var wasattachedthisshot = false
+var facinglocked = false
 @export var harpoonprojectilescene: PackedScene
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 #sprint
@@ -85,8 +86,9 @@ func _ready() -> void:
 		health_bar.min_value = 0
 		health_bar.max_value = max_health
 		health_bar.value = current_health
-		health_bar.show_percentage = false
+		#health_bar.show_percentage = false
 	spawnposition = global_position
+
 
 func _on_harpoon_attached(hitposition):
 	wasattachedthisshot = true
@@ -187,12 +189,13 @@ func _physics_process(delta: float) -> void:
 #
 	#move_and_slide()
 	var currentaccel = accel
+
 	#sprite flipping stuff below
 	if direction.x > 0: 
-		animated_sprite_2d.flip_h = false
+		faceside("right")
 	elif direction.x < 0:
-		animated_sprite_2d.flip_h = true
-	#sprite flipping ends here, please depart from the train
+		faceside("left")
+	#sprite flipping ends here, please depart from the train. Functions await below
 
 	
 	if harpooning:
@@ -255,6 +258,24 @@ func _physics_process(delta: float) -> void:
 	if crashed:
 		velocity *= 0.7
 
+func faceside(side):
+	if facinglocked:
+		return
+	if side == "right":
+		animated_sprite_2d.flip_h = false
+		$Spear.setrestside("right")
+	elif side == "left":
+		animated_sprite_2d.flip_h = true
+		$Spear.setrestside("left")
+	
+func forcefaceside(side):
+	if side == "right":
+		animated_sprite_2d.flip_h = false
+		$Spear.setrestside("right")
+	elif side == "left":
+		animated_sprite_2d.flip_h = true
+		$Spear.setrestside("left")
+		
 func handle_dash(delta: float, direction: Vector2) -> void:
 	if is_dashing:
 		dash_timer -= delta
@@ -314,17 +335,17 @@ func update_dash_bar(delta: float) -> void:
 
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
-@onready var health_bar: ProgressBar = get_tree().current_scene.find_child("healthbar", true, false) as ProgressBar
-var regen_delay = 5.0
-var regen_per_second = 25.0
+@onready var health_bar: TextureProgressBar = get_tree().current_scene.find_child("HealthBeams", true, false) as TextureProgressBar
+var regen_delay = 1
+var regen_per_second = 5
 var time_since_damage = 0.0
-var displayed_health = 500.0
-var max_health = 500
-var current_health = 500
+var displayed_health = 100
+var max_health = 100
+var current_health = 100
 var damage_occuring = false
 var iframe_duration = 0.2
-var clownfish_damage = 5
-var shark_damage = 150
+var clownfish_damage = 1
+var shark_damage = 25
 
 #sprint stuff below
 func handle_sprint(delta: float, direction: Vector2) -> void:

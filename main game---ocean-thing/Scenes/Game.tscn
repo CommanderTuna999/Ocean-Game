@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bj7ldtrm577dp" path="res://Scenes/spear.tscn" id="2_71axn"]
 [ext_resource type="Script" uid="uid://cjstsrn0kl0mb" path="res://Scripts/canvaslayer_popups.gd" id="3_bf53h"]
 [ext_resource type="Script" uid="uid://ffyg2qo1fclc" path="res://Scripts/armour_level_label.gd" id="4_71axn"]
+[ext_resource type="Texture2D" uid="uid://bmrtlnac8wc08" path="res://Assets/Health_bar.png" id="4_dahhg"]
 [ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="5_7lihs"]
 [ext_resource type="PackedScene" uid="uid://b7brt10lbkmsj" path="res://Scenes/tile_map.tscn" id="5_fgofq"]
@@ -28,6 +29,32 @@ position = Vector2(-0.21830654, 0.45456308)
 [node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
 script = ExtResource("3_bf53h")
 
+[node name="Control" type="Control" parent="UI/CanvasLayer" unique_id=615900150]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EmptyBeams" type="TextureRect" parent="UI/CanvasLayer/Control" unique_id=1105062498]
+modulate = Color(0, 0, 0.2784314, 1)
+layout_mode = 0
+offset_left = 60.0
+offset_top = -20.0
+offset_right = 1371.0
+offset_bottom = 746.0
+scale = Vector2(0.32, 0.314)
+texture = ExtResource("4_dahhg")
+
+[node name="HealthBeams" type="TextureProgressBar" parent="UI/CanvasLayer/Control" unique_id=772302586]
+layout_mode = 0
+offset_left = 60.0
+offset_top = -20.000002
+offset_right = 1371.0
+offset_bottom = 746.0
+scale = Vector2(0.31999847, 0.31376988)
+value = 50.0
+texture_progress = ExtResource("4_dahhg")
+
 [node name="health_label" type="Label" parent="UI/CanvasLayer" unique_id=1764853478]
 offset_left = 63.0
 offset_top = 25.0
@@ -47,14 +74,6 @@ offset_top = 1222.0
 offset_right = 165.0
 offset_bottom = 1667.0
 fill_mode = 3
-
-[node name="healthbar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=67947207]
-offset_left = 59.0
-offset_top = 69.0
-offset_right = 313.0
-offset_bottom = 96.0
-max_value = 500.0
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="UI/CanvasLayer" unique_id=855191754]
 visible = false
