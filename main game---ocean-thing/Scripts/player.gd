@@ -337,7 +337,8 @@ func update_dash_bar(delta: float) -> void:
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
 @onready var health_bar: TextureProgressBar = get_tree().current_scene.find_child("HealthBeams", true, false) as TextureProgressBar
 @onready var healthanim = get_tree().current_scene.find_child("HealthAnimationPlayer", true, false)
-@onready var hitparticles = get_tree().current_scene.find_child("HitParticles", true, false)
+@onready var hitparticlesA: GPUParticles2D = get_tree().current_scene.find_child("HitParticlesA", true, false)
+@onready var hitparticlesB: GPUParticles2D = get_tree().current_scene.find_child("HitParticlesB", true, false)
 var regen_delay = 1
 var regen_per_second = 5
 var time_since_damage = 0.0
@@ -459,9 +460,14 @@ func take_player_damage(amount: float) -> void:
 	var startpos = health_bar.global_position
 	var endx = startpos.x + health_bar.size.x * health_bar.scale.x * healthpercent
 	var midy = startpos.y + health_bar.size.y * health_bar.scale.y / 2
-	hitparticles.global_position = Vector2(endx, midy)
-	hitparticles.restart()
-	hitparticles.emitting = true
+	var distance_from_end = 1.0 - healthpercent
+	var straight_part = 0.02
+	var edgefade = clamp((distance_from_end - straight_part) * 7.0, 0.0, 1.0)
+	var wave = sin(healthpercent * TAU * 3.5) * 18 * edgefade
+	hitparticlesA.global_position = Vector2(endx, midy + wave)
+	hitparticlesB.global_position = Vector2(endx, midy - wave)
+	hitparticlesA.restart()
+	hitparticlesB.restart()
 	time_since_damage = 0.0
 func _on_hurt_area_body_entered(body: Node2D) -> void:
 	if not is_instance_valid(body):
