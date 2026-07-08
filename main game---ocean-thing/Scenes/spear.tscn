@@ -4,21 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://b5yjblxcdda77" path="res://Assets/spear thrust spritesheet.png" id="2_i4w2o"]
 [ext_resource type="Script" uid="uid://cwkj4oue3o6jv" path="res://Scripts/Hitbox.gd" id="2_y4joh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4qxn"]
-atlas = ExtResource("2_i4w2o")
-region = Rect2(1845, 0, 615, 99)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qmmw"]
 atlas = ExtResource("2_i4w2o")
 region = Rect2(615, 99, 615, 99)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_elm5i"]
-atlas = ExtResource("2_i4w2o")
-region = Rect2(0, 99, 615, 99)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyp3s"]
-atlas = ExtResource("2_i4w2o")
-region = Rect2(1230, 0, 615, 99)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aw4tk"]
 atlas = ExtResource("2_i4w2o")
@@ -28,7 +16,15 @@ region = Rect2(615, 0, 615, 99)
 atlas = ExtResource("2_i4w2o")
 region = Rect2(0, 0, 615, 99)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4w2o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyp3s"]
+atlas = ExtResource("2_i4w2o")
+region = Rect2(1230, 0, 615, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elm5i"]
+atlas = ExtResource("2_i4w2o")
+region = Rect2(0, 99, 615, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4qxn"]
 atlas = ExtResource("2_i4w2o")
 region = Rect2(1845, 0, 615, 99)
 
@@ -36,16 +32,7 @@ region = Rect2(1845, 0, 615, 99)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t4qxn")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_1qmmw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_elm5i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kyp3s")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aw4tk")
@@ -54,11 +41,17 @@ animations = [{
 "texture": SubResource("AtlasTexture_7i3wf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i4w2o")
+"texture": SubResource("AtlasTexture_kyp3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elm5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4qxn")
 }],
 "loop": false,
 "name": &"thrust",
-"speed": 15.0
+"speed": 35.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4joh"]
@@ -73,7 +66,7 @@ script = ExtResource("1_7nbcr")
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_vrs0w")
 animation = &"thrust"
-frame = 6
+frame = 4
 frame_progress = 1.0
 
 [node name="TemplateHitbox" type="Area2D" parent="AttackPivot" unique_id=1861446660]
