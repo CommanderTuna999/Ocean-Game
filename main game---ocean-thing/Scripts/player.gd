@@ -336,6 +336,8 @@ func update_dash_bar(delta: float) -> void:
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
 @onready var health_bar: TextureProgressBar = get_tree().current_scene.find_child("HealthBeams", true, false) as TextureProgressBar
+@onready var healthanim = get_tree().current_scene.find_child("HealthAnimationPlayer", true, false)
+@onready var hitparticles = get_tree().current_scene.find_child("HitParticles", true, false)
 var regen_delay = 1
 var regen_per_second = 5
 var time_since_damage = 0.0
@@ -432,16 +434,16 @@ func handle_health_regen(delta: float) -> void:
 		current_health = min(current_health, max_health)
 
 func update_health_ui(delta: float) -> void:
-	if displayed_health > current_health:
-		displayed_health = current_health
-	else:
-		displayed_health = move_toward(
-			displayed_health,
-			current_health,
-			regen_per_second * delta
-		)
-
-	health_label.text = str(roundi(displayed_health))
+	#if displayed_health > current_health:
+	displayed_health = current_health
+	#else:
+		##displayed_health = move_toward(
+			##displayed_health,
+			##current_health,
+			##regen_per_second * delta
+		##)
+	if health_label:
+		health_label.text = str(roundi(displayed_health))
 
 	if health_bar:
 		health_bar.value = displayed_health
@@ -450,6 +452,16 @@ func update_health_ui(delta: float) -> void:
 func take_player_damage(amount: float) -> void:
 	current_health -= amount
 	current_health = max(current_health, 0)
+	if healthanim:
+		healthanim.stop()
+		healthanim.play("damageflash")
+	var healthpercent = float(current_health) / float(max_health)
+	var startpos = health_bar.global_position
+	var endx = startpos.x + health_bar.size.x * health_bar.scale.x * healthpercent
+	var midy = startpos.y + health_bar.size.y * health_bar.scale.y / 2
+	hitparticles.global_position = Vector2(endx, midy)
+	hitparticles.restart()
+	hitparticles.emitting = true
 	time_since_damage = 0.0
 func _on_hurt_area_body_entered(body: Node2D) -> void:
 	if not is_instance_valid(body):
