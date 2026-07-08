@@ -461,8 +461,8 @@ func take_player_damage(amount: float) -> void:
 	var endx = startpos.x + health_bar.size.x * health_bar.scale.x * healthpercent
 	var midy = startpos.y + health_bar.size.y * health_bar.scale.y / 2
 	var distance_from_end = 1.0 - healthpercent
-	var straight_part = 0.02
-	var edgefade = clamp((distance_from_end - straight_part) * 7.0, 0.0, 1.0)
+	var straight_part = 0.1
+	var edgefade = clamp((distance_from_end - straight_part) * 100, 0.0, 1.0)
 	var wave = sin(healthpercent * TAU * 3.5) * 18 * edgefade
 	hitparticlesA.global_position = Vector2(endx, midy + wave)
 	hitparticlesB.global_position = Vector2(endx, midy - wave)
