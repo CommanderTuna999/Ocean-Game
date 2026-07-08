@@ -6,11 +6,129 @@
 [ext_resource type="Script" uid="uid://ffyg2qo1fclc" path="res://Scripts/armour_level_label.gd" id="4_71axn"]
 [ext_resource type="Texture2D" uid="uid://bmrtlnac8wc08" path="res://Assets/Health_bar.png" id="4_dahhg"]
 [ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
+[ext_resource type="Texture2D" uid="uid://dcp1jfbn6oa0r" path="res://Assets/Placeholder particle.png" id="5_3so38"]
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="5_7lihs"]
 [ext_resource type="PackedScene" uid="uid://b7brt10lbkmsj" path="res://Scenes/tile_map.tscn" id="5_fgofq"]
 [ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scripts/test_armour_1.gd" id="6_2irst"]
 [ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
 [ext_resource type="Script" uid="uid://by4l5aip8ooh3" path="res://Scripts/sprite_2d(test_armour).gd" id="8_71axn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
+particle_flag_disable_z = true
+spread = 30.0
+initial_velocity_min = 15.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.04
+scale_max = 0.04
+
+[sub_resource type="Animation" id="Animation_dahhg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBeams:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EmptyBeams:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0.2784314, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HealthBeams:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.31999847, 0.31376988)]
+}
+
+[sub_resource type="Animation" id="Animation_3so38"]
+resource_name = "damageflash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBeams:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1.353256, 1.353256, 1.353256, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EmptyBeams:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0.2784314, 1), Color(0, 0, 0.1947913, 1), Color(0, 0, 0.2801495, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, -1), Vector2(-2, 1), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("HealthBeams:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.31999847, 0.31376988), Vector2(0.336, 0.33), Vector2(0.32, 0.314)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3cx6b"]
+_data = {
+&"RESET": SubResource("Animation_dahhg"),
+&"damageflash": SubResource("Animation_3so38")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
 size = Vector2(75, 73)
@@ -29,13 +147,13 @@ position = Vector2(-0.21830654, 0.45456308)
 [node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
 script = ExtResource("3_bf53h")
 
-[node name="Control" type="Control" parent="UI/CanvasLayer" unique_id=615900150]
+[node name="HealthHUD" type="Control" parent="UI/CanvasLayer" unique_id=615900150]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="EmptyBeams" type="TextureRect" parent="UI/CanvasLayer/Control" unique_id=1105062498]
+[node name="EmptyBeams" type="TextureRect" parent="UI/CanvasLayer/HealthHUD" unique_id=1105062498]
 modulate = Color(0, 0, 0.2784314, 1)
 layout_mode = 0
 offset_left = 60.0
@@ -45,7 +163,7 @@ offset_bottom = 746.0
 scale = Vector2(0.32, 0.314)
 texture = ExtResource("4_dahhg")
 
-[node name="HealthBeams" type="TextureProgressBar" parent="UI/CanvasLayer/Control" unique_id=772302586]
+[node name="HealthBeams" type="TextureProgressBar" parent="UI/CanvasLayer/HealthHUD" unique_id=772302586]
 layout_mode = 0
 offset_left = 60.0
 offset_top = -20.000002
@@ -54,6 +172,20 @@ offset_bottom = 746.0
 scale = Vector2(0.31999847, 0.31376988)
 value = 50.0
 texture_progress = ExtResource("4_dahhg")
+
+[node name="HitParticles" type="GPUParticles2D" parent="UI/CanvasLayer/HealthHUD" unique_id=1605783747]
+modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
+position = Vector2(474, 100)
+emitting = false
+amount = 6
+texture = ExtResource("5_3so38")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3cx6b")
+
+[node name="HealthAnimationPlayer" type="AnimationPlayer" parent="UI/CanvasLayer/HealthHUD" unique_id=909816099]
+libraries/ = SubResource("AnimationLibrary_3cx6b")
 
 [node name="health_label" type="Label" parent="UI/CanvasLayer" unique_id=1764853478]
 offset_left = 63.0
