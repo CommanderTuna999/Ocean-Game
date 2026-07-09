@@ -2,7 +2,8 @@
 #Layer 1 = Player
 #Layer 2 = Walls
 #Layer 3 = HarpoonProjectile
-
+#Layer 4 = Enemy collision
+#Layer 5 = Weapon
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
@@ -21,6 +22,8 @@ const JUMP_VELOCITY = -400.0
 var harpooonmaxrange = 1000
 var wasattachedthisshot = false
 var facinglocked = false
+var kbtime = 0.0
+var kbvelocity = Vector2.ZERO
 @export var harpoonprojectilescene: PackedScene
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 #sprint
@@ -106,7 +109,11 @@ func _physics_process(delta: float) -> void:
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
-
+	if kbtime > 0:
+		kbtime -= delta
+		velocity = kbvelocity
+		move_and_slide()
+		return
 	#if momentumboosttime  > 0:
 		#momentumboosttime -= delta
 		
@@ -339,15 +346,18 @@ func update_dash_bar(delta: float) -> void:
 @onready var healthanim = get_tree().current_scene.find_child("HealthAnimationPlayer", true, false)
 @onready var hitparticlesA: GPUParticles2D = get_tree().current_scene.find_child("HitParticlesA", true, false)
 @onready var hitparticlesB: GPUParticles2D = get_tree().current_scene.find_child("HitParticlesB", true, false)
+@onready var emptybeams = get_tree().current_scene.find_child("EmptyBeams", true, false)
+var invincible = false
 var regen_delay = 1
-var regen_per_second = 5
+var regen_per_second = 0
 var time_since_damage = 0.0
 var displayed_health = 100
 var max_health = 100
 var current_health = 100
 var damage_occuring = false
-var iframe_duration = 0.2
-var clownfish_damage = 1
+var iframe_duration = 0.6
+var starsaveused = false
+var clownfish_damage = 5
 var shark_damage = 25
 
 #sprint stuff below
@@ -435,8 +445,16 @@ func handle_health_regen(delta: float) -> void:
 		current_health = min(current_health, max_health)
 
 func update_health_ui(delta: float) -> void:
-	#if displayed_health > current_health:
 	displayed_health = current_health
+	var healthpercent = float(displayed_health) / float(max_health)
+	var visual = 100
+	#if displayed_health > current_health:
+	if current_health <= 0:
+		visual = 0
+	elif starsaveused and current_health == 1:
+		visual = 21
+	else:
+		visual = 25 + healthpercent * 75
 	#else:
 		##displayed_health = move_toward(
 			##displayed_health,
@@ -447,19 +465,34 @@ func update_health_ui(delta: float) -> void:
 		health_label.text = str(roundi(displayed_health))
 
 	if health_bar:
-		health_bar.value = displayed_health
+		health_bar.value = visual
 
 
 func take_player_damage(amount: float) -> void:
-	current_health -= amount
-	current_health = max(current_health, 0)
+	if invincible:
+		return
+	if current_health - amount <= 0 and not starsaveused and current_health > 1:
+		current_health = 1
+		starsaveused = true
+		emptybeams.visible = false
+	else:
+		current_health -= amount
+		current_health = max(current_health, 0)
 	if healthanim:
 		healthanim.stop()
 		healthanim.play("damageflash")
 	var healthpercent = float(current_health) / float(max_health)
 	var startpos = health_bar.global_position
-	var endx = startpos.x + health_bar.size.x * health_bar.scale.x * healthpercent
-	var midy = startpos.y + health_bar.size.y * health_bar.scale.y / 2
+	var visualwidth = health_bar.size.x * health_bar.scale.x
+	var visualheight = health_bar.size.y * health_bar.scale.y
+
+	var beamstartx = startpos.x + visualwidth * 0.21
+	var beamwidth = visualwidth * 0.79
+
+	var beampercent = float(current_health) / float(max_health)
+
+	var endx = beamstartx + beamwidth * beampercent
+	var midy = startpos.y + visualheight / 2
 	var distance_from_end = 1.0 - healthpercent
 	var straight_part = 0.1
 	var edgefade = clamp((distance_from_end - straight_part) * 100, 0.0, 1.0)
@@ -469,10 +502,17 @@ func take_player_damage(amount: float) -> void:
 	hitparticlesA.restart()
 	hitparticlesB.restart()
 	time_since_damage = 0.0
+	invincible = true
+	set_collision_mask_value(4, false)
+	await get_tree().create_timer(iframe_duration).timeout
+	set_collision_mask_value(4, true)
+	invincible = false
 func _on_hurt_area_body_entered(body: Node2D) -> void:
 	if not is_instance_valid(body):
 		return
-	
+	if invincible:
+		return
+		
 	var damage = 0
 	var kbstrength = 0
 
@@ -480,7 +520,7 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 	#clownfish
 	if body.is_in_group("clownfish"):
 		damage = clownfish_damage
-		kbstrength = 1000
+		kbstrength = 500
 	elif body.is_in_group("shark"):
 		damage = shark_damage
 		kbstrength = 2000
@@ -490,22 +530,28 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 	
 	damage_occuring = true
 	
-	while damage_occuring and is_instance_valid(body):
-		var kbdirection = (
-			global_position - body.global_position
-			).normalized()
-			
-		velocity += kbdirection * kbstrength
+	var kbdirection = (global_position - body.global_position)
+
+	if kbdirection.length() < 1:
+		kbdirection = -velocity.normalized()
+
+	if kbdirection == Vector2.ZERO:
+		kbdirection = Vector2(1, 0)
+
+	kbdirection = kbdirection.normalized()
+	kbvelocity = kbdirection * kbstrength
+	kbtime = 0.12
+	take_player_damage(damage)
 		
-		if armour_DoT == false:
-			take_player_damage(damage)
-			await get_tree().create_timer(iframe_duration).timeout
-		else:
-			var maxdamage = damage
-			while damage >= maxdamage * DoT_strength:
-				take_player_damage(damage * DoT_strength)
-				damage -= damage * DoT_strength 
-				await get_tree().create_timer(DoT_strength * 4.0).timeout
+	#if armour_DoT == false:
+		#take_player_damage(damage)
+		#await get_tree().create_timer(iframe_duration).timeout
+	#else:
+		#var maxdamage = damage
+		#while damage >= maxdamage * DoT_strength:
+			#take_player_damage(damage * DoT_strength)
+			#damage -= damage * DoT_strength 
+			#await get_tree().create_timer(DoT_strength * 4.0).timeout
 func _on_hurt_area_body_exited(body: Node2D) -> void:
 	damage_occuring = false
 func activate():

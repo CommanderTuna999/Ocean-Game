@@ -9,13 +9,13 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	connect("area_entered", self._on_area_entered) #some sort of signal script
+	connect("area_entered", self._on_area_entered)
 
 
 
 func _on_area_entered(hitbox: TemplateHitbox) -> void:
 	if hitbox == null:
-		return #goes back to start if the hitbox is not detected
+		return
 	
 	
 	

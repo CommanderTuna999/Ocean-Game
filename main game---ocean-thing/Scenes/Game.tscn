@@ -136,7 +136,7 @@ size = Vector2(75, 73)
 
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
 position = Vector2(-3920, 844)
-collision_mask = 2
+collision_mask = 10
 
 [node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
 position = Vector2(-0.21830654, 0.45456308)
@@ -304,7 +304,7 @@ layer_0/tile_data = PackedInt32Array(-3997680, 1, 0, -3997679, 1, 0, -3997678, 1
 [node name="shark_folder" type="Node" parent="." unique_id=1590250480]
 
 [node name="shark" parent="." unique_id=734094540 instance=ExtResource("5_7lihs")]
-position = Vector2(3130, -169)
+position = Vector2(4458, -89)
 
 [node name="DoT_Armour" type="Area2D" parent="." unique_id=1432841927 node_paths=PackedStringArray("target_node")]
 script = ExtResource("6_2irst")
