@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scripts/test_armour_1.gd" id="6_2irst"]
 [ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
 [ext_resource type="Script" uid="uid://by4l5aip8ooh3" path="res://Scripts/sprite_2d(test_armour).gd" id="8_71axn"]
+[ext_resource type="Texture2D" uid="uid://dd8auqqsx1etd" path="res://Assets/Placeholderbgv2.png" id="13_3cx6b"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
@@ -132,11 +133,21 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
 size = Vector2(75, 73)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wxwew"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 50, 1)
+direction = Vector3(0, -1, 0)
+spread = 30.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+scale_min = 0.03
+scale_max = 0.03
+
 [node name="Game" type="Node2D" unique_id=1539891490]
 
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
 position = Vector2(-3920, 844)
-collision_mask = 10
 
 [node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
 position = Vector2(-0.21830654, 0.45456308)
@@ -319,3 +330,26 @@ script = ExtResource("8_71axn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoT_Armour" unique_id=1909451576]
 position = Vector2(-4235, 780)
 shape = SubResource("RectangleShape2D_2irst")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1139349716]
+color = Color(0.8327273, 0.86699224, 0.9217689, 1)
+
+[node name="BackgroundParallex" type="Parallax2D" parent="." unique_id=806147997]
+scale = Vector2(0.28337643, 0.28337643)
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="DistantSilhoutte" type="Sprite2D" parent="BackgroundParallex" unique_id=1700195247]
+modulate = Color(0.23784047, 0.37488055, 0.5483943, 1)
+z_index = -10
+position = Vector2(3807.6567, -8885.707)
+scale = Vector2(25.928474, 28.071966)
+texture = ExtResource("13_3cx6b")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=743130315]
+modulate = Color(0.24113, 0.46937478, 0.999983, 0.99607843)
+position = Vector2(-3461, -285.99994)
+scale = Vector2(9.006215, 28.640003)
+amount = 250
+texture = ExtResource("5_3so38")
+lifetime = 8.0
+process_material = SubResource("ParticleProcessMaterial_wxwew")

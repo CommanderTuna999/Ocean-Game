@@ -541,7 +541,7 @@ func handleenemycontact(body: Node2D):
 	#clownfish
 	if body.is_in_group("clownfish"):
 		damage = clownfish_damage
-		kbstrength = 750
+		kbstrength = 500
 	elif body.is_in_group("shark"):
 		damage = shark_damage
 		kbstrength = 2000
