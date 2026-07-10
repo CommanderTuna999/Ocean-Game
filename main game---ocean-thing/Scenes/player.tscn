@@ -117,8 +117,7 @@ size = Vector2(14.626535, 14.09145)
 
 [node name="Player" type="CharacterBody2D" unique_id=982439447]
 scale = Vector2(4.5807157, 4.399831)
-collision_layer = 5
-collision_mask = 5
+collision_mask = 2
 script = ExtResource("1_v0iea")
 harpoonprojectilescene = ExtResource("2_cvnsp")
 
@@ -131,7 +130,7 @@ frame = 9
 frame_progress = 0.40809357
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1047626844]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.6569145, 0.65691453)
 shape = SubResource("RectangleShape2D_sh265")
 
 [node name="HarpoonRaycast" type="RayCast2D" parent="." unique_id=791540821]
@@ -148,8 +147,7 @@ width = 1.0
 default_color = Color(0.98997515, 0.7299793, 0.17306665, 1)
 
 [node name="hurt_area" type="Area2D" parent="." unique_id=472346282]
-collision_layer = 2
-collision_mask = 24
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_area" unique_id=1919571177]
 position = Vector2(0.10915305, 1.0430813e-07)

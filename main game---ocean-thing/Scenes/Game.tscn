@@ -15,9 +15,8 @@
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
-spread = 30.0
-initial_velocity_min = 15.0
-initial_velocity_max = 30.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.04
 scale_max = 0.04
@@ -137,7 +136,7 @@ size = Vector2(75, 73)
 
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
 position = Vector2(-3920, 844)
-collision_mask = 2
+collision_mask = 10
 
 [node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
 position = Vector2(-0.21830654, 0.45456308)
@@ -173,13 +172,24 @@ scale = Vector2(0.31999847, 0.31376988)
 value = 50.0
 texture_progress = ExtResource("4_dahhg")
 
-[node name="HitParticles" type="GPUParticles2D" parent="UI/CanvasLayer/HealthHUD" unique_id=1605783747]
+[node name="HitParticlesA" type="GPUParticles2D" parent="UI/CanvasLayer/HealthHUD" unique_id=1605783747]
 modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
 position = Vector2(474, 100)
 emitting = false
-amount = 6
+amount = 10
 texture = ExtResource("5_3so38")
-lifetime = 0.25
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3cx6b")
+
+[node name="HitParticlesB" type="GPUParticles2D" parent="UI/CanvasLayer/HealthHUD" unique_id=2037204531]
+modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
+position = Vector2(474, 100)
+emitting = false
+amount = 10
+texture = ExtResource("5_3so38")
+lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_3cx6b")
@@ -294,7 +304,7 @@ layer_0/tile_data = PackedInt32Array(-3997680, 1, 0, -3997679, 1, 0, -3997678, 1
 [node name="shark_folder" type="Node" parent="." unique_id=1590250480]
 
 [node name="shark" parent="." unique_id=734094540 instance=ExtResource("5_7lihs")]
-position = Vector2(3130, -169)
+position = Vector2(4458, -89)
 
 [node name="DoT_Armour" type="Area2D" parent="." unique_id=1432841927 node_paths=PackedStringArray("target_node")]
 script = ExtResource("6_2irst")
