@@ -355,7 +355,7 @@ var displayed_health = 100
 var max_health = 100
 var current_health = 100
 var damage_occuring = false
-var iframe_duration = 0.6
+var iframe_duration = 0.9
 var starsaveused = false
 var clownfish_damage = 5
 var shark_damage = 25
@@ -507,7 +507,28 @@ func take_player_damage(amount: float) -> void:
 	await get_tree().create_timer(iframe_duration).timeout
 	set_collision_mask_value(4, true)
 	invincible = false
+	for body in $hurt_area.get_overlapping_bodies():
+		if is_instance_valid(body):
+			handleenemycontact(body)
+			break
 func _on_hurt_area_body_entered(body: Node2D) -> void:
+	handleenemycontact(body)
+		
+	#if armour_DoT == false:
+		#take_player_damage(damage)
+		#await get_tree().create_timer(iframe_duration).timeout
+	#else:
+		#var maxdamage = damage
+		#while damage >= maxdamage * DoT_strength:
+			#take_player_damage(damage * DoT_strength)
+			#damage -= damage * DoT_strength 
+			#await get_tree().create_timer(DoT_strength * 4.0).timeout
+func _on_hurt_area_body_exited(body: Node2D) -> void:
+	damage_occuring = false
+func activate():
+	armour_DoT = true
+
+func handleenemycontact(body: Node2D):
 	if not is_instance_valid(body):
 		return
 	if invincible:
@@ -520,7 +541,7 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 	#clownfish
 	if body.is_in_group("clownfish"):
 		damage = clownfish_damage
-		kbstrength = 500
+		kbstrength = 750
 	elif body.is_in_group("shark"):
 		damage = shark_damage
 		kbstrength = 2000
@@ -542,17 +563,3 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 	kbvelocity = kbdirection * kbstrength
 	kbtime = 0.12
 	take_player_damage(damage)
-		
-	#if armour_DoT == false:
-		#take_player_damage(damage)
-		#await get_tree().create_timer(iframe_duration).timeout
-	#else:
-		#var maxdamage = damage
-		#while damage >= maxdamage * DoT_strength:
-			#take_player_damage(damage * DoT_strength)
-			#damage -= damage * DoT_strength 
-			#await get_tree().create_timer(DoT_strength * 4.0).timeout
-func _on_hurt_area_body_exited(body: Node2D) -> void:
-	damage_occuring = false
-func activate():
-	armour_DoT = true
