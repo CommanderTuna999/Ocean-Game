@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://b5yjblxcdda77" path="res://Assets/spear thrust spritesheet.png" id="2_i4w2o"]
 [ext_resource type="Script" uid="uid://cwkj4oue3o6jv" path="res://Scripts/Hitbox.gd" id="2_y4joh"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4qxn"]
+atlas = ExtResource("2_i4w2o")
+region = Rect2(1845, 0, 615, 99)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qmmw"]
 atlas = ExtResource("2_i4w2o")
 region = Rect2(615, 99, 615, 99)
@@ -24,13 +28,12 @@ region = Rect2(1230, 0, 615, 99)
 atlas = ExtResource("2_i4w2o")
 region = Rect2(0, 99, 615, 99)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4qxn"]
-atlas = ExtResource("2_i4w2o")
-region = Rect2(1845, 0, 615, 99)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_vrs0w"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4qxn")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1qmmw")
 }, {
