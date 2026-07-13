@@ -152,6 +152,8 @@ position = Vector2(-3920, 844)
 [node name="Spear" parent="Player" unique_id=1804206196 instance=ExtResource("2_71axn")]
 position = Vector2(-0.21830654, 0.45456308)
 
+[node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=17055866]
+
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
