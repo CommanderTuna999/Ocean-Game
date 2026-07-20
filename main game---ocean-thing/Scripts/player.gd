@@ -7,17 +7,31 @@
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
-var maxharpoonspeed = 1100
+var maxharpoonspeed = 1500
 var harpooning = false
 var currentharpoon = null
 var harpoon_point = Vector2.ZERO
-var harpoon_pull_accel = 100
-var turnaccel = 35
-var drag = 10
-var accel = 12
+var turnaccel = 3000
+var accel = 720
 var maxspeed = 500
+
+var normaldragaccel = 720
+var harpoondragaccel = 600
+
+#spring tether
+var harpoonrestlength = 100
+var springstrength = 7
+var minimumpullaccel = 1800
+var maximumpullaccel = 12000
+var normalharpoonmaxspeed =  1200
+var slingshotmaxspeed = 2600
+var slingshotstretchthreshold = 250
+var slingshottransitiondistance = 75
+
+
+
+
 var momentumboosttime = 0.0
-var currentaccel = accel
 const JUMP_VELOCITY = -400.0
 var harpooonmaxrange = 1000
 var wasattachedthisshot = false
@@ -97,6 +111,7 @@ func _on_harpoon_attached(hitposition):
 	wasattachedthisshot = true
 	harpooning = true
 	harpoon_point = hitposition
+	harpoonrestlength = global_position.distance_to(harpoon_point)
 	$HarpoonLine.points = [
 	Vector2.ZERO,
 	to_local(harpoon_point)
@@ -206,7 +221,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	if harpooning:
-		currentaccel = 75
+		currentaccel = 3000
 	var currentmaxspeed = maxspeed
 	var sprint_accel_multiplier = sprint_multiplier
 	
@@ -216,32 +231,57 @@ func _physics_process(delta: float) -> void:
 		
 	if direction:
 		if velocity.length() == 0 or direction.dot(velocity) > 0:
-			velocity += direction * currentaccel
+			velocity += direction * currentaccel * delta
 		else: 
-			velocity += direction * turnaccel
+			velocity += direction * turnaccel * delta
 			
 		#if not harpooning and momentumboosttime <= 0:
 			#velocity = velocity.limit_length(maxspeed)
 	
 			
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, currentaccel)
+		var currentdragaccel = normaldragaccel
+		
+		if harpooning:
+			currentdragaccel = harpoondragaccel
+			
+		velocity = velocity.move_toward(
+			Vector2.ZERO,
+			currentdragaccel * delta
+		)
 		
 	if not harpooning and not is_dashing:
 		var currentspeed = velocity.length()
 		if currentspeed > currentmaxspeed:
 			var targetvelocity = velocity.normalized() * currentmaxspeed
-			velocity = velocity.move_toward(targetvelocity, 33)
+			velocity = velocity.move_toward(
+				targetvelocity, 
+				1980 * delta
+			)
 		
 	if harpooning:
 		var direction_to_point = (harpoon_point - global_position).normalized()
 		var distancetopoint = global_position.distance_to(harpoon_point)
+		var stretch = max(distancetopoint - harpoonrestlength, 0)
 		
-		if distancetopoint > 100:
-			velocity += direction_to_point * harpoon_pull_accel
-		else:
-			velocity += direction_to_point * 20
-		velocity = velocity.limit_length(maxharpoonspeed)
+		var currentpullaccel = clamp(minimumpullaccel + stretch * springstrength, minimumpullaccel, maximumpullaccel)
+		
+		velocity += (direction_to_point * currentpullaccel * delta)
+
+		var transitionstart = (
+			slingshotstretchthreshold - slingshottransitiondistance
+		)
+		
+		var slingshotpercent = clamp(
+			(stretch - transitionstart) / slingshottransitiondistance, 0, 1
+		)
+		
+		var currentharpoonmaxspeed = lerp(
+			normalharpoonmaxspeed, slingshotmaxspeed, slingshotpercent
+		)
+			
+		velocity = velocity.limit_length(currentharpoonmaxspeed)
+		
 		$HarpoonLine.points = [
 			Vector2.ZERO,
 			to_local(harpoon_point)
