@@ -69,7 +69,7 @@ script = ExtResource("1_7nbcr")
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_vrs0w")
 animation = &"thrust"
-frame = 4
+frame = 6
 frame_progress = 1.0
 
 [node name="TemplateHitbox" type="Area2D" parent="AttackPivot" unique_id=1861446660]

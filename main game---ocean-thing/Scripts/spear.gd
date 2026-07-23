@@ -1,5 +1,8 @@
 extends Node2D
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AttackPivot/AnimatedSprite2D
+
+
 var direction = "right"
 var restside = "right"
 var attacking:= false
@@ -14,6 +17,7 @@ const handoffset := 8
 @onready var spearsprite = $AttackPivot/AnimatedSprite2D
 @onready var hitboxshape = $AttackPivot/TemplateHitbox/CollisionShape2D
 func _ready() -> void:
+	animated_sprite_2d.frame = 0
 	attackpivot.position = Vector2(handoffset, 0)
 	hitboxshape.disabled = true
 func _process(delta: float) -> void:
