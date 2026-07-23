@@ -11,7 +11,7 @@ var maxharpoonspeed = 1500
 var harpooning = false
 var currentharpoon = null
 var harpoon_point = Vector2.ZERO
-var turnaccel = 3000
+var turnaccel = 1450
 var accel = 720
 var maxspeed = 500
 
@@ -19,16 +19,20 @@ var normaldragaccel = 720
 var harpoondragaccel = 600
 
 #spring tether
-var harpoonrestlength = 100
-var springstrength = 7
-var minimumpullaccel = 1800
-var maximumpullaccel = 12000
-var normalharpoonmaxspeed =  1200
-var slingshotmaxspeed = 2600
+var harpoonrestlength = 140
+var springstrength = 6
+var minimumpullaccel = 650
+var maximumpullaccel = 6500
+var normalharpoonmaxspeed: float =  1200
+var slingshotmaxspeed = 50000
 var slingshotstretchthreshold = 250
-var slingshottransitiondistance = 75
-
-
+@export var chargedharpoonspeed: float =  5000
+@export var chargeduration: float = 2.0
+@export var chargedecay: float = 3.0
+var chargetimer: float = 0.0
+var ropecharged = false
+var wasoverstretched = false
+var currentharpoonmaxspeed: float = normalharpoonmaxspeed
 
 
 var momentumboosttime = 0.0
@@ -172,6 +176,10 @@ func _physics_process(delta: float) -> void:
 		get_parent().add_child(harpoon)
 		currentharpoon = harpoon
 	if Input.is_action_just_released("Harpoon"):
+		ropecharged = false
+		chargetimer = 0
+		wasoverstretched = false
+		currentharpoonmaxspeed = normalharpoonmaxspeed
 		harpooning = false
 		$HarpoonLine.visible = false
 		if wasattachedthisshot == true:
@@ -221,7 +229,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	if harpooning:
-		currentaccel = 3000
+		currentaccel = 1200
 	var currentmaxspeed = maxspeed
 	var sprint_accel_multiplier = sprint_multiplier
 	
@@ -268,17 +276,29 @@ func _physics_process(delta: float) -> void:
 		
 		velocity += (direction_to_point * currentpullaccel * delta)
 
-		var transitionstart = (
-			slingshotstretchthreshold - slingshottransitiondistance
-		)
 		
-		var slingshotpercent = clamp(
-			(stretch - transitionstart) / slingshottransitiondistance, 0, 1
-		)
-		
-		var currentharpoonmaxspeed = lerp(
-			normalharpoonmaxspeed, slingshotmaxspeed, slingshotpercent
-		)
+		var overstretched = stretch >= slingshotstretchthreshold
+		if overstretched and not wasoverstretched:
+			ropecharged = true
+			chargetimer = chargeduration
+			currentharpoonmaxspeed = chargedharpoonspeed
+			wasoverstretched = overstretched
+		if ropecharged:
+			if chargetimer > 0.0:
+				chargetimer -= delta
+				currentharpoonmaxspeed = chargedharpoonspeed
+			else:
+				currentharpoonmaxspeed = lerp(
+					currentharpoonmaxspeed,
+					normalharpoonmaxspeed,
+					min(chargedecay * delta, 1.0)
+				)
+			
+			if abs(currentharpoonmaxspeed - normalharpoonmaxspeed) < 1:
+				currentharpoonmaxspeed = normalharpoonmaxspeed
+				ropecharged = false
+		else:
+			currentharpoonmaxspeed = normalharpoonmaxspeed
 			
 		velocity = velocity.limit_length(currentharpoonmaxspeed)
 		
@@ -286,7 +306,6 @@ func _physics_process(delta: float) -> void:
 			Vector2.ZERO,
 			to_local(harpoon_point)
 		]
-
 	var crashed = false
 	
 	if Input.is_action_just_pressed("Restart"):
