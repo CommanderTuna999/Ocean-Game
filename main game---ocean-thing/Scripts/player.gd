@@ -128,6 +128,11 @@ func _physics_process(delta: float) -> void:
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
+	if ropecharged:
+		$HarpoonLine.modulate = "WHITE"
+	if not ropecharged:
+		$HarpoonLine.modulate = "RED"
+	
 	if kbtime > 0:
 		kbtime -= delta
 		velocity = kbvelocity
