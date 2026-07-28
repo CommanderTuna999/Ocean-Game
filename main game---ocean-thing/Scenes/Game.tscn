@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dd8auqqsx1etd" path="res://Assets/Placeholderbgv2.png" id="13_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/seahorse.tscn" id="13_wxwew"]
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
+[ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="15_acvyw"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
@@ -445,3 +446,6 @@ tile_set = SubResource("TileSet_alh3a")
 
 [node name="seahorse" parent="." unique_id=829669778 instance=ExtResource("13_wxwew")]
 position = Vector2(533, -1348)
+
+[node name="shark" parent="." unique_id=1117910848 instance=ExtResource("15_acvyw")]
+position = Vector2(1540, -1050)
