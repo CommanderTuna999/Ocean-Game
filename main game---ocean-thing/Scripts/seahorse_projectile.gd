@@ -13,6 +13,6 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	velocity = speed * dir
-	velocity = Vector2(0, -speed).rotated(dir)
+	#velocity = Vector2(0, -speed).rotated(dir)
 	move_and_slide()
 	
