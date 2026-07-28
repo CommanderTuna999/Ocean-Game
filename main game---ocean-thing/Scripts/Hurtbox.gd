@@ -22,5 +22,5 @@ func _on_area_entered(hitbox: TemplateHitbox) -> void:
 
 	if owner.has_method("take_kb"):
 		owner.take_kb(hitbox.global_position)
-		
-	hitbox.get_parent().get_parent().successful_hit(self)
+	if hitbox.get_parent().get_parent().has_method("successful_hit"):
+		hitbox.get_parent().get_parent().successful_hit(self)

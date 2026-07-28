@@ -238,8 +238,13 @@ shape = SubResource("CircleShape2D_ldcme")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")
 
+[node name="ShootTimer" type="Timer" parent="." unique_id=1271873482]
+wait_time = 2.0
+autostart = true
+
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]
 [connection signal="area_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_area_entered"]
 [connection signal="area_exited" from="TemplateHurtbox" to="." method="_on_template_hurtbox_area_exited"]
 [connection signal="body_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
