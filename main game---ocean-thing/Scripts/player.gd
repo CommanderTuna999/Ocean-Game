@@ -7,13 +7,17 @@
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
-var maxharpoonspeed = 1500
 var harpooning = false
 var currentharpoon = null
 var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
 var accel = 720
 var maxspeed = 500
+var highmode = false
+var highmodeduration = 2.0
+var highmodespeedcap = 1740
+var highmodedrag = 150
+
 
 var normaldragaccel = 720
 var harpoondragaccel = 600
@@ -21,11 +25,11 @@ var harpoondragaccel = 600
 #spring tether
 var harpoonrestlength = 140
 var springstrength = 6
-var minimumpullaccel = 650
+#var minimumpullaccel = 650
+var minimumpullaccel = 1250
 var maximumpullaccel = 6500
 var normalharpoonmaxspeed: float =  1200
-var slingshotmaxspeed = 50000
-var slingshotstretchthreshold = 250
+var slingshotstretchthreshold = 600
 @export var chargedharpoonspeed: float =  5000
 @export var chargeduration: float = 2.0
 @export var chargedecay: float = 3.0
@@ -33,10 +37,17 @@ var chargetimer: float = 0.0
 var ropecharged = false
 var wasoverstretched = false
 var currentharpoonmaxspeed: float = normalharpoonmaxspeed
+var maxropelength = 0.0
 
+#defines absolute max extention
+var maxstretchratio = 0.6
+#defines how far through extention does charge activate
+var chargeratio = 0.75
 
+var bouncegracetimer = 0.0
+var bouncegraceduration = 0.5
+var can_bounce = false
 var momentumboosttime = 0.0
-const JUMP_VELOCITY = -400.0
 var harpooonmaxrange = 1000
 var wasattachedthisshot = false
 var facinglocked = false
@@ -45,7 +56,7 @@ var kbvelocity = Vector2.ZERO
 @export var harpoonprojectilescene: PackedScene
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 #sprint
-@onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
+#@onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
 
 @export var sprint_multiplier: float = 1.45
@@ -93,11 +104,11 @@ var spawnposition = Vector2.ZERO
 func _ready() -> void:
 	$HarpoonLine.visible = false
 	$HarpoonLine.width = 1
-	if sprint_bar:
-		sprint_bar.min_value = 0
-		sprint_bar.max_value = sprint_max
-		sprint_bar.value = sprint_value
-		sprint_bar.show_percentage = false
+	#if sprint_bar:
+		#sprint_bar.min_value = 0
+		#sprint_bar.max_value = sprint_max
+		#sprint_bar.value = sprint_value
+		#sprint_bar.show_percentage = false
 	if dash_bar:
 		dash_bar.min_value = 0
 		dash_bar.max_value = dash_max
@@ -116,6 +127,9 @@ func _on_harpoon_attached(hitposition):
 	harpooning = true
 	harpoon_point = hitposition
 	harpoonrestlength = global_position.distance_to(harpoon_point)
+	var maxextention = harpoonrestlength * maxstretchratio
+	maxropelength = harpoonrestlength * maxextention
+	slingshotstretchthreshold = maxextention * chargeratio
 	$HarpoonLine.points = [
 	Vector2.ZERO,
 	to_local(harpoon_point)
@@ -128,6 +142,13 @@ func _physics_process(delta: float) -> void:
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
+	if highmode == true:
+		highmodeduration -= delta
+	
+		if highmodeduration <= 0.0:
+			highmode = false
+			highmodeduration = 2.0
+		
 	if ropecharged:
 		$HarpoonLine.modulate = "WHITE"
 	if not ropecharged:
@@ -164,7 +185,7 @@ func _physics_process(delta: float) -> void:
 		$HarpoonLine.visible = false
 
 	var direction = Input.get_vector("Left", "Right", "Up", "Down")
-	handle_sprint(delta, direction)
+	#handle_sprint(delta, direction)
 	handle_dash(delta, direction)
 	#if not is_on_floor():
 		#velocity += get_gravity() * delta
@@ -233,14 +254,16 @@ func _physics_process(delta: float) -> void:
 	#sprite flipping ends here, please depart from the train. Functions await below
 
 	
-	if harpooning:
-		currentaccel = 1200
+	#if harpooning:
+		##currentaccel = 1200
+		#currentaccel = 720
 	var currentmaxspeed = maxspeed
-	var sprint_accel_multiplier = sprint_multiplier
+	if highmode:
+		currentmaxspeed = highmodespeedcap
 	
-	if is_sprinting:
-		currentmaxspeed *= sprint_multiplier
-		currentaccel *= sprint_accel_multiplier
+	#if is_sprinting:
+		#currentmaxspeed *= sprint_multiplier
+		#currentaccel *= sprint_accel_multiplier
 		
 	if direction:
 		if velocity.length() == 0 or direction.dot(velocity) > 0:
@@ -254,6 +277,8 @@ func _physics_process(delta: float) -> void:
 			
 	else:
 		var currentdragaccel = normaldragaccel
+		if highmode:
+			currentdragaccel = highmodedrag
 		
 		if harpooning:
 			currentdragaccel = harpoondragaccel
@@ -275,6 +300,10 @@ func _physics_process(delta: float) -> void:
 	if harpooning:
 		var direction_to_point = (harpoon_point - global_position).normalized()
 		var distancetopoint = global_position.distance_to(harpoon_point)
+		
+		if distancetopoint > maxropelength:
+			global_position = harpoon_point + (global_position - harpoon_point).normalized() * maxropelength
+			distancetopoint = maxropelength
 		var stretch = max(distancetopoint - harpoonrestlength, 0)
 		
 		var currentpullaccel = clamp(minimumpullaccel + stretch * springstrength, minimumpullaccel, maximumpullaccel)
@@ -285,9 +314,11 @@ func _physics_process(delta: float) -> void:
 		var overstretched = stretch >= slingshotstretchthreshold
 		if overstretched and not wasoverstretched:
 			ropecharged = true
+			highmode = true
 			chargetimer = chargeduration
 			currentharpoonmaxspeed = chargedharpoonspeed
-			wasoverstretched = overstretched
+			
+		wasoverstretched = overstretched
 		if ropecharged:
 			if chargetimer > 0.0:
 				chargetimer -= delta
@@ -315,17 +346,30 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().call_deferred("reload_current_scene")
-	
+		
+	#for bounce
+	if bouncegracetimer > 0.0:
+		bouncegracetimer -= delta
+	else:
+		can_bounce = false
+	var incomingvelocity := velocity
 	move_and_slide()
-	update_sprint_bar()
+	#update_sprint_bar()
 	update_dash_bar(delta)
 	
+
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var normal = collision.get_normal()
-		
-		if velocity.dot(-normal) > 300:
-			crashed = true
+		var impactspeed = incomingvelocity.dot(-normal)
+		print("impact: ", impactspeed, " can bounce: ", can_bounce)
+		if impactspeed > 300:
+			if can_bounce:
+				highmodeduration = 2.0
+				velocity = incomingvelocity.bounce(normal) * 1.1
+				break
+			else:
+				crashed = true
 	if crashed:
 		velocity *= 0.7
 
@@ -425,60 +469,60 @@ var clownfish_damage = 5
 var shark_damage = 25
 
 #sprint stuff below
-func handle_sprint(delta: float, direction: Vector2) -> void:
-	var wants_to_sprint = Input.is_action_pressed("Shift")
-	var is_moving = direction.length() > 0.0
-
-	is_sprinting = false
-
-	if wants_to_sprint and is_moving and not harpooning and can_sprint():
-		is_sprinting = true
-		recharge_timer = recharge_delay
-
-		sprint_value -= sprint_consumption_per_second * delta
-		sprint_value = max(sprint_value, 0.0)
-
-		if sprint_value < sprint_threshold:
-			is_exhausted = true
-			is_sprinting = false
-	else:
-		if recharge_timer > 0.0:
-			recharge_timer -= delta
-		else:
-			recharge_sprint(delta)
-
-
-func can_sprint() -> bool:
-	if is_exhausted:
-		return false
-
-	if sprint_value <= 0.0:
-		return false
-
-	return true
-
-
-func recharge_sprint(delta: float) -> void:
-	if sprint_value >= sprint_max:
-		sprint_value = sprint_max
-		is_exhausted = false
-		return
-
-	var recharge_rate = recharge_per_second
-
-	if is_exhausted:
-		recharge_rate = exhausted_recharge_per_second
-
-	sprint_value += recharge_rate * delta
-	sprint_value = min(sprint_value, sprint_max)
-
-	if sprint_value >= sprint_max:
-		is_exhausted = false
-
-
-func update_sprint_bar() -> void:
-	if sprint_bar:
-		sprint_bar.value = sprint_value
+#func handle_sprint(delta: float, direction: Vector2) -> void:
+	#var wants_to_sprint = Input.is_action_pressed("Shift")
+	#var is_moving = direction.length() > 0.0
+#
+	#is_sprinting = false
+#
+	#if wants_to_sprint and is_moving and not harpooning and can_sprint():
+		#is_sprinting = true
+		#recharge_timer = recharge_delay
+#
+		#sprint_value -= sprint_consumption_per_second * delta
+		#sprint_value = max(sprint_value, 0.0)
+#
+		#if sprint_value < sprint_threshold:
+			#is_exhausted = true
+			#is_sprinting = false
+	#else:
+		#if recharge_timer > 0.0:
+			#recharge_timer -= delta
+		#else:
+			#recharge_sprint(delta)
+#
+#
+#func can_sprint() -> bool:
+	#if is_exhausted:
+		#return false
+#
+	#if sprint_value <= 0.0:
+		#return false
+#
+	#return true
+#
+#
+#func recharge_sprint(delta: float) -> void:
+	#if sprint_value >= sprint_max:
+		#sprint_value = sprint_max
+		#is_exhausted = false
+		#return
+#
+	#var recharge_rate = recharge_per_second
+#
+	#if is_exhausted:
+		#recharge_rate = exhausted_recharge_per_second
+#
+	#sprint_value += recharge_rate * delta
+	#sprint_value = min(sprint_value, sprint_max)
+#
+	#if sprint_value >= sprint_max:
+		#is_exhausted = false
+#
+#
+#func update_sprint_bar() -> void:
+	#if sprint_bar:
+		#sprint_bar.value = sprint_value
 
 func _process(delta):
 	handle_health_regen(delta)
@@ -627,3 +671,17 @@ func handleenemycontact(body: Node2D):
 	kbvelocity = kbdirection * kbstrength
 	kbtime = 0.12
 	take_player_damage(damage)
+	
+func on_spear_hit(hurtbox: TemplateHurtbox) -> void:
+	var enemy = hurtbox.owner
+	var normal = -(get_global_mouse_position() - global_position).normalized()
+	highmodeduration = 2.0
+	velocity = velocity.bounce(normal)
+
+
+func setcanbounce(value):
+	if value:
+		can_bounce = true
+		bouncegracetimer = bouncegraceduration
+		
+		

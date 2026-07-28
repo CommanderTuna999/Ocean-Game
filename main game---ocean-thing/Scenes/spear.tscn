@@ -74,9 +74,12 @@ frame_progress = 1.0
 
 [node name="TemplateHitbox" type="Area2D" parent="AttackPivot" unique_id=1861446660]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("2_y4joh")
 metadata/_custom_type_script = "uid://cwkj4oue3o6jv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/TemplateHitbox" unique_id=870998502]
 shape = SubResource("RectangleShape2D_y4joh")
+
+[connection signal="body_entered" from="AttackPivot/TemplateHitbox" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="AttackPivot/TemplateHitbox" to="." method="_on_body_exited"]
