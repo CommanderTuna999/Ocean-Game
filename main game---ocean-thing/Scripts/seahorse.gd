@@ -57,7 +57,6 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 	
 func _physics_process(_delta):
 	if aggro and chase_subject:
-		_shoot()
 		print(global_position.distance_to(chase_subject.global_position))
 		if global_position.distance_to(chase_subject.global_position) > 400:
 			velocity = (chase_subject.global_position - global_position).normalized() * speed
