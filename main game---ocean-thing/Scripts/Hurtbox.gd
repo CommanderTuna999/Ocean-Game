@@ -17,12 +17,10 @@ func _on_area_entered(hitbox: TemplateHitbox) -> void:
 	if hitbox == null:
 		return
 	
-	
-	
-	
-	
 	if owner.has_method("take_damage"):
 		owner.take_damage(hitbox.damage)
 
 	if owner.has_method("take_kb"):
 		owner.take_kb(hitbox.global_position)
+		
+	hitbox.get_parent().get_parent().successful_hit(self)

@@ -24,39 +24,42 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click") and not attacking:
 		mouse_pos = get_global_mouse_position()
 		direction_to_mouse = (mouse_pos - global_position).normalized()
-		if abs(direction_to_mouse.x) > abs(direction_to_mouse.y):
-			if direction_to_mouse.x >= 0:
-				direction = "right"
-				get_parent().forcefaceside("right")
-				restside = "right"
-			else:
-				direction = "left"
-				get_parent().forcefaceside("left")
-				restside = "left"
-		else:
-			if direction_to_mouse.y >= 0:
-				direction = "down"
-			else:
-				direction = "up"
+		#if abs(direction_to_mouse.x) > abs(direction_to_mouse.y):
+			#if direction_to_mouse.x >= 0:
+				#direction = "right"
+				#get_parent().forcefaceside("right")
+				#restside = "right"
+			#else:
+				#direction = "left"
+				#get_parent().forcefaceside("left")
+				#restside = "left"
+		#else:
+			#if direction_to_mouse.y >= 0:
+				#direction = "down"
+			#else:
+				#direction = "up"
 		attack()
 		
 
 func attack():
 	attacking = true
 	get_parent().facinglocked = true
-	match direction:
-		"right":
-			$AttackPivot.position = Vector2(spearoffset, 0)
-			$AttackPivot.rotation = deg_to_rad(0)
-		"left":
-			$AttackPivot.position = Vector2(-spearoffset, 0)
-			$AttackPivot.rotation = deg_to_rad(180)
-		"up":
-			$AttackPivot.position = Vector2(0,-spearoffset)
-			$AttackPivot.rotation = deg_to_rad(-90)
-		"down":
-			$AttackPivot.position = Vector2(0, spearoffset)
-			$AttackPivot.rotation = deg_to_rad(90)
+	#match direction:
+		#"right":
+			#$AttackPivot.position = Vector2(spearoffset, 0)
+			#$AttackPivot.rotation = deg_to_rad(0)
+		#"left":
+			#$AttackPivot.position = Vector2(-spearoffset, 0)
+			#$AttackPivot.rotation = deg_to_rad(180)
+		#"up":
+			#$AttackPivot.position = Vector2(0,-spearoffset)
+			#$AttackPivot.rotation = deg_to_rad(-90)
+		#"down":
+			#$AttackPivot.position = Vector2(0, spearoffset)
+			#$AttackPivot.rotation = deg_to_rad(90)
+			#no match direction instead follow mouse
+	$AttackPivot.position = direction_to_mouse * spearoffset
+	$AttackPivot.rotation = direction_to_mouse.angle()
 	await get_tree().create_timer(winduptime).timeout
 	$AttackPivot/AnimatedSprite2D.play("thrust")
 	$AttackPivot/TemplateHitbox/CollisionShape2D.disabled = false
@@ -82,3 +85,13 @@ func setrestside(newside: String):
 	
 	restside = newside
 	returntorest()
+
+func successful_hit(hurtbox: TemplateHurtbox) -> void:
+	get_parent().on_spear_hit(hurtbox)
+	
+func _on_body_entered(body):
+	print("entered")
+	get_parent().setcanbounce(true)
+	
+func _on_body_exited(body):
+	get_parent().setcanbounce(false)
