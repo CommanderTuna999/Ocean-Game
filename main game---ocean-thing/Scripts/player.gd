@@ -467,6 +467,7 @@ var iframe_duration = 0.9
 var starsaveused = false
 var clownfish_damage = 5
 var shark_damage = 25
+var seahorse_projectile_damage = 10
 
 #sprint stuff below
 #func handle_sprint(delta: float, direction: Vector2) -> void:
@@ -653,6 +654,10 @@ func handleenemycontact(body: Node2D):
 	elif body.is_in_group("shark"):
 		damage = shark_damage
 		kbstrength = 2000
+	elif body.is_in_group("seahorse_projectile"):
+		damage = seahorse_projectile_damage
+		kbstrength = 300
+		body.queue_free()
 	
 	else:
 		return

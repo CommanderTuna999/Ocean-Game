@@ -18,12 +18,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qc5bj"]
-size = Vector2(14, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh253"]
+size = Vector2(18, 12)
 
-[node name="seahorse_projectile" type="CharacterBody2D" unique_id=524211509]
-collision_layer = 0
-collision_mask = 0
+[node name="seahorse_projectile" type="CharacterBody2D" unique_id=524211509 groups=["seahorse_projectile"]]
+collision_layer = 8
+collision_mask = 10
 script = ExtResource("1_qh253")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=359251092]
@@ -31,6 +31,6 @@ position = Vector2(0, -1)
 scale = Vector2(0.048177082, 0.048177086)
 sprite_frames = SubResource("SpriteFrames_kvis1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=410740380]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=253376344]
 position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_qc5bj")
+shape = SubResource("RectangleShape2D_qh253")
