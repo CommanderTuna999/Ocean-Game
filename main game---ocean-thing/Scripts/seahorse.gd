@@ -62,12 +62,11 @@ func _shoot():
 	instance.SpawnPos = global_position
 	instance.SpawnRot = rotation
 	main.call_deferred("add_child", instance)
+	instance.look_at(chase_subject.global_position)
 	
 func _physics_process(_delta):
 	if aggro and chase_subject:
 		_shoot()
-		await get_tree().create_timer(2).timeout  
-		look_at(chase_subject.position)
 		print(global_position.distance_to(chase_subject.global_position))
 		if global_position.distance_to(chase_subject.global_position) > 400:
 			velocity = (chase_subject.global_position - global_position).normalized() * speed
