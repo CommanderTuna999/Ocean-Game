@@ -115,7 +115,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs7ks"]
 size = Vector2(14.626535, 14.09145)
 
-[node name="Player" type="CharacterBody2D" unique_id=982439447]
+[node name="Player" type="CharacterBody2D" unique_id=982439447 groups=["player"]]
 scale = Vector2(4.5807157, 4.399831)
 collision_mask = 2
 script = ExtResource("1_v0iea")

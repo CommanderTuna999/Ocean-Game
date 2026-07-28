@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4ps3yww7sne0" path="res://Scripts/shark.gd" id="1_cb72u"]
 [ext_resource type="Texture2D" uid="uid://dvd4cj42bpc2j" path="res://Assets/image.png" id="2_cb72u"]
 [ext_resource type="Script" uid="uid://dmd61flg7jy52" path="res://Scripts/Hurtbox.gd" id="3_wyy8k"]
+[ext_resource type="Texture2D" uid="uid://7j5wniaw0b74" path="res://Assets/831901f372ff9ab9cb780296cf027c0e.thumb.jpg" id="4_6rxyh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6rxyh"]
 atlas = ExtResource("2_cb72u")
@@ -96,6 +97,11 @@ scale = Vector2(1.9191517, 1.9157507)
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_cb72u")
+chasespeed = null
+chargespeed = null
+warningtime = null
+chargetime = null
+cooldowntime = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=330375805]
 z_index = 3
@@ -127,6 +133,12 @@ shape = SubResource("CapsuleShape2D_m247r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")
+
+[node name="dash_indicator" type="Sprite2D" parent="." unique_id=966223659]
+modulate = Color(1, 0, 0.047058824, 1)
+position = Vector2(-5480.5464, -6.785852)
+scale = Vector2(30.529526, 0.28622374)
+texture = ExtResource("4_6rxyh")
 
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]
