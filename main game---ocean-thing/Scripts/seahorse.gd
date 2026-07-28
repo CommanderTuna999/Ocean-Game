@@ -54,15 +54,6 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 	aggro = false
 	animated_sprite_2d.play("idle")
 	print("exited")
-
-func _shoot():
-	var main = get_tree().current_scene #identifies the main game scene for projectiles, ik its already done on ready but it must be declared again to be used in this function so yeah
-	var instance = projectile.instantiate()
-	instance.dir = rotation
-	instance.SpawnPos = global_position
-	instance.SpawnRot = rotation
-	main.call_deferred("add_child", instance)
-	instance.look_at(chase_subject.global_position)
 	
 func _physics_process(_delta):
 	if aggro and chase_subject:
@@ -95,7 +86,21 @@ func take_kb(source_position: Vector2):
 	#var kbdirection = (global_position - area.global_position).normalized()
 	#kbvelocity = kbdirection * 600
 	#kbtime = 0.12
+func _shoot():
+	var main = get_tree().current_scene #identifies the main game scene for projectiles, ik its already done on ready but it must be declared again to be used in this function so yeah
+	var instance = projectile.instantiate()
+	instance.dir = (chase_subject.global_position - global_position).normalized()
+	instance.SpawnPos = global_position
+	instance.SpawnRot = rotation
+	main.call_deferred("add_child", instance)
+	#instance.look_at(chase_subject.global_position)
 
+	
+
+
+func _on_shoot_timer_timeout() -> void:
+	if aggro and chase_subject:
+		_shoot()
 
 
 
