@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/Enemies/seahorse.tscn" id="13_wxwew"]
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/Enemies/shark.tscn" id="15_acvyw"]
+[ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
@@ -446,13 +447,10 @@ tile_map_data = PackedByteArray("AAALAJz/AgADAAEAAAALAJ3/AgADAAIAAAALAJ7/AgADAAM
 tile_set = SubResource("TileSet_alh3a")
 
 [node name="seahorse" parent="." unique_id=829669778 instance=ExtResource("13_wxwew")]
-position = Vector2(533, -1348)
+position = Vector2(-1324.0002, -876.9998)
 
 [node name="shark" parent="." unique_id=2130576439 instance=ExtResource("15_acvyw")]
-position = Vector2(38, 795)
+position = Vector2(132, 906)
 
-[node name="shark2" parent="." unique_id=1132777010 instance=ExtResource("15_acvyw")]
-position = Vector2(3028, 120)
-
-[node name="shark3" parent="." unique_id=1310416127 instance=ExtResource("15_acvyw")]
-position = Vector2(4512, -1913)
+[node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
+position = Vector2(700, -1381.0001)
