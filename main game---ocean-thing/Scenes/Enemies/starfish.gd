@@ -51,7 +51,7 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 	print("exited")
 
 func regen(amount):
-	for i in range amount: 
+	for i in range(amount):
 		current_health += 1
 
 func _physics_process(_delta):
