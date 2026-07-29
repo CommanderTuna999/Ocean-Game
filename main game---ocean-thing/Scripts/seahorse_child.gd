@@ -5,6 +5,7 @@
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 var speed = 150
 var damage_occuring = false
 var aggro = false
@@ -16,7 +17,12 @@ var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
 	
 func _ready() -> void:
-		animated_sprite_2d.play("idle")
+	collision_shape_2d.set_deferred("disabled", true)
+	animated_sprite_2d.play("idle")
+	await get_tree().create_timer(1).timeout
+	collision_shape_2d.set_deferred("disabled", false)
+	
+	
 func _process(_delta): #x axis flipping for now
 	
 	if not chase_subject == null and chase_subject.position.x > position.x:

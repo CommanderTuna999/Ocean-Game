@@ -130,14 +130,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_47ae7"]
-radius = 11.5
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ko73j"]
+radius = 24.8633
+height = 80.83485
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8g0i4"]
 radius = 1035.8009
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ldcme"]
-radius = 32.282238
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4l821"]
+radius = 22.534454
+height = 73.16903
 
 [sub_resource type="Animation" id="Animation_wx3q7"]
 length = 0.001
@@ -201,7 +203,7 @@ _data = {
 }
 
 [node name="seahorse_child" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(1.0020182, 1.005498)
+scale = Vector2(0.48201895, 0.4836929)
 collision_layer = 8
 collision_mask = 10
 script = ExtResource("1_sbm2b")
@@ -216,7 +218,8 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121136378]
 position = Vector2(-0.5, 0)
-shape = SubResource("CircleShape2D_47ae7")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ko73j")
 
 [node name="aggro_area" type="Area2D" parent="." unique_id=785846885]
 
@@ -233,7 +236,8 @@ metadata/_custom_type_script = "uid://dmd61flg7jy52"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHurtbox" unique_id=1610760545]
 position = Vector2(-0.65702057, 0.65474796)
-shape = SubResource("CircleShape2D_ldcme")
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_4l821")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")

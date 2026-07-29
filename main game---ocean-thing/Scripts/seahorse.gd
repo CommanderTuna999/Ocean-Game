@@ -85,7 +85,7 @@ func spawn_child(amount):
 		main.call_deferred("add_child", instance)
 		instance.position.x = global_position.x + randf_range(1, 15)
 		instance.position.y = global_position.y + randf_range(1, 15)
-		#await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.1).timeout
 
 # knockback script below
 func take_kb(source_position: Vector2):

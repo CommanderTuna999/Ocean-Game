@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dx5181rkqvp8"]
 
-[ext_resource type="Script" uid="uid://cxdt76ufslfb3" path="res://Scenes/Enemies/starfish.gd" id="1_xm744"]
+[ext_resource type="Script" uid="uid://cxdt76ufslfb3" path="res://Scripts/starfish.gd" id="1_xm744"]
 [ext_resource type="Texture2D" uid="uid://daec8wtnucrkt" path="res://Assets/clownfish aggro spritesheet v2.png" id="2_jv55x"]
 [ext_resource type="Texture2D" uid="uid://bnhcy0vtyt6qm" path="res://Assets/icon.svg" id="2_lnwqj"]
 [ext_resource type="Script" uid="uid://dmd61flg7jy52" path="res://Scripts/Hurtbox.gd" id="4_v5cx2"]
