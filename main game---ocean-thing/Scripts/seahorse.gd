@@ -6,13 +6,14 @@
 
 extends CharacterBody2D
 @onready var projectile = preload("res://Scenes/seahorse_projectile.tscn")
+@onready var child = preload("res://Scenes/clownfish.tscn")
 var speed = 300
 var damage_occuring = false
 var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-var current_health = 2
+var current_health = 10
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
 var projectile_cooldown = 2
@@ -71,10 +72,21 @@ func _physics_process(_delta):
 	
 #damage script below
 func take_damage(amount: int):
+
 	current_health -= amount
 	animation_player.play("damaged")
 	await get_tree().create_timer(0.1).timeout
+	spawn_child(11)
 	
+
+func spawn_child(amount):
+	for i in range(amount):
+		var main = get_tree().current_scene #identifies the main game scene for projectiles, ik its already done on ready but it must be declared again to be used in this function so yeah
+		var instance = child.instantiate()
+		main.call_deferred("add_child", instance)
+		instance.position.x = global_position.x + randf_range(1, 30)
+		instance.position.y = global_position.y + randf_range(1, 15)
+		#await get_tree().create_timer(0.1).timeout
 
 # knockback script below
 func take_kb(source_position: Vector2):
