@@ -130,14 +130,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_47ae7"]
-radius = 35.985203
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q5es7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8g0i4"]
 radius = 1035.8009
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ldcme"]
-radius = 32.282238
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxtgd"]
 
 [sub_resource type="Animation" id="Animation_wx3q7"]
 length = 0.001
@@ -216,7 +214,9 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121136378]
 position = Vector2(-0.5, 0)
-shape = SubResource("CircleShape2D_47ae7")
+rotation = -1.5707964
+scale = Vector2(2.2352026, 3.016628)
+shape = SubResource("CapsuleShape2D_q5es7")
 
 [node name="aggro_area" type="Area2D" parent="." unique_id=785846885]
 
@@ -233,7 +233,9 @@ metadata/_custom_type_script = "uid://dmd61flg7jy52"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHurtbox" unique_id=1610760545]
 position = Vector2(-0.65702057, 0.65474796)
-shape = SubResource("CircleShape2D_ldcme")
+rotation = 1.5707964
+scale = Vector2(2.1037984, 2.9642484)
+shape = SubResource("CapsuleShape2D_gxtgd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")
