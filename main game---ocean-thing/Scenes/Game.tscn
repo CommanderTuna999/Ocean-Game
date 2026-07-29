@@ -5,16 +5,17 @@
 [ext_resource type="Script" uid="uid://cjstsrn0kl0mb" path="res://Scripts/canvaslayer_popups.gd" id="3_bf53h"]
 [ext_resource type="Script" uid="uid://ffyg2qo1fclc" path="res://Scripts/armour_level_label.gd" id="4_71axn"]
 [ext_resource type="Texture2D" uid="uid://bmrtlnac8wc08" path="res://Assets/Health_bar.png" id="4_dahhg"]
-[ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/clownfish.tscn" id="4_kldst"]
+[ext_resource type="PackedScene" uid="uid://ony1pqjkvd1j" path="res://Scenes/Enemies/clownfish.tscn" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dcp1jfbn6oa0r" path="res://Assets/Placeholder particle.png" id="5_3so38"]
 [ext_resource type="PackedScene" uid="uid://b7brt10lbkmsj" path="res://Scenes/tile_map.tscn" id="5_fgofq"]
 [ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scripts/test_armour_1.gd" id="6_2irst"]
 [ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
 [ext_resource type="Script" uid="uid://by4l5aip8ooh3" path="res://Scripts/sprite_2d(test_armour).gd" id="8_71axn"]
 [ext_resource type="Texture2D" uid="uid://dd8auqqsx1etd" path="res://Assets/Placeholderbgv2.png" id="13_3cx6b"]
-[ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/seahorse.tscn" id="13_wxwew"]
+[ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/Enemies/seahorse.tscn" id="13_wxwew"]
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
-[ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/shark.tscn" id="15_acvyw"]
+[ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/Enemies/shark.tscn" id="15_acvyw"]
+[ext_resource type="PackedScene" uid="uid://dx5181rkqvp8" path="res://Scenes/Enemies/starfish.tscn" id="16_alh3a"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
@@ -449,4 +450,13 @@ tile_set = SubResource("TileSet_alh3a")
 position = Vector2(533, -1348)
 
 [node name="shark" parent="." unique_id=2130576439 instance=ExtResource("15_acvyw")]
-position = Vector2(-1434, -711)
+position = Vector2(38, 795)
+
+[node name="shark2" parent="." unique_id=1132777010 instance=ExtResource("15_acvyw")]
+position = Vector2(3028, 120)
+
+[node name="shark3" parent="." unique_id=1310416127 instance=ExtResource("15_acvyw")]
+position = Vector2(4512, -1913)
+
+[node name="starfish" parent="." unique_id=1573274140 instance=ExtResource("16_alh3a")]
+position = Vector2(1013, -1787)

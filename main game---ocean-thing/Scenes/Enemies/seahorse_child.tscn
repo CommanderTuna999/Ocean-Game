@@ -201,7 +201,7 @@ _data = {
 }
 
 [node name="seahorse_child" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(0.6020181, 0.6041088)
+scale = Vector2(1.0020182, 1.005498)
 collision_layer = 8
 collision_mask = 10
 script = ExtResource("1_sbm2b")
