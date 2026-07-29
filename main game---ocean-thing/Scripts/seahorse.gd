@@ -76,7 +76,7 @@ func take_damage(amount: int):
 	current_health -= amount
 	animation_player.play("damaged")
 	await get_tree().create_timer(0.1).timeout
-	spawn_child(11)
+	spawn_child(77)
 	
 
 func spawn_child(amount):
@@ -84,7 +84,7 @@ func spawn_child(amount):
 		var main = get_tree().current_scene #identifies the main game scene for projectiles, ik its already done on ready but it must be declared again to be used in this function so yeah
 		var instance = child.instantiate()
 		main.call_deferred("add_child", instance)
-		instance.position.x = global_position.x + randf_range(1, 30)
+		instance.position.x = global_position.x + randf_range(1, 15)
 		instance.position.y = global_position.y + randf_range(1, 15)
 		#await get_tree().create_timer(0.1).timeout
 
