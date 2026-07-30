@@ -3,8 +3,7 @@ var direction = Vector2.ZERO
 var speed = 2500
 var wowattached = false
 
-
-signal attached(hitposition, hitbody)	
+signal attached(hitposition)	
 func _ready():
 	$ColorRect.rotation = direction.angle()
 	$HarpoonTip.rotation = direction.angle()
@@ -20,8 +19,7 @@ func _physics_process(delta: float) -> void:
 	
 	if $RayCast2D.is_colliding():
 		wowattached = true
-		attached.emit($RayCast2D.get_collision_point(),
-		$RayCast2D.get_collider())
+		attached.emit($RayCast2D.get_collision_point())
 		queue_free()
 		return
 	
@@ -32,5 +30,5 @@ func _on_body_entered(body):
 	if wowattached:
 		return
 	wowattached = true
-	attached.emit(global_position, body)
+	attached.emit(global_position)
 	queue_free()
