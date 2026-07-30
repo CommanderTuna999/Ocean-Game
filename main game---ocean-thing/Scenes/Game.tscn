@@ -133,6 +133,9 @@ _data = {
 &"damageflash": SubResource("Animation_3so38")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_alh3a"]
+bg_color = Color(0.15588251, 0.268856, 0.5724225, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
 size = Vector2(75, 73)
 
@@ -243,6 +246,20 @@ position = Vector2(895, -1867)
 position = Vector2(-0.21830654, 0.45456308)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=17055866]
+
+[node name="HealDelayTimer" type="Timer" parent="Player" unique_id=1250654734]
+wait_time = 5.0
+one_shot = true
+
+[node name="HealTimer" type="Timer" parent="Player" unique_id=2143767768]
+autostart = true
+
+[node name="ShieldRechargeDelay" type="Timer" parent="Player" unique_id=1616165967]
+wait_time = 10.0
+one_shot = true
+
+[node name="ShieldRechargeTimer" type="Timer" parent="Player" unique_id=1748848499]
+autostart = true
 
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
@@ -368,6 +385,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_71axn")
 
+[node name="ShieldBar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=419879109]
+anchors_preset = -1
+anchor_right = 0.024
+anchor_bottom = 0.056
+offset_left = 67.0
+offset_top = 174.0
+offset_right = 441.352
+offset_bottom = 164.712
+theme_override_colors/font_color = Color(0.96520334, 0.94326633, 0.9444243, 1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_alh3a")
+
 [node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 
 [node name="clownfish" parent="clownfish_folder" unique_id=1111911240 instance=ExtResource("4_kldst")]
@@ -454,3 +482,8 @@ position = Vector2(132, 906)
 
 [node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
 position = Vector2(700, -1381.0001)
+
+[connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
+[connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="Player/ShieldRechargeDelay" to="Player" method="_on_shield_recharge_delay_timeout"]
+[connection signal="timeout" from="Player/ShieldRechargeTimer" to="Player" method="_on_shield_recharge_timer_timeout"]
