@@ -18,6 +18,9 @@ var highmodeduration = 2.0
 var highmodespeedcap = 1740
 var highmodedrag = 150
 
+var harpoon_target: Node2D = null
+var harpoon_local_point = Vector2.ZERO
+
 
 var normaldragaccel = 720
 var harpoondragaccel = 600
@@ -25,7 +28,7 @@ var harpoondragaccel = 600
 #spring tether
 var harpoonrestlength = 140
 var springstrength = 6
-#var minimumpullaccel = 650
+var harpoonhit = false
 var minimumpullaccel = 1250
 var maximumpullaccel = 6500
 var normalharpoonmaxspeed: float =  1200
@@ -122,10 +125,16 @@ func _ready() -> void:
 	spawnposition = global_position
 
 
-func _on_harpoon_attached(hitposition):
+func _on_harpoon_attached(hitposition, hitbody):
 	wasattachedthisshot = true
 	harpooning = true
+	
+	harpoonhit = true
+	
 	harpoon_point = hitposition
+	harpoon_target = hitbody
+	harpoon_local_point = harpoon_target.to_local(hitposition)
+	
 	harpoonrestlength = global_position.distance_to(harpoon_point)
 	var maxextention = harpoonrestlength * maxstretchratio
 	maxropelength = harpoonrestlength * maxextention
@@ -138,6 +147,21 @@ func _on_harpoon_attached(hitposition):
 	currentharpoon = null
 	
 func _physics_process(delta: float) -> void:
+	
+	#test
+	if harpoonhit:
+		if is_instance_valid(harpoon_target):
+			harpoon_point = harpoon_target.to_global(harpoon_local_point)
+			$HarpoonLine.points = [
+			Vector2.ZERO,
+			to_local(harpoon_point)
+				]
+		else:
+			harpoonhit = false
+			harpooning = false
+			$HarpoonLine.visible = false
+	
+	
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
@@ -196,12 +220,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Harpoon"):
 		wasattachedthisshot = false
 		var harpoon = harpoonprojectilescene.instantiate()
-		harpoon.global_position = global_position
+		harpoon.global_position = global_position		
 		harpoon.direction = direction_to_mouse
 		harpoon.attached.connect(_on_harpoon_attached)
 		get_parent().add_child(harpoon)
 		currentharpoon = harpoon
 	if Input.is_action_just_released("Harpoon"):
+		harpoonhit = false
 		ropecharged = false
 		chargetimer = 0
 		wasoverstretched = false
