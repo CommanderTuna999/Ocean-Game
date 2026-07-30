@@ -12,12 +12,29 @@ var currentharpoon = null
 var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
 var accel = 720
-var maxspeed = 500
+
+#shield stuff below
+var shield_max_health:
+	get: 
+		return 15.0 + total_shield_increase
+var total_shield_increase = 0.0
+var shield_health = shield_max_health
+var shield_recharge = 0.20
+var shield_can_recharge = false
+var maxspeed:
+	get: 
+		return 500 * total_speed_increase
 var highmode = false
 var highmodeduration = 2.0
 var highmodespeedcap = 1740
 var highmodedrag = 150
 
+#gear variables
+
+var total_speed_increase = 1.0
+var total_HP_increase = 1.0
+var harpoon_target: Node2D = null
+var harpoon_local_point = Vector2.ZERO
 
 var normaldragaccel = 720
 var harpoondragaccel = 600
@@ -25,7 +42,7 @@ var harpoondragaccel = 600
 #spring tether
 var harpoonrestlength = 140
 var springstrength = 6
-#var minimumpullaccel = 650
+var harpoonhit = false
 var minimumpullaccel = 1250
 var maximumpullaccel = 6500
 var normalharpoonmaxspeed: float =  1200
@@ -58,7 +75,7 @@ var kbvelocity = Vector2.ZERO
 #sprint
 #@onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
-
+@onready var shield_bar = $"/root/Game/UI/CanvasLayer/ShieldBar"
 @export var sprint_multiplier: float = 1.45
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
@@ -102,6 +119,7 @@ var timerrunning = true
 var spawnposition = Vector2.ZERO
 
 func _ready() -> void:
+	update_shield_bar()
 	$HarpoonLine.visible = false
 	$HarpoonLine.width = 1
 	#if sprint_bar:
@@ -122,10 +140,16 @@ func _ready() -> void:
 	spawnposition = global_position
 
 
-func _on_harpoon_attached(hitposition):
+func _on_harpoon_attached(hitposition, hitbody):
 	wasattachedthisshot = true
 	harpooning = true
+	
+	harpoonhit = true
+	
 	harpoon_point = hitposition
+	harpoon_target = hitbody
+	harpoon_local_point = harpoon_target.to_local(hitposition)
+	
 	harpoonrestlength = global_position.distance_to(harpoon_point)
 	var maxextention = harpoonrestlength * maxstretchratio
 	maxropelength = harpoonrestlength * maxextention
@@ -138,6 +162,21 @@ func _on_harpoon_attached(hitposition):
 	currentharpoon = null
 	
 func _physics_process(delta: float) -> void:
+	
+	#test
+	if harpoonhit:
+		if is_instance_valid(harpoon_target):
+			harpoon_point = harpoon_target.to_global(harpoon_local_point)
+			$HarpoonLine.points = [
+			Vector2.ZERO,
+			to_local(harpoon_point)
+				]
+		else:
+			harpoonhit = false
+			harpooning = false
+			$HarpoonLine.visible = false
+	
+	
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
@@ -196,12 +235,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Harpoon"):
 		wasattachedthisshot = false
 		var harpoon = harpoonprojectilescene.instantiate()
-		harpoon.global_position = global_position
+		harpoon.global_position = global_position		
 		harpoon.direction = direction_to_mouse
 		harpoon.attached.connect(_on_harpoon_attached)
 		get_parent().add_child(harpoon)
 		currentharpoon = harpoon
 	if Input.is_action_just_released("Harpoon"):
+		harpoonhit = false
 		ropecharged = false
 		chargetimer = 0
 		wasoverstretched = false
@@ -460,7 +500,15 @@ var regen_delay = 1
 var regen_per_second = 0
 var time_since_damage = 0.0
 var displayed_health = 100
-var max_health = 100
+var total_heal_increase = 0
+var max_health:
+	get:
+		return 100 * total_HP_increase
+var can_heal = true
+var heal_per_second:
+	get:
+		return max_health * total_heal_increase
+
 var current_health = 100
 var damage_occuring = false
 var iframe_duration = 0.9
@@ -470,6 +518,7 @@ var shark_damage = 25
 var seahorse_projectile_damage = 10
 var crab_damage = 45
 
+	
 #sprint stuff below
 #func handle_sprint(delta: float, direction: Vector2) -> void:
 	#var wants_to_sprint = Input.is_action_pressed("Shift")
@@ -576,18 +625,37 @@ func update_health_ui(delta: float) -> void:
 
 	if health_bar:
 		health_bar.value = visual
-
+		
+func update_shield_bar():
+	shield_bar.max_value = shield_max_health
+	shield_bar.value = shield_health
 
 func take_player_damage(amount: float) -> void:
 	if invincible:
 		return
+	# ___________ SHIELD CODE ______________
+	if shield_health > 0: 
+		if shield_health <= shield_max_health * 0.5:
+			shield_can_recharge = false
+			$ShieldRechargeDelay.start()
+		if amount <= shield_health:
+			shield_health -= amount
+			update_shield_bar()
+			return
+		else:
+			amount -= shield_health
+			update_shield_bar()
+			shield_health = 0
 	if current_health - amount <= 0 and not starsaveused and current_health > 1:
 		current_health = 1
 		starsaveused = true
 		emptybeams.visible = false
 	else:
 		current_health -= amount
+		update_shield_bar()
 		current_health = max(current_health, 0)
+		can_heal = false
+		$HealDelayTimer.start()
 	if healthanim:
 		healthanim.stop()
 		healthanim.play("damageflash")
@@ -694,3 +762,30 @@ func setcanbounce(value):
 		bouncegracetimer = bouncegraceduration
 		
 		
+
+
+func _on_heal_delay_timer_timeout() -> void:
+	can_heal = true
+
+
+func _on_heal_timer_timeout() -> void:
+	if can_heal and current_health < max_health:
+		current_health += heal_per_second
+		current_health = min(current_health, max_health)
+
+
+func _on_shield_recharge_delay_timeout() -> void:
+	shield_can_recharge = true
+
+
+func _on_shield_recharge_timer_timeout() -> void:
+	#if !shield_can_recharge:
+		#return
+	#if current_health < max_health:
+		#return
+	#if shield_health >= shield_max_health:
+		#return
+	shield_health += shield_max_health * shield_recharge
+	shield_health = min(shield_health, shield_max_health)
+	update_shield_bar()
+	
