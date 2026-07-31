@@ -11,7 +11,7 @@ var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-var current_health = 2
+var current_health = 200
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
 	

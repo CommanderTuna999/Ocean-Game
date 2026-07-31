@@ -16,10 +16,13 @@ func _ready() -> void:
 func _on_area_entered(hitbox: TemplateHitbox) -> void:
 	if hitbox == null:
 		return
-	
-	if owner.has_method("take_damage"):
-		owner.take_damage(hitbox.damage)
-
+	var player = get_tree().current_scene.find_child("Player", true, false)
+	if randf() < player.critical_rate:
+		if owner.has_method("take_damage"):
+			owner.take_damage(hitbox.damage * player.critical_damage)
+	else:
+		if owner.has_method("take_damage"):
+			owner.take_damage(hitbox.damage)
 	if owner.has_method("take_kb"):
 		owner.take_kb(hitbox.global_position)
 	if hitbox.get_parent().get_parent().has_method("successful_hit"):

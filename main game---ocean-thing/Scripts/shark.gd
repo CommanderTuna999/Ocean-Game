@@ -12,12 +12,12 @@ var aggro = false
 var chase_subject = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-var current_health = 10
+var current_health = 1000
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
 	
-func _ready() -> void:
-		animated_sprite_2d.play("idle")
+
+	
 func _process(_delta): #x axis flipping for now
 	
 	if not chase_subject == null and chase_subject.position.x > position.x:
@@ -39,7 +39,6 @@ func _process(_delta): #x axis flipping for now
 func _on_aggro_area_body_entered(body):
 	chase_subject = body
 	aggro = true
-	animated_sprite_2d.play("aggro")
 	print('entered')
 	
 	
@@ -47,16 +46,15 @@ func _on_aggro_area_body_entered(body):
 func _on_aggro_area_body_exited(_body: Node2D) -> void:
 	chase_subject = null
 	aggro = false
-	animated_sprite_2d.play("idle")
 	print("exited")
 
 
 
 func _physics_process(_delta):
 	if aggro and chase_subject:
-		if current_health >= 8:
+		if current_health >= 800:
 			velocity = (chase_subject.global_position - global_position).normalized() * speed
-		elif current_health < 8:
+		elif current_health < 800:
 			velocity = (chase_subject.global_position - global_position).normalized() * injured_speed
 	else: 
 		velocity = Vector2.ZERO

@@ -248,7 +248,7 @@ position = Vector2(-0.21830654, 0.45456308)
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=17055866]
 
 [node name="HealDelayTimer" type="Timer" parent="Player" unique_id=400888046]
-wait_time = 6.0
+wait_time = 0.5
 one_shot = true
 
 [node name="HealTimer" type="Timer" parent="Player" unique_id=1909295302]
@@ -256,7 +256,7 @@ wait_time = 0.2
 autostart = true
 
 [node name="ShieldRechargeDelay" type="Timer" parent="Player" unique_id=1981148714]
-wait_time = 11.0
+wait_time = 7.5
 one_shot = true
 
 [node name="ShieldRechargeTimer" type="Timer" parent="Player" unique_id=1307524377]
@@ -394,6 +394,7 @@ offset_right = 467.0
 offset_bottom = 206.0
 scale = Vector2(1, 1.0400048)
 theme_override_styles/fill = SubResource("StyleBoxFlat_alh3a")
+show_percentage = false
 
 [node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 

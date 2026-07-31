@@ -12,7 +12,6 @@ var currentharpoon = null
 var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
 var accel = 720
-
 #shield stuff below
 var shield_max_health:
 	get: 
@@ -87,14 +86,37 @@ var kbvelocity = Vector2.ZERO
 @export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
 #dash
-@export var dash_max: float = 70.0
-@export var dash_cost: float = 25.0
-@export var dash_recharge_per_second: float = 12.5
+@export var dash_max: float:
+	get:
+		return 100.0 * dash_max_increase
+@export var dash_max_increase = 1.0
+@export var dash_cost: float:
+	get:
+		return 33.0 * dash_cost_decrease
+@export var dash_cost_decrease = 1.0
+@export var dash_recharge_per_second: float:
+	get:
+		return dash_max * 0.25
 @export var dash_recharge_delay: float = 1.0
 @export var dash_speed: float = 1100
 @export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
+#attack and criticals
+@export var total_attack_increase = 1.0
+@export var critical_rate: float = 0.0:
+	get:
+		return 0.15 + critical_rate_increase
+	set(value):
+		critical_rate = value
+@export var critical_damage: float = 0.0:
+	get:
+		return 1.5 + critical_damage_increase
+var critical_rate_increase = 0.0
+var critical_damage_increase = 0.0
+
+
+#dash vars
 var dash_value: float = dash_max
 var dash_recharge_timer: float = 0.0
 var is_dashing: bool = false
@@ -653,6 +675,11 @@ func take_player_damage(amount: float) -> void:
 		if amount <= shield_health:
 			shield_health -= amount
 			update_shield_bar()
+			if shield_health <= shield_max_health * 0.5:
+				shield_can_recharge = false
+				$ShieldRechargeDelay.start()
+			else:
+				shield_can_recharge = false
 			return
 		else:
 			amount -= shield_health
@@ -661,7 +688,7 @@ func take_player_damage(amount: float) -> void:
 			shield_can_recharge = false
 			$ShieldRechargeDelay.start()
 	if current_health - amount <= 0 and not starsaveused and current_health > 1:
-		current_health = 10
+		current_health = 1.1
 		starsaveused = true
 		emptybeams.visible = false
 	else:
@@ -797,6 +824,8 @@ func _on_shield_recharge_timer_timeout() -> void:
 	if current_health < max_health:
 		return
 	if shield_health >= shield_max_health:
+		shield_health = shield_max_health
+		shield_can_recharge = false
 		return
 	if shield_can_recharge:
 		shield_health += shield_max_health * shield_recharge
