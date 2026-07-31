@@ -16,8 +16,8 @@ var accel = 720
 #shield stuff below
 var shield_max_health:
 	get: 
-		return 15.0 + total_shield_increase
-var total_shield_increase = 0.0
+		return 150.0 * total_shield_increase
+var total_shield_increase = 1.0
 var shield_health = shield_max_health
 var shield_recharge: 
 		get: 
@@ -506,20 +506,29 @@ var displayed_health = 100
 var total_heal_increase = 0.1
 var max_health:
 	get:
-		return 100 * total_HP_increase
+		return 1000 * total_HP_increase
 var can_heal = true
 var heal_per_second:
 	get:
 		return (max_health * total_heal_increase) / 5
 
-var current_health = 100
+#defense stuff below
+var defence:
+	get:
+		return 10 * total_defence_increase
+var total_defence_increase = 1.0
+
+var current_health = 1000
 var damage_occuring = false
 var iframe_duration = 0.9
 var starsaveused = false
-var clownfish_damage = 5
-var shark_damage = 25
-var seahorse_projectile_damage = 10
-var crab_damage = 45
+
+#mob damages
+
+var clownfish_damage = 50
+var shark_damage = 250
+var seahorse_projectile_damage = 100
+var crab_damage = 450
 
 	
 #sprint stuff below
@@ -609,14 +618,14 @@ func handle_health_regen(delta: float) -> void:
 func update_health_ui(delta: float) -> void:
 	displayed_health = current_health
 	var healthpercent = float(displayed_health) / float(max_health)
-	var visual = 100
+	var visual = max_health
 	#if displayed_health > current_health:
 	if current_health <= 0:
 		visual = 0
 	elif starsaveused and current_health == 1:
 		visual = 21
 	else:
-		visual = 25 + healthpercent * 75
+		visual = max_health * (0.25 + healthpercent * 0.75)
 	#else:
 		##displayed_health = move_toward(
 			##displayed_health,
@@ -647,14 +656,16 @@ func take_player_damage(amount: float) -> void:
 			return
 		else:
 			amount -= shield_health
-			update_shield_bar()
 			shield_health = 0
+			update_shield_bar()
+			shield_can_recharge = false
+			$ShieldRechargeDelay.start()
 	if current_health - amount <= 0 and not starsaveused and current_health > 1:
-		current_health = 1
+		current_health = 10
 		starsaveused = true
 		emptybeams.visible = false
 	else:
-		current_health -= amount
+		current_health -= amount * (1.0 - ((defence / 2.0) / 100))
 		update_shield_bar()
 		current_health = max(current_health, 0)
 		can_heal = false
@@ -781,12 +792,12 @@ func _on_shield_recharge_delay_timeout() -> void:
 	shield_can_recharge = true
 
 func _on_shield_recharge_timer_timeout() -> void:
-	#if !shield_can_recharge:
-		#return
-	#if current_health < max_health:
-		#return
-	#if shield_health >= shield_max_health:
-		#return
+	if !shield_can_recharge:
+		return
+	if current_health < max_health:
+		return
+	if shield_health >= shield_max_health:
+		return
 	if shield_can_recharge:
 		shield_health += shield_max_health * shield_recharge
 		shield_health = min(shield_health, shield_max_health)
