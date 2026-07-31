@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dd8auqqsx1etd" path="res://Assets/Placeholderbgv2.png" id="13_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/Enemies/seahorse.tscn" id="13_wxwew"]
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
-[ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/Enemies/shark.tscn" id="15_acvyw"]
+[ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/Enemies/shark.tscn" id="16_4q8tf"]
 [ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
@@ -476,9 +476,6 @@ tile_set = SubResource("TileSet_alh3a")
 [node name="seahorse" parent="." unique_id=829669778 instance=ExtResource("13_wxwew")]
 position = Vector2(-1324.0002, -876.9998)
 
-[node name="shark" parent="." unique_id=2130576439 instance=ExtResource("15_acvyw")]
-position = Vector2(132, 906)
-
 [node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
 position = Vector2(700, -1381.0001)
 
@@ -490,6 +487,9 @@ position = Vector2(652.99994, -1654.0001)
 
 [node name="crab4" parent="." unique_id=1473156979 instance=ExtResource("16_alh3a")]
 position = Vector2(965, -1683)
+
+[node name="shark" parent="." unique_id=436835224 instance=ExtResource("16_4q8tf")]
+position = Vector2(321, -535)
 
 [connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
 [connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]
