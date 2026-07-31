@@ -19,7 +19,10 @@ var shield_max_health:
 		return 15.0 + total_shield_increase
 var total_shield_increase = 0.0
 var shield_health = shield_max_health
-var shield_recharge = 0.20
+var shield_recharge: 
+		get: 
+			return (0.20 * shield_recharge_increase) / 5
+var shield_recharge_increase = 1.0
 var shield_can_recharge = false
 var maxspeed:
 	get: 
@@ -500,14 +503,14 @@ var regen_delay = 1
 var regen_per_second = 0
 var time_since_damage = 0.0
 var displayed_health = 100
-var total_heal_increase = 0
+var total_heal_increase = 0.1
 var max_health:
 	get:
 		return 100 * total_HP_increase
 var can_heal = true
 var heal_per_second:
 	get:
-		return max_health * total_heal_increase
+		return (max_health * total_heal_increase) / 5
 
 var current_health = 100
 var damage_occuring = false
@@ -777,7 +780,6 @@ func _on_heal_timer_timeout() -> void:
 func _on_shield_recharge_delay_timeout() -> void:
 	shield_can_recharge = true
 
-
 func _on_shield_recharge_timer_timeout() -> void:
 	#if !shield_can_recharge:
 		#return
@@ -785,7 +787,8 @@ func _on_shield_recharge_timer_timeout() -> void:
 		#return
 	#if shield_health >= shield_max_health:
 		#return
-	shield_health += shield_max_health * shield_recharge
-	shield_health = min(shield_health, shield_max_health)
-	update_shield_bar()
+	if shield_can_recharge:
+		shield_health += shield_max_health * shield_recharge
+		shield_health = min(shield_health, shield_max_health)
+		update_shield_bar()
 	
