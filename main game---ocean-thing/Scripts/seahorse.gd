@@ -20,8 +20,6 @@ var projectile_cooldown = 2
 	
 	
 
-
-
 func _ready() -> void:
 	var main = get_tree().current_scene #identifies the main game scene for projectiles
 	animated_sprite_2d.play("idle")
@@ -74,7 +72,7 @@ func take_damage(amount: int):
 	current_health -= amount
 	animation_player.play("damaged")
 	await get_tree().create_timer(0.1).timeout
-	if current_health == 3:
+	if current_health <= 300:
 		spawn_child(25)
 	
 

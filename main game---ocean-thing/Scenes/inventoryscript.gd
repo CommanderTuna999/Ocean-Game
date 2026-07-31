@@ -49,6 +49,21 @@ enum GearType {
 	AMULET
 }
 
+# Per-slot stat bonus: every item in this slot always grants this,
+# regardless of which set it belongs to.
+const SLOT_STAT_BONUS := {
+	GearType.WEAPON:     {"stat": "attack_pct",        "value": 0.15},
+	GearType.HELMET:     {"stat": "hp_pct",             "value": 0.15},
+	GearType.SHIELD:     {"stat": "shield_pct",         "value": 0.15},
+	GearType.GAUNTLETS:  {"stat": "criticalrate_pct",   "value": 0.20},
+	GearType.CHESTPLATE: {"stat": "hp_pct",             "value": 0.20},
+	GearType.LEGGINGS:   {"stat": "speed_pct",          "value": 0.10},
+	GearType.BOOTS:      {"stat": "speed_pct",          "value": 0.15},
+	GearType.RING:       {"stat": "criticaldamage_pct", "value": 0.30},
+	GearType.AMULET:     {"stat": "attack_pct",         "value": 0.15},
+	GearType.BANNER:     {"stat": "criticaldamage_pct", "value": 0.20},
+}
+
 var items: Array = []
 
 var equipped := {
@@ -105,13 +120,11 @@ func recalculate_stats() -> void:
 	for item in equipped.values():
 		if item == null:
 			continue
-		stat_pct["attack_pct"] += item.get("attack_bonus", 0.0)
-		stat_pct["hp_pct"] += item.get("health_bonus", 0.0)
-		stat_pct["defence_pct"] += item.get("defence_bonus", 0.0)
-		stat_pct["speed_pct"] += item.get("speed_bonus", 0.0)
-		stat_pct["criticalrate_pct"] += item.get("criticalrate_bonus", 0.0)
-		stat_pct["criticaldamage_pct"] += item.get("criticaldamage_bonus", 0.0)
-		# add speed_bonus, shield_bonus, etc. here too if items grant them individually
+
+		# per-slot stat bonus (fixed by gear_type, same for every set)
+		var slot_bonus = SLOT_STAT_BONUS.get(item["gear_type"], null)
+		if slot_bonus != null:
+			stat_pct[slot_bonus["stat"]] += slot_bonus["value"]
 
 		@warning_ignore("shadowed_variable_base_class")
 		var set_name = item.get("set_type", "")
@@ -136,3 +149,11 @@ func recalculate_stats() -> void:
 	player.total_criticalrate_increase = 1.0 + stat_pct["criticalrate_pct"]
 	player.total_criticaldamage_increase = 1.0 + stat_pct["criticaldamage_pct"]
 	player.total_shield_increase = 1.0 + stat_pct["shield_pct"]
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_E:
+		var weapon = {"gear_type": GearType.WEAPON, "set_type": "attack"}
+		add_item(weapon)
+		equip_item(items.size() - 1)
+		print("Attack: ", get_parent().total_attack_increase)
+		print("Equipped: ", equipped)

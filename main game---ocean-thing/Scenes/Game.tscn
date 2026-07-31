@@ -490,7 +490,7 @@ position = Vector2(652.99994, -1654.0001)
 position = Vector2(965, -1683)
 
 [node name="shark" parent="." unique_id=436835224 instance=ExtResource("16_4q8tf")]
-position = Vector2(321, -535)
+position = Vector2(157.00003, 528.9999)
 
 [connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
 [connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]
