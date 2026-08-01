@@ -1,4 +1,6 @@
+class_name Inventory
 extends Node
+
 
 const INVENTORY_SIZE = 50
 const SET_BONUSES := {

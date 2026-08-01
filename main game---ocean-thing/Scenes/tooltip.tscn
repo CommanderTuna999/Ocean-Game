@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://3asawt45p1em"]
+
+[ext_resource type="Script" uid="uid://dtngj3wcav20w" path="res://Scenes/tooltip.gd" id="1_ogi1g"]
+
+[node name="Tooltip" type="CanvasLayer" unique_id=446390005]
+script = ExtResource("1_ogi1g")
+
+[node name="TooltipPanel" type="PanelContainer" parent="." unique_id=1362622002]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TooltipLabel" type="Label" parent="TooltipPanel" unique_id=1949285128]
+layout_mode = 2

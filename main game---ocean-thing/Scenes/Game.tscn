@@ -12,11 +12,14 @@
 [ext_resource type="Script" uid="uid://ppdc2n30qyie" path="res://Scripts/test_armour_1.gd" id="6_2irst"]
 [ext_resource type="Texture2D" uid="uid://b402fgvpvj5jx" path="res://icon.svg" id="7_bf53h"]
 [ext_resource type="Script" uid="uid://by4l5aip8ooh3" path="res://Scripts/sprite_2d(test_armour).gd" id="8_71axn"]
+[ext_resource type="PackedScene" uid="uid://van656w6dqts" path="res://Scenes/inventory_screen.tscn" id="8_tfod6"]
+[ext_resource type="PackedScene" uid="uid://3asawt45p1em" path="res://Scenes/tooltip.tscn" id="9_rajel"]
 [ext_resource type="Texture2D" uid="uid://dd8auqqsx1etd" path="res://Assets/Placeholderbgv2.png" id="13_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://blb2pf33p5wbr" path="res://Scenes/Enemies/seahorse.tscn" id="13_wxwew"]
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
 [ext_resource type="PackedScene" uid="uid://vpeush0nlhjd" path="res://Scenes/Enemies/shark.tscn" id="16_4q8tf"]
 [ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
+[ext_resource type="PackedScene" uid="uid://hjg0nmosn6we" path="res://Scenes/item_button.tscn" id="18_x3xnh"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
@@ -399,79 +402,9 @@ offset_bottom = 206.0
 scale = Vector2(1, 1.0400048)
 theme_override_styles/fill = SubResource("StyleBoxFlat_alh3a")
 
-[node name="InventoryScreen" type="Control" parent="UI/CanvasLayer" unique_id=2078637627]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="InventoryScreen" parent="UI/CanvasLayer" unique_id=524230720 instance=ExtResource("8_tfod6")]
 
-[node name="ItemGrid" type="GridContainer" parent="UI/CanvasLayer/InventoryScreen" unique_id=815833089]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="EquipmentPanel" type="Control" parent="UI/CanvasLayer" unique_id=1172829019]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Chestplate" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=912807794]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Weapon" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=1406097149]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Helmet" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=121042714]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Boots" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=1952460566]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Leggings" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=762202390]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Shield" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=2071113799]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Gauntlets" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=42986702]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Ring" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=1512760194]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Banner" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=1267177057]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SlotButton_Amulet" type="TextureButton" parent="UI/CanvasLayer/EquipmentPanel" unique_id=818258742]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Tooltip" type="PanelContainer" parent="UI/CanvasLayer" unique_id=1966027743]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TooltipLabel" type="Label" parent="UI/CanvasLayer/Tooltip" unique_id=1733222291]
-layout_mode = 2
+[node name="Tooltip" parent="UI/CanvasLayer" unique_id=1651048135 instance=ExtResource("9_rajel")]
 
 [node name="clownfish_folder" type="Node" parent="." unique_id=1112951759]
 
@@ -555,19 +488,21 @@ tile_set = SubResource("TileSet_alh3a")
 position = Vector2(-1324.0002, -876.9998)
 
 [node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
-position = Vector2(700, -1381.0001)
+position = Vector2(689, -1912)
 
 [node name="crab2" parent="." unique_id=491867794 instance=ExtResource("16_alh3a")]
-position = Vector2(936, -1474)
+position = Vector2(301.99994, -2152)
 
 [node name="crab3" parent="." unique_id=1235932857 instance=ExtResource("16_alh3a")]
-position = Vector2(652.99994, -1654.0001)
+position = Vector2(352, -2362)
 
 [node name="crab4" parent="." unique_id=1473156979 instance=ExtResource("16_alh3a")]
-position = Vector2(965, -1683)
+position = Vector2(1707, -1556.0001)
 
 [node name="shark" parent="." unique_id=436835224 instance=ExtResource("16_4q8tf")]
-position = Vector2(157.00003, 528.9999)
+position = Vector2(-1587, 1657)
+
+[node name="ItemButton" parent="." unique_id=1402681199 instance=ExtResource("18_x3xnh")]
 
 [connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
 [connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]

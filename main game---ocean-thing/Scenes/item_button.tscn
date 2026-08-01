@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://hjg0nmosn6we"]
+
+[ext_resource type="Script" uid="uid://8xve4j1bkvly" path="res://Scenes/item_button.gd" id="1_t3hyk"]
+
+[node name="ItemButton" type="TextureButton" unique_id=1402681199]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_t3hyk")

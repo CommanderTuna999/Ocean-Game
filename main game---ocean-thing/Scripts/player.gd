@@ -95,8 +95,8 @@ var kbvelocity = Vector2.ZERO
 @export var dash_max_increase = 1.0
 @export var dash_cost: float:
 	get:
-		return 33.0 * (100 - dash_cost_decrease)
-@export var dash_cost_decrease = 1.0
+		return 33.0 * (1.0 - dash_cost_decrease)
+@export var dash_cost_decrease = 0.0
 @export var dash_recharge_per_second: float:
 	get:
 		return dash_max * 0.25
