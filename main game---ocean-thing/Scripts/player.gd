@@ -15,7 +15,10 @@ var accel = 720
 #shield stuff below
 var shield_max_health:
 	get: 
-		return 150.0 * total_shield_increase
+		if total_shield_increase > 1:
+			return 150.0 + (max_health * total_shield_increase)
+		else:
+			return 150.0
 var total_shield_increase = 1.0
 var shield_health = shield_max_health
 var shield_recharge: 
@@ -92,7 +95,7 @@ var kbvelocity = Vector2.ZERO
 @export var dash_max_increase = 1.0
 @export var dash_cost: float:
 	get:
-		return 33.0 * dash_cost_decrease
+		return 33.0 * (100 - dash_cost_decrease)
 @export var dash_cost_decrease = 1.0
 @export var dash_recharge_per_second: float:
 	get:
@@ -525,22 +528,25 @@ var regen_delay = 1
 var regen_per_second = 0
 var time_since_damage = 0.0
 var displayed_health = 100
-var total_heal_increase = 0.1
+var total_heal_increase = 0.0
 var max_health:
 	get:
 		return 1000 * total_HP_increase
+@onready var current_health = 1000 * total_HP_increase
 var can_heal = true
 var heal_per_second:
 	get:
-		return (max_health * total_heal_increase) / 5
+		return max_health * total_heal_increase / 5
 
-#defense stuff below
+#defense and resistance stuff below
 var defence:
 	get:
 		return 10 * total_defence_increase
 var total_defence_increase = 1.0
-
-var current_health = 1000
+var resistance:
+	get:
+		return 0.03 + total_resistance_increase
+var total_resistance_increase = 0.0
 var damage_occuring = false
 var iframe_duration = 0.9
 var starsaveused = false
@@ -665,7 +671,7 @@ func update_shield_bar():
 	shield_bar.value = shield_health
 
 func take_player_damage(amount: float) -> void:
-	if invincible:
+	if invincible or randf() <= resistance:
 		return
 	# ___________ SHIELD CODE ______________
 	if shield_health > 0: 
@@ -820,8 +826,6 @@ func _on_shield_recharge_delay_timeout() -> void:
 
 func _on_shield_recharge_timer_timeout() -> void:
 	if !shield_can_recharge:
-		return
-	if current_health < max_health:
 		return
 	if shield_health >= shield_max_health:
 		shield_health = shield_max_health
