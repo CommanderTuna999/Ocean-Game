@@ -252,7 +252,7 @@ position = Vector2(-0.21830654, 0.45456308)
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=17055866]
 
 [node name="HealDelayTimer" type="Timer" parent="Player" unique_id=400888046]
-wait_time = 0.5
+wait_time = 5.0
 one_shot = true
 
 [node name="HealTimer" type="Timer" parent="Player" unique_id=1909295302]
@@ -260,7 +260,7 @@ wait_time = 0.2
 autostart = true
 
 [node name="ShieldRechargeDelay" type="Timer" parent="Player" unique_id=1981148714]
-wait_time = 7.5
+wait_time = 10.0
 one_shot = true
 
 [node name="ShieldRechargeTimer" type="Timer" parent="Player" unique_id=1307524377]
@@ -488,19 +488,19 @@ tile_set = SubResource("TileSet_alh3a")
 position = Vector2(-1324.0002, -876.9998)
 
 [node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
-position = Vector2(689, -1912)
+position = Vector2(1866, -1089)
 
 [node name="crab2" parent="." unique_id=491867794 instance=ExtResource("16_alh3a")]
-position = Vector2(301.99994, -2152)
+position = Vector2(2286, -921.0001)
 
 [node name="crab3" parent="." unique_id=1235932857 instance=ExtResource("16_alh3a")]
-position = Vector2(352, -2362)
+position = Vector2(2171, -1444.0002)
 
 [node name="crab4" parent="." unique_id=1473156979 instance=ExtResource("16_alh3a")]
-position = Vector2(1707, -1556.0001)
+position = Vector2(2637, -1149)
 
 [node name="shark" parent="." unique_id=436835224 instance=ExtResource("16_4q8tf")]
-position = Vector2(-1587, 1657)
+position = Vector2(-137, 2389)
 
 [node name="ItemButton" parent="." unique_id=1402681199 instance=ExtResource("18_x3xnh")]
 

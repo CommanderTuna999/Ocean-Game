@@ -167,29 +167,27 @@ func recalculate_stats() -> void:
 	player.total_speed_increase = 1.0 + stat_pct["speed_pct"]
 	player.critical_rate_increase *= stat_pct["criticalrate_pct"]
 	player.critical_damage_increase += stat_pct["criticaldamage_pct"]
-	player.total_shield_increase = 1.0 + stat_pct["shield_pct"]
+	player.total_shield_increase += stat_pct["shield_pct"]
 	player.total_heal_increase += stat_pct["heal_pct"]
 	player.total_resistance_increase += stat_pct["resistance_pct"]
 func _ready() -> void:
-	var weapon = {"gear_type": GearType.WEAPON, "set_type": "attack"}
+	var weapon = {"gear_type": GearType.WEAPON, "set_type": "curing"}
 	add_item(weapon)
 	equip_item(0)
-	print("After 1 attack piece: ", get_parent().total_attack_increase, " (expect 1.15)")
 
-	var amulet = {"gear_type": GearType.AMULET, "set_type": "attack"}
+	var amulet = {"gear_type": GearType.AMULET, "set_type": "curing"}
 	add_item(amulet)
 	equip_item(0)
-	print("After 2 attack pieces: ", get_parent().total_attack_increase, " (expect 1.50)")
-	
-	var helmet = {"gear_type": GearType.HELMET, "set_type": "life"}
+
+	var helmet = {"gear_type": GearType.HELMET, "set_type": "curing"}
 	add_item(helmet)
 	equip_item(0)
-	print("HP after 1 life piece: ", get_parent().total_HP_increase, " (expect 1.15)")
-	print("Attack should be unchanged: ", get_parent().total_attack_increase, " (expect still 1.50)")
-	
+
 	# re-equip a different weapon into the same slot — kicks the "attack" weapon back to inventory
-	var weapon2 = {"gear_type": GearType.WEAPON, "set_type": "life"}
-	add_item(weapon2)
+	var chestplate = {"gear_type": GearType.CHESTPLATE, "set_type": "curing"}
+	add_item(chestplate)
 	equip_item(items.size() - 1)
-	print("Attack after swap: ", get_parent().total_attack_increase, " (expect 1.15 — 2pc attack set broken, only amulet slot bonus left)")
-	print("HP after swap: ", get_parent().total_HP_increase, " (expect 1.15+0.20+0.15 = 1.50 — life set now at 2pc: helmet+weapon2)")
+	
+	var shield = {"gear_type": GearType.SHIELD, "set_type": "divine speed"}
+	add_item(shield)
+	equip_item(0)

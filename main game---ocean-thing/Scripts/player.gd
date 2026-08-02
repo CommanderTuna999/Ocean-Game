@@ -11,16 +11,21 @@ var harpooning = false
 var currentharpoon = null
 var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
-var accel = 720
+var accel:
+	get:
+		return 720 * (total_speed_increase / 2)
+var freeze = false
+var stun = false
+var sleep = false 
 #shield stuff below
 var shield_max_health:
 	get: 
-		if total_shield_increase > 1:
-			return 150.0 + (max_health * total_shield_increase)
+		if total_shield_increase > 0.0:
+			return 150.0 + (1000 * total_shield_increase)
 		else:
 			return 150.0
-var total_shield_increase = 1.0
-var shield_health = shield_max_health
+var total_shield_increase = 0.0
+@onready var shield_health = shield_max_health
 var shield_recharge: 
 		get: 
 			return (0.20 * shield_recharge_increase) / 5
@@ -250,7 +255,7 @@ func _physics_process(delta: float) -> void:
 		]
 	else:
 		$HarpoonLine.visible = false
-
+	
 	var direction = Input.get_vector("Left", "Right", "Up", "Down")
 	#handle_sprint(delta, direction)
 	handle_dash(delta, direction)
@@ -536,7 +541,7 @@ var max_health:
 var can_heal = true
 var heal_per_second:
 	get:
-		return max_health * total_heal_increase / 5
+		return (max_health * total_heal_increase) / 5
 
 #defense and resistance stuff below
 var defence:
