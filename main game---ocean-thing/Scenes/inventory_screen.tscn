@@ -1,7 +1,17 @@
 [gd_scene format=3 uid="uid://van656w6dqts"]
 
 [ext_resource type="Script" uid="uid://mvbkycl6b8k4" path="res://Scenes/inventory_screen.gd" id="1_onqag"]
+[ext_resource type="Texture2D" uid="uid://y1gr58280byv" path="res://images (10).jpeg" id="2_8o0sk"]
 [ext_resource type="Script" uid="uid://cyklnib7gwp3" path="res://Scenes/equip_slot_button.gd" id="2_mn2li"]
+[ext_resource type="Texture2D" uid="uid://bims5rjk2fp8e" path="res://Assets/polished-sleek-greyish-silver-sword-long-and-slender-32x64-pixel-art-2b8a.png" id="4_pks2e"]
+[ext_resource type="Texture2D" uid="uid://bngkaeiitd5sp" path="res://Assets/images.png" id="5_v7stp"]
+[ext_resource type="Texture2D" uid="uid://duf7fh3axbwy4" path="res://Assets/images (6).jpeg" id="6_66ael"]
+[ext_resource type="Texture2D" uid="uid://85lrfj3kpxbq" path="res://Assets/unnamed.png" id="7_6i70v"]
+[ext_resource type="Texture2D" uid="uid://dky4pdamrv85h" path="res://Assets/images (11).jpeg" id="8_piwpq"]
+[ext_resource type="Texture2D" uid="uid://c7dcisafg4vu3" path="res://Assets/images (8).jpeg" id="9_pdf0h"]
+[ext_resource type="Texture2D" uid="uid://c1625yp6hv5jf" path="res://Assets/images (9).jpeg" id="10_af0c0"]
+[ext_resource type="Texture2D" uid="uid://cfo0kcl1wyrsc" path="res://Assets/download (2).png" id="11_pdnwd"]
+[ext_resource type="Texture2D" uid="uid://b28bcbtr1bibr" path="res://Assets/images (7).jpeg" id="12_2lqmn"]
 
 [node name="InventoryScreen" type="Control" unique_id=524230720]
 layout_mode = 3
@@ -22,62 +32,90 @@ offset_bottom = 40.0
 
 [node name="SlotButton_Chestplate" type="TextureButton" parent="EquipmentPanel" unique_id=1870313068]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 630.0
+offset_top = 3480.0
+offset_right = 1184.0
+offset_bottom = 4034.0
+texture_normal = ExtResource("2_8o0sk")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Weapon" type="TextureButton" parent="EquipmentPanel" unique_id=816207545]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1314.0
+offset_top = 1219.0
+offset_right = 2514.0
+offset_bottom = 2419.0
+texture_normal = ExtResource("4_pks2e")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Helmet" type="TextureButton" parent="EquipmentPanel" unique_id=1822034317]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1908.0
+offset_top = 440.0
+offset_right = 2331.0
+offset_bottom = 791.0
+texture_normal = ExtResource("5_v7stp")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Boots" type="TextureButton" parent="EquipmentPanel" unique_id=604292521]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 3282.0
+offset_top = 2565.0
+offset_right = 3836.0
+offset_bottom = 3119.0
+texture_normal = ExtResource("6_66ael")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Leggings" type="TextureButton" parent="EquipmentPanel" unique_id=1690485217]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 3098.0
+offset_top = 1673.0
+offset_right = 3610.0
+offset_bottom = 2185.0
+texture_normal = ExtResource("7_6i70v")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Shield" type="TextureButton" parent="EquipmentPanel" unique_id=1610044164]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 177.0
+offset_top = 2459.0
+offset_right = 624.0
+offset_bottom = 2906.0
+texture_normal = ExtResource("8_piwpq")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Gauntlets" type="TextureButton" parent="EquipmentPanel" unique_id=1975160915]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 4263.0
+offset_top = 2067.0
+offset_right = 4817.0
+offset_bottom = 2621.0
+texture_normal = ExtResource("9_pdf0h")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Ring" type="TextureButton" parent="EquipmentPanel" unique_id=1272384222]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 2074.0
+offset_top = 3248.0
+offset_right = 2628.0
+offset_bottom = 3802.0
+texture_normal = ExtResource("10_af0c0")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Banner" type="TextureButton" parent="EquipmentPanel" unique_id=1840335089]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 2859.0
+offset_top = 470.0
+offset_right = 3375.0
+offset_bottom = 970.0
+texture_normal = ExtResource("11_pdnwd")
 script = ExtResource("2_mn2li")
 
 [node name="SlotButton_Amulet" type="TextureButton" parent="EquipmentPanel" unique_id=133647854]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 141.0
-offset_right = 270.0
-offset_bottom = 181.0
+offset_left = 4077.0
+offset_top = 1046.0
+offset_right = 4631.0
+offset_bottom = 1600.0
+texture_normal = ExtResource("12_2lqmn")
 script = ExtResource("2_mn2li")

@@ -13,7 +13,7 @@ var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
 var accel:
 	get:
-		return 720 * (total_speed_increase / 2)
+		return 720 * (1.0 + ((total_speed_increase - 1.0) / 2))
 var freeze = false
 var stun = false
 var sleep = false 

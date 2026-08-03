@@ -150,7 +150,6 @@ func recalculate_stats() -> void:
 		if set_name != "":
 			set_counts[set_name] = set_counts.get(set_name, 0) + 1
 
-	@warning_ignore("shadowed_variable_base_class")
 	for set_name in set_counts:
 		var pieces = set_counts[set_name]
 		var tier_table = SET_BONUSES.get(set_name, {})
@@ -171,23 +170,25 @@ func recalculate_stats() -> void:
 	player.total_heal_increase += stat_pct["heal_pct"]
 	player.total_resistance_increase += stat_pct["resistance_pct"]
 func _ready() -> void:
-	var weapon = {"gear_type": GearType.WEAPON, "set_type": "curing"}
+	var weapon = {"gear_type": GearType.WEAPON, "set_type": "speed"}
 	add_item(weapon)
 	equip_item(0)
 
-	var amulet = {"gear_type": GearType.AMULET, "set_type": "curing"}
+	var amulet = {"gear_type": GearType.AMULET, "set_type": "speed"}
 	add_item(amulet)
 	equip_item(0)
 
-	var helmet = {"gear_type": GearType.HELMET, "set_type": "curing"}
+	var helmet = {"gear_type": GearType.HELMET, "set_type": "speed"}
 	add_item(helmet)
 	equip_item(0)
 
-	# re-equip a different weapon into the same slot — kicks the "attack" weapon back to inventory
-	var chestplate = {"gear_type": GearType.CHESTPLATE, "set_type": "curing"}
-	add_item(chestplate)
-	equip_item(items.size() - 1)
 	
-	var shield = {"gear_type": GearType.SHIELD, "set_type": "divine speed"}
+	var shield = {"gear_type": GearType.SHIELD, "set_type": "speed"}
 	add_item(shield)
 	equip_item(0)
+	
+	var banner = {"gear_type": GearType.BANNER, "set_type": "speed"}
+	add_item(banner)
+	equip_item(0)
+	var player = get_parent()
+	print("Total speed: ", player.total_speed_increase, "dih")
